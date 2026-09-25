@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { createServer, matchSupportingPassages, selectActiveRule } from './server.mjs'
+import { createServer, matchSupportingPassages, selectActiveRule } from './application.mjs'
 
 test('selectActiveRule applies exclusive effective dates and fails closed', () => {
   const rule = { id: 'rule-1', validFrom: '2026-09-01', validUntil: '2026-09-24' }
