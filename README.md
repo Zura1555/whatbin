@@ -2,7 +2,9 @@
 
 WhatBin helps residents check how to dispose of household items in Hanoi and Ho Chi Minh City. Describe or photograph an item, choose a city, confirm the recognized item, and get the currently applicable published rule with its sources.
 
-Current published coverage includes old mattresses, intact used household-size AA/AAA batteries, and clearly identified used household fluorescent lamps or tubes, whether intact or broken. LEDs and other lamp types are not supported. For broken fluorescent lamps, Hanoi's rule provides only the general hazardous-waste storage and collection route; Ho Chi Minh City's rule instructs households not to break them and to retain broken lamps safely. The app does not invent cleanup procedures or ward-specific addresses, schedules, or fees.
+Current published coverage includes old mattresses, intact used household-size AA/AAA batteries, clearly identified used household fluorescent lamps or tubes whether intact or broken, and clearly identified discarded household mercury thermometers whether intact or broken. Digital/electronic or non-mercury thermometers, industrial instruments, and uncertain thermometer types are not supported. LEDs and other lamp types are not supported. For broken fluorescent lamps, Hanoi's rule provides only the general hazardous-waste storage and collection route; Ho Chi Minh City's rule instructs households not to break them and to retain broken lamps safely. The app does not invent cleanup procedures or ward-specific addresses, schedules, or fees.
+
+For discarded household mercury thermometers, Hanoi requires safe, corrosion- and water-resistant, non-leaking packaging and allows home storage or scheduled collection; it states no mercury-thermometer-specific instructions for a broken item or cleanup. Ho Chi Minh City says not to break them and, if broken, to retain them safely to avoid injury and mercury dispersal during sorting, collection, and treatment. Neither city’s cited rule provides a cleanup procedure.
 
 ## How guidance works
 

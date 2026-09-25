@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url'
 
 const ROOT = resolve(fileURLToPath(new URL('./public/', import.meta.url)))
 const MAX_BODY = 9 * 1024 * 1024
-const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent'
+const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent'
 const SANITY_URL = 'https://xqeddep2.api.sanity.io/v2025-02-19/data/query/production'
 const KNOWLEDGE_BASE_PATH = resolve(fileURLToPath(new URL('./knowledge-base.json', import.meta.url)))
 const knowledgeBase = readFile(KNOWLEDGE_BASE_PATH, 'utf8')
@@ -68,7 +68,7 @@ async function recognize(input) {
   if (!key) throw Object.assign(new Error('Recognition is unavailable: GEMINI_API_KEY is not configured.'), { status: 503 })
   const image = input.image
   const description = validText(input.description, 4000) ? input.description.trim() : null
-  const prompt = `Identify a household item${image && description ? ` using the attached image and this description: ${description}` : image ? ' from the attached image' : ` from this description: ${description}`}. The only supported items are canonicalItemId "old-mattress", itemName "Old mattress" (an old or used household mattress being discarded); canonicalItemId "used-household-battery", itemName "Used household battery" (a clearly identified discarded, intact household-size AA or AAA cell); and canonicalItemId "used-fluorescent-lamp", itemName "Used fluorescent lamp" (a clearly identified used household fluorescent lamp or tube, whether intact or already broken). For batteries, reject vehicle or industrial batteries, device-installed packs, damaged or leaking cells, and any battery not clearly identified as an intact household-size AA or AAA cell. For lamps, reject LED, incandescent or halogen, industrial, other, and uncertain lamp types; only clearly identified used household fluorescent lamps or tubes are supported, including already broken ones. Return supported=true with exactly the matching ID and item name only when the input clearly matches one of these items; otherwise return supported=false and both candidate fields null. Do not invent IDs or infer disposal rules. Require high confidence; treat ambiguous, composite, or unsupported items as unsupported.`
+  const prompt = `Identify a household item${image && description ? ` using the attached image and this description: ${description}` : image ? ' from the attached image' : ` from this description: ${description}`}. The only supported items are canonicalItemId "old-mattress", itemName "Old mattress" (an old or used household mattress being discarded); canonicalItemId "used-household-battery", itemName "Used household battery" (a clearly identified discarded, intact household-size AA or AAA cell); canonicalItemId "used-fluorescent-lamp", itemName "Used fluorescent lamp" (a clearly identified used household fluorescent lamp or tube, whether intact or already broken); and canonicalItemId "used-mercury-thermometer", itemName "Used mercury thermometer" (a clearly identified discarded household mercury thermometer, whether intact or broken). For batteries, reject vehicle or industrial batteries, device-installed packs, damaged or leaking cells, and any battery not clearly identified as an intact household-size AA or AAA cell. For lamps, reject LED, incandescent or halogen, industrial, other, and uncertain lamp types; only clearly identified used household fluorescent lamps or tubes are supported, including already broken ones. For thermometers, reject digital/electronic or non-mercury thermometers, industrial instruments, and uncertain types; only clearly identified discarded household mercury thermometers are supported, whether intact or broken. Return supported=true with exactly the matching ID and item name only when the input clearly matches one of these items; otherwise return supported=false and both candidate fields null. Do not invent IDs or infer disposal rules. Require high confidence; treat ambiguous, composite, or unsupported items as unsupported.`
   const contents = [{ text: prompt }]
   if (image) contents.push({ inlineData: { mimeType: image.mimeType, data: image.base64 } })
   const response = await fetch(GEMINI_URL, {
@@ -93,7 +93,8 @@ async function recognize(input) {
   const validCandidate = result?.supported === true && typeof result.confidence === 'number' && result.confidence >= 0.8 && result.confidence <= 1 &&
     ((result.canonicalItemId === 'old-mattress' && result.itemName === 'Old mattress') ||
       (result.canonicalItemId === 'used-household-battery' && result.itemName === 'Used household battery') ||
-      (result.canonicalItemId === 'used-fluorescent-lamp' && result.itemName === 'Used fluorescent lamp'))
+      (result.canonicalItemId === 'used-fluorescent-lamp' && result.itemName === 'Used fluorescent lamp') ||
+      (result.canonicalItemId === 'used-mercury-thermometer' && result.itemName === 'Used mercury thermometer'))
   return validCandidate
     ? { candidate: { canonicalItemId: result.canonicalItemId, itemName: result.itemName.trim() } }
     : { candidate: null, message: 'The item could not be identified with enough certainty. Try a clearer photo or description.' }
@@ -228,7 +229,7 @@ export function createServer() {
 }
 
 
-if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+if (process.env.VERCEL === '1' || (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url))) {
   const port = Number(process.env.PORT || 3000)
   createServer().listen(port, () => console.log(`WhatBin server listening on http://localhost:${port}`))
 }
