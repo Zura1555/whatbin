@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f5ef">
+  <title>WhatBin — Check where it goes</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <main class="page-shell">
+    <header class="masthead">
+      <a class="wordmark" href="/" aria-label="WhatBin home"><span class="mark" aria-hidden="true">W</span> WhatBin</a>
+      <span class="location-note">Vietnam · local sorting guide</span>
+    </header>
+
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow">A clearer next step for your waste</p>
+      <h1 id="page-title">Where does it go?</h1>
+      <p class="intro-copy">Identify an item, check the guidance for your city, and verify it with the official source.</p>
+    </section>
+
+    <section class="lookup-card" aria-labelledby="lookup-title">
+      <div class="section-heading">
+        <span class="step-number" aria-hidden="true">01</span>
+        <div><h2 id="lookup-title">Describe your item</h2><p>Choose a city, then add a photo, a description, or both.</p></div>
+      </div>
+
+      <form id="recognize-form">
+        <div class="field-group">
+          <label for="jurisdiction">Your city</label>
+          <select id="jurisdiction" name="jurisdiction" required>
+            <option value="hanoi">Hanoi</option>
+            <option value="ho-chi-minh-city">Ho Chi Minh City</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label for="description">What is the item?</label>
+          <textarea id="description" name="description" rows="3" maxlength="2000" placeholder="For example: a clean glass jam jar with a metal lid"></textarea>
+          <span class="field-hint">Include material and condition if you know them.</span>
+        </div>
+
+        <div class="field-group photo-field">
+          <label for="image">Add a photo <span class="optional">(optional)</span></label>
+          <input id="image" name="image" type="file" accept="image/jpeg,image/png,image/webp">
+          <span class="field-hint">A clear photo can help identify the item.</span>
+        </div>
+
+        <p class="privacy-note"><span class="privacy-icon" aria-hidden="true">↗</span> Your photo and/or description is sent to Google Gemini for item recognition. This app does not store it. You can verify any guidance using its linked official source.</p>
+        <button class="button button-primary" type="submit" id="recognize-button">Identify item <span aria-hidden="true">→</span></button>
+      </form>
+
+      <div id="recognition-feedback" class="feedback" role="status" aria-live="polite" hidden></div>
+      <section id="candidate-panel" class="candidate-panel" aria-labelledby="candidate-heading" hidden>
+        <div class="step-heading"><span class="step-number" aria-hidden="true">02</span><h2 id="candidate-heading">Confirm the item</h2></div>
+        <p class="candidate-intro">Check this identification before looking up city guidance.</p>
+        <div class="candidate-name" id="candidate-name"></div>
+        <div class="candidate-actions">
+          <button class="button button-primary" id="confirm-button" type="button">Yes, look this up <span aria-hidden="true">→</span></button>
+          <button class="button button-secondary" id="correct-button" type="button">Not quite — edit description</button>
+        </div>
+      </section>
+    </section>
+
+    <section id="result-panel" class="result-card" aria-labelledby="result-heading" aria-live="polite" hidden>
+      <div class="result-topline"><span class="step-number" aria-hidden="true">03</span><span id="result-status" class="status-pill"></span></div>
+      <h2 id="result-heading">City guidance</h2>
+      <div id="result-content"></div>
+    </section>
+
+    <footer><span>WhatBin</span><span>Check the linked source for the latest official guidance.</span></footer>
+  </main>
+</body>
+</html>
