@@ -2,7 +2,7 @@
 
 WhatBin helps residents check how to dispose of household items in Hanoi and Ho Chi Minh City. Describe or photograph an item, choose a city, confirm the recognized item, and get the currently applicable published rule with its sources.
 
-Current published coverage includes old mattresses. The app does not invent ward-specific addresses, schedules, or fees.
+Current published coverage includes old mattresses and intact, used household-size AA/AAA batteries. The app does not invent ward-specific addresses, schedules, or fees.
 
 ## How guidance works
 

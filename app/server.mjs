@@ -68,7 +68,7 @@ async function recognize(input) {
   if (!key) throw Object.assign(new Error('Recognition is unavailable: GEMINI_API_KEY is not configured.'), { status: 503 })
   const image = input.image
   const description = validText(input.description, 4000) ? input.description.trim() : null
-  const prompt = `Identify a household item${image && description ? ` using the attached image and this description: ${description}` : image ? ' from the attached image' : ` from this description: ${description}`}. The only currently supported item is canonicalItemId "old-mattress", itemName "Old mattress" (an old or used household mattress being discarded). Return supported=true with exactly those values only when the input clearly matches; otherwise return supported=false and both candidate fields null. Do not invent IDs or infer disposal rules. Require high confidence; treat ambiguous, composite, or unsupported items as unsupported.`
+  const prompt = `Identify a household item${image && description ? ` using the attached image and this description: ${description}` : image ? ' from the attached image' : ` from this description: ${description}`}. The only supported items are canonicalItemId "old-mattress", itemName "Old mattress" (an old or used household mattress being discarded), and canonicalItemId "used-household-battery", itemName "Used household battery" (a clearly identified discarded, intact household-size AA or AAA cell). For batteries, reject vehicle or industrial batteries, device-installed packs, damaged or leaking cells, and any battery not clearly identified as an intact household-size AA or AAA cell. Return supported=true with exactly the matching ID and item name only when the input clearly matches one of these items; otherwise return supported=false and both candidate fields null. Do not invent IDs or infer disposal rules. Require high confidence; treat ambiguous, composite, or unsupported items as unsupported.`
   const contents = [{ text: prompt }]
   if (image) contents.push({ inlineData: { mimeType: image.mimeType, data: image.base64 } })
   const response = await fetch(GEMINI_URL, {
@@ -91,8 +91,8 @@ async function recognize(input) {
   let result
   try { result = JSON.parse(text) } catch { throw Object.assign(new Error('Recognition provider returned invalid data.'), { status: 502 }) }
   const validCandidate = result?.supported === true && typeof result.confidence === 'number' && result.confidence >= 0.8 && result.confidence <= 1 &&
-    typeof result.canonicalItemId === 'string' && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(result.canonicalItemId) && result.canonicalItemId.length <= 100 &&
-    validText(result.itemName, 120)
+    ((result.canonicalItemId === 'old-mattress' && result.itemName === 'Old mattress') ||
+      (result.canonicalItemId === 'used-household-battery' && result.itemName === 'Used household battery'))
   return validCandidate
     ? { candidate: { canonicalItemId: result.canonicalItemId, itemName: result.itemName.trim() } }
     : { candidate: null, message: 'The item could not be identified with enough certainty. Try a clearer photo or description.' }
