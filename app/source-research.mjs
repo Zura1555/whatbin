@@ -3,7 +3,7 @@ const ITEMS = new Map([
   ['old-mattress', 'Old mattress'],
   ['used-household-battery', 'Used household battery'],
   ['used-lithium-ion-battery', 'Used rechargeable lithium-ion battery'],
-  ['used-power-bank', 'Used power bank'],
+  ['used-mobile-phone', 'Used mobile phone'],
   ['used-fluorescent-lamp', 'Used fluorescent lamp'],
   ['used-mercury-thermometer', 'Used mercury thermometer'],
 ])
@@ -86,8 +86,8 @@ function outputBlocks(envelope) {
 
 export async function researchSource(input, { fetchImpl = fetch } = {}) {
   const key = process.env.GEMINI_API_KEY
-  if (!key) throw Object.assign(new Error('Source research is unavailable: GEMINI_API_KEY is not configured.'), { status: 503 })
-  const prompt = `Research a disposal rule for canonical item ${input.canonicalItemId} (${ITEMS.get(input.canonicalItemId)}) in ${input.jurisdiction}. Cite current official Vietnamese legal/government sources only. Verify that the binding instrument is currently in force, including amendments and repeals, and cite official currentness evidence. If status is unclear or sources conflict, return status GAP with a brief reason. Never infer. Return one JSON object: status; for PREVIEW include canonicalItemId, itemName, jurisdiction, disposalCategory, instruction, validFrom, validUntil, sourceReferences and supportingPassages. Each source reference requires exact title/url/citation and role binding-rule, agency-clarification, or currentness-record. Each passage requires exact sourceTitle/sourceUrl/sourceCitation/sourceVersion/citation/text/requires/claimType. claimType is disposal, currentness, or agency-logistics. Every factual claim and each passage must have a claim-level URL citation annotation in your response. Include only official current Vietnam sources (government or legal domains).`
+  if (input.canonicalItemId === 'used-mobile-phone' && input.jurisdiction !== 'hanoi') return gap('Source research is not available for this jurisdiction.')
+  const prompt = `Research a disposal rule for canonical item ${input.canonicalItemId} (${ITEMS.get(input.canonicalItemId)}) in ${input.jurisdiction}. Cite current official Vietnamese legal/government sources only. Verify that the binding instrument is currently in force, including amendments and repeals, and cite official currentness evidence. If status is unclear or sources conflict, return status GAP with a brief reason. Never infer. Return one JSON object: status; for PREVIEW include canonicalItemId, itemName, jurisdiction, disposalCategory, instruction, validFrom, validUntil, sourceReferences and supportingPassages. Each source reference requires exact title/url/citation and role binding-rule, agency-clarification, or currentness-record. Each passage requires exact matching sourceTitle, sourceUrl, sourceCitation, sourceVersion, citation, text, requires and claimType. Do not add facts unsupported by the sources.${input.canonicalItemId === 'used-mobile-phone' ? ' Research Hanoi only. Treat a discarded whole mobile phone as distinct from accessories, installed batteries, standalone batteries, and complete power banks. Base the preview on Hanoi Decision 87 attachment Articles 5(1)(h) and 7(2)(a), and Article 7(1)(a) for urban collection being subject to commune directions. Preserve the provenance caveat: the attachment has blank internal number, date, and effective-date fields; use official Hanoi portal metadata for final Decision number, signer, issuance and effective dates, and official legal-status evidence for in-force status. Do not infer a Ho Chi Minh City phone rule.' : ''}`
   const response = await fetchImpl(INTERACTIONS_URL, {
     method: 'POST', headers: { 'content-type': 'application/json', 'x-goog-api-key': key }, signal: AbortSignal.timeout(30000),
     body: JSON.stringify({ model: 'gemini-3.8-flash', input: prompt, tools: [{ type: 'google_search' }, { type: 'url_context' }] }),

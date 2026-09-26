@@ -8,6 +8,7 @@ const ITEMS = [
   {id: 'used-power-bank', name: 'Used power bank'},
   {id: 'used-fluorescent-lamp', name: 'Used fluorescent lamp'},
   {id: 'used-mercury-thermometer', name: 'Used mercury thermometer'},
+  {id: 'used-mobile-phone', name: 'Used mobile phone'},
 ] as const
 
 const CITIES = [
@@ -107,6 +108,8 @@ export function SourceResearchTool() {
     }
   }
 
+  const phoneOnlyHanoi = canonicalItemId === 'used-mobile-phone'
+  const availableCities = phoneOnlyHanoi ? CITIES.slice(0, 1) : CITIES
   return (
     <main style={{maxWidth: 960, margin: '0 auto', padding: 32, fontFamily: 'sans-serif'}}>
       <h1>Research a disposal rule</h1>
@@ -115,14 +118,18 @@ export function SourceResearchTool() {
       <form onSubmit={(event) => {event.preventDefault(); void research()}}>
         <label style={{display: 'block', margin: '16px 0'}}>
           Canonical item{' '}
-          <select value={canonicalItemId} onChange={(event) => setCanonicalItemId(event.target.value)}>
+          <select value={canonicalItemId} onChange={(event) => {
+            const itemId = event.target.value
+            setCanonicalItemId(itemId)
+            if (itemId === 'used-mobile-phone') setJurisdiction('hanoi')
+          }}>
             {ITEMS.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}
           </select>
         </label>
         <label style={{display: 'block', margin: '16px 0'}}>
           City{' '}
           <select value={jurisdiction} onChange={(event) => setJurisdiction(event.target.value)}>
-            {CITIES.map((city) => <option key={city.id} value={city.id}>{city.name}</option>)}
+            {availableCities.map((city) => <option key={city.id} value={city.id}>{city.name}</option>)}
           </select>
         </label>
         <button type="submit" disabled={busy || !endpoint}>{busy ? 'Working…' : 'Research sources'}</button>

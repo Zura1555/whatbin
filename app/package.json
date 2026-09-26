@@ -1,0 +1,16 @@
+{
+  "name": "whatbin-server",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test server.test.mjs source-research.test.mjs"
+  },
+  "dependencies": {
+    "@google/genai": "^2.24.0",
+    "@modelcontextprotocol/sdk": "^1.30.1"
+  }
+}

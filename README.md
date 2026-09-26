@@ -2,7 +2,9 @@
 
 WhatBin helps residents check how to dispose of household items in Hanoi and Ho Chi Minh City. Describe or photograph an item, choose a city, confirm the recognized item, and get the currently applicable published rule with its sources.
 
-Current published coverage includes old mattresses, intact used household-size AA/AAA batteries, standalone rechargeable lithium-ion batteries (`used-lithium-ion-battery` / `Used rechargeable lithium-ion battery`), clearly identified used household fluorescent lamps or tubes whether intact or broken, and clearly identified discarded household mercury thermometers whether intact or broken. Standalone Li-ion batteries are distinct from intact AA/AAA household batteries and from a whole power bank. Digital/electronic or non-mercury thermometers, industrial instruments, and uncertain thermometer types are not supported. LEDs and other lamp types are not supported. For broken fluorescent lamps, Hanoi's rule provides only the general hazardous-waste storage and collection route; Ho Chi Minh City's rule instructs households not to break them and to retain broken lamps safely. The app does not invent cleanup procedures or ward-specific addresses, schedules, or fees.
+Current published coverage includes old mattresses, intact used household-size AA/AAA batteries, standalone rechargeable lithium-ion batteries (`used-lithium-ion-battery` / `Used rechargeable lithium-ion battery`), clearly identified used household fluorescent lamps or tubes whether intact or broken, and clearly identified discarded household mercury thermometers whether intact or broken. Standalone Li-ion batteries are distinct from intact AA/AAA household batteries and from a whole power bank. Digital/electronic or non-mercury thermometers, industrial instruments, and uncertain thermometer types are not supported. LEDs and other lamp types are not supported. For broken fluorescent lamps, Hanoi's rule provides only the general hazardous-waste storage and collection-point instructions, not breakage cleanup or transport instructions; Ho Chi Minh City's cited rule does not address broken lamps. The canonical `used-mobile-phone` / `Used mobile phone` is available only for Hanoi source research, not published coverage; no phone rule is published, so phone resolution remains `UNKNOWN` until a reviewed rule is published. No Ho Chi Minh City phone disposal source was verified. Complete power banks remain `UNKNOWN` in both cities; no power-bank coverage was added.
+
+An unpublished Hanoi phone research candidate is based on the official [Decision 87/2025/QĐ-UBND city record](https://vanban.hanoi.gov.vn/chi-tiet-van-ban/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176) and its [official attachment](https://datafiles.hanoi.gov.vn/gov-hni/6847/VanBan/2026/1/6/Q%C4%90PQ-UBND-87-2025.pdf), especially Articles 5(1)(h), 7(2)(a), and 7(1)(a). **Unpublished review wording (Article 7(2)(a)):** Keep the discarded phone separate in its own bag; transfer it to an organization or person for reuse or recycling, or to the household waste collection service. Alternatively, store it at home and periodically take it to the commune-designated central collection point. Article 7(1)(a) makes urban collection time and place dependent on commune directions; no exact point, schedule, or fee is stated here. The attachment's internal number, date, and effective-date fields are blank; portal metadata supplies the instrument identity, signer, issuance/effective dates, and current legal status. This source supports research only; the candidate is not approved or published.
 
 Hanoi Decision 87/2025/QĐ-UBND (effective 2026-01-08) and Ho Chi Minh City Decision 58/2025/QĐ-UBND (effective 2025-04-25) apply their general discarded-battery/accumulator hazardous-waste rules to standalone Li-ion batteries. Hanoi requires safe, corrosion- and water-resistant, non-leaking packaging and allows home storage or periodic local collection without a service fee. Ho Chi Minh City requires the battery to remain intact (do not dismantle), hazardous waste to be kept separate and safe, and transfer to a licensed operator or local designated point; no fee applies only at a compliant point. These current city decisions do not establish a general route for intact power banks. An official [2023 Ministry of Agriculture and Environment report](https://vea.mae.gov.vn/tin-tuc-su-kien/8192/lan-toa-tinh-than-bao-ve-moi-truong) describes local Hanoi “Nhà của pin” programs collecting old batteries and broken power banks, but this dated report does not establish current citywide acceptance. `used-power-bank` / `Used power bank` is a separate candidate with no published rule, so it resolves `UNKNOWN` in both cities.
 
@@ -10,9 +12,11 @@ For discarded household mercury thermometers, Hanoi requires safe, corrosion- an
 
 ## How guidance works
 
-Sanity's published structured rules are the sole authority for disposal instructions. Runtime resolution reads exact, source-versioned evidence passages attached to those rules and displays a passage only when its exact source references match. Migrate the existing curated passages before deploying the new resolver; instructions are withheld when no active rule applies or applicable rules conflict.
+Published Sanity rules remain the sole authority for disposal instructions. A reviewer-published `disposalConflict` record for the same item, city, and effective date takes precedence over a matching rule; overlapping active rules also produce `CONFLICT`. Runtime resolution uses published records only. It reads exact, source-versioned evidence passages and shows a passage only when its cited sources and versions match.
 
 Item recognition uses Gemini. Recognition proposes an item for the user to confirm; it does not choose a disposal rule. Photos are sent to Gemini for recognition and are not retained by the app. Keep `GEMINI_API_KEY` server-side.
+
+After deterministic resolution, residents may explicitly ask for a source explanation. The server-side Gemini explainer reads the Sanity Context Knowledge Base containing published rules, their cited official source documents, and conflict records. It cannot choose or change an action; `UNKNOWN` and `CONFLICT` never receive a disposal route. City comparison is allowed only when both cities independently resolve the same item as `MATCHED`. Chat stays in the current page and is not persisted.
 
 ## Run locally
 
@@ -22,7 +26,7 @@ Requirements: Node.js.
 node app/server.mjs
 ```
 
-Set `GEMINI_API_KEY` in the server environment for recognition and source research. Configure `SANITY_STUDIO_ORIGINS` with exact allowed Studio origins before enabling source research. Rule lookup uses the public Sanity production dataset.
+Set `GEMINI_API_KEY`, `SANITY_CONTEXT_MCP_URL`, and `SANITY_ORGANIZATION_TOKEN` in the server environment for Gemini and Sanity Context explanations. Use an organization-level Context Viewer token. Configure the endpoint in Knowledge Base mode with `initial_context` and `knowledge_base_read` only, and include published rules, their cited official sources, and conflict records; exclude drafts and unpublished research. Recognition and source research use `GEMINI_API_KEY`. Configure `SANITY_STUDIO_ORIGINS` with exact allowed Studio origins before enabling source research. Rule lookup uses the public Sanity production dataset.
 
 Run the server tests from the repository root:
 
@@ -40,14 +44,14 @@ npm run dev
 
 ## Deploy with Vercel
 
-Import the GitHub repository into Vercel, set the project root directory to `app/`, and configure `GEMINI_API_KEY` and `SANITY_STUDIO_ORIGINS`. Build the Studio with `SANITY_STUDIO_RESEARCH_API_URL` pointing to the deployed app's `/api/research-source`. Migrate existing evidence passages before deploying the new resolver; see [`studio/README.md`](studio/README.md). Vercel builds deployments from GitHub pushes; pushes to the configured production branch publish production deployments. `app/vercel.json` includes the static assets required by the server.
+Import the GitHub repository into Vercel, set the project root directory to `app/`, and configure `GEMINI_API_KEY`, `SANITY_CONTEXT_MCP_URL`, `SANITY_ORGANIZATION_TOKEN`, and `SANITY_STUDIO_ORIGINS`. The Context token must be an organization-level Context Viewer token; the endpoint must use Knowledge Base mode and only `initial_context` and `knowledge_base_read`. Build the Studio with `SANITY_STUDIO_RESEARCH_API_URL` pointing to the deployed app's `/api/research-source`. Migrate existing evidence passages before deploying the new resolver; see [`studio/README.md`](studio/README.md). Vercel builds deployments from GitHub pushes; pushes to the configured production branch publish production deployments. `app/vercel.json` includes the static assets required by the server.
 
 See [`app/README.md`](app/README.md) for server and API details and [`studio/README.md`](studio/README.md) for the content studio.
 
 ## Repository map
 
 - `app/` — Node.js HTTP server, browser app, tests, and the legacy evidence migration input.
-- `studio/` — Sanity Studio for managing disposal rules and human-reviewed research drafts.
+- `studio/` — Sanity Studio for managing disposal rules, reviewer-recorded conflicts, and human-reviewed research drafts.
 - `docs/adr/` — architecture decisions.
 - `CONTEXT.md` — project terminology and domain definitions.
 - `WHATBIN-PHASE-1.md` — initial product scope and reviewed seed-rule notes.

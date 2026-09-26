@@ -46,6 +46,51 @@ test('research uses Interactions search tools and returns only officially ground
     else process.env.GEMINI_API_KEY = originalKey
   }
 })
+test('research validates Hanoi phone previews and refuses HCMC phone research', async () => {
+  const originalKey = process.env.GEMINI_API_KEY
+  process.env.GEMINI_API_KEY = 'isolated-test-key'
+  const phoneInput = { canonicalItemId: 'used-mobile-phone', jurisdiction: 'hanoi' }
+  const phoneCandidate = {
+    ...candidate, canonicalItemId: 'used-mobile-phone', itemName: 'Used mobile phone',
+    disposalCategory: 'reuse-recycling', instruction: 'Follow commune directions for phone collection.',
+    validFrom: '2026-01-08',
+  }
+  let calls = 0
+  try {
+    const result = await researchSource(phoneInput, { fetchImpl: async () => {
+      calls++
+      return providerResponse(phoneCandidate)
+    } })
+    assert.equal(result.status, 'PREVIEW')
+    assert.equal(result.canonicalItemId, 'used-mobile-phone')
+    assert.equal(result.itemName, 'Used mobile phone')
+
+    const rejected = await researchSource({ ...phoneInput, jurisdiction: 'ho-chi-minh-city' }, {
+      fetchImpl: async () => { calls++; return providerResponse(phoneCandidate) },
+    })
+    assert.equal(rejected.status, 'GAP')
+    assert.equal(calls, 1)
+  } finally {
+    if (originalKey === undefined) delete process.env.GEMINI_API_KEY
+    else process.env.GEMINI_API_KEY = originalKey
+  }
+})
+test('research rejects mismatched phone candidate names', async () => {
+  const originalKey = process.env.GEMINI_API_KEY
+  process.env.GEMINI_API_KEY = 'isolated-test-key'
+  const phoneCandidate = {
+    ...candidate, canonicalItemId: 'used-mobile-phone', itemName: 'Used power bank',
+  }
+  try {
+    const result = await researchSource({ canonicalItemId: 'used-mobile-phone', jurisdiction: 'hanoi' }, {
+      fetchImpl: async () => providerResponse(phoneCandidate),
+    })
+    assert.equal(result.status, 'GAP')
+  } finally {
+    if (originalKey === undefined) delete process.env.GEMINI_API_KEY
+    else process.env.GEMINI_API_KEY = originalKey
+  }
+})
 
 test('research preserves PREVIEW when official citation offsets include Vietnamese text', async () => {
   const originalKey = process.env.GEMINI_API_KEY

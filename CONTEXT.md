@@ -20,6 +20,9 @@ A reviewed instruction for a canonical item within a jurisdiction and effective 
 **Evidence passage**:
 An exact excerpt from a current official source linked to the rule by source title, URL, citation, and version; it supports the rule but is not itself an instruction.
 
+**Rule explanation**:
+A resident-facing account of one or more deterministic disposal outcomes, grounded in the applicable rules and evidence; it cannot create or change an actionable instruction.
+
 **Binding rule source**:
 A current, in-force legal instrument that establishes the disposal decision for an item and jurisdiction.
 
@@ -36,4 +39,4 @@ A bounded answer about a missing fact that could change which disposal rule appl
 The outcome when no reviewed rule applies to the item, jurisdiction, and date; it gives no actionable instruction.
 
 **Conflict**:
-The outcome when applicable authoritative sources disagree or multiple published rules apply at once.
+The outcome when a reviewer publishes a separate record of unresolved disagreement among authoritative sources, or multiple published rules apply at once; the conflict takes precedence over a matching rule and gives no actionable instruction.

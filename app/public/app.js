@@ -14,6 +14,8 @@ const recognizeButton = document.querySelector('#recognize-button');
 
 let candidate = null;
 let requestVersion = 0;
+let explanationHistory = [];
+let explanationVersion = 0;
 
 function clearResults() {
   candidate = null;
@@ -24,6 +26,8 @@ function clearResults() {
   candidateName.textContent = '';
   recognitionFeedback.textContent = '';
   recognitionFeedback.hidden = true;
+  explanationHistory = [];
+  explanationVersion++;
 }
 
 function showFeedback(message, isError = false) {
@@ -106,6 +110,8 @@ form.addEventListener('submit', async (event) => {
 
 citySelect.addEventListener('change', () => {
   requestVersion++;
+  explanationVersion++;
+  explanationHistory = [];
   recognizeButton.disabled = false;
   confirmButton.disabled = false;
   correctButton.disabled = false;
@@ -187,7 +193,7 @@ function renderSources(references) {
   resultContent.append(section);
 }
 
-function renderResolution(data, city) {
+function renderResolution(data, city, canonicalItemId) {
   const status = typeof data?.status === 'string' ? data.status : '';
   resultPanel.hidden = false;
   resultStatus.textContent = status || 'UNAVAILABLE';
@@ -196,9 +202,17 @@ function renderResolution(data, city) {
   addText(resultContent, 'p', cityName(city), 'result-city');
 
   if (status !== 'MATCHED') {
-    if (status === 'UNKNOWN' || status === 'CONFLICT') {
-      addText(resultContent, 'p', typeof data.message === 'string' && data.message ? data.message : 'No single active rule is available for this item in this city.', 'result-message');
+    if (status === 'UNKNOWN') {
+      const date = typeof data.asOf === 'string' ? data.asOf : 'the current local date';
+      addText(resultContent, 'p', `WhatBin has no reviewed rule for this item in ${cityName(city)} as of ${date}. This does not establish that no legal route exists.`, 'result-message');
+      renderExplainer(city, canonicalItemId);
+    } else if (status === 'CONFLICT') {
+      addText(resultContent, 'p', typeof data.message === 'string' && data.message ? data.message : 'Published records conflict for this item and city; no disposal action is provided.', 'result-message');
+      renderExplainer(city, canonicalItemId);
     } else addText(resultContent, 'p', 'The service did not return a usable matched result. Please try again later.', 'result-message');
+    if ((status === 'UNKNOWN' || status === 'CONFLICT') && typeof data.asOf === 'string') {
+      addText(resultContent, 'p', `Resolved for local date ${data.asOf}.`, 'muted-copy');
+    }
     return;
   }
 
@@ -220,6 +234,8 @@ function renderResolution(data, city) {
   addText(dates, 'dd', typeof from === 'string' && from ? from : 'Not provided');
   addText(dates, 'dt', 'Effective until');
   addText(dates, 'dd', typeof until === 'string' && until ? until : 'Not provided');
+  addText(dates, 'dt', 'Resolved for local date');
+  addText(dates, 'dd', typeof data.asOf === 'string' && data.asOf ? data.asOf : 'Not provided');
   resultContent.append(dates);
 
   renderSources(data.sourceReferences);
@@ -247,6 +263,109 @@ function renderResolution(data, city) {
     }
     resultContent.append(section);
   }
+  renderExplainer(city, canonicalItemId);
+}
+
+function renderExplainer(city, canonicalItemId) {
+  const section = document.createElement('section');
+  section.className = 'explainer result-section';
+  addText(section, 'h3', 'Ask about this result');
+  addText(section, 'p', 'Get an explanation of the reviewed sources. WhatBin’s displayed status and instruction stay authoritative.', 'muted-copy');
+
+  const thread = document.createElement('div');
+  thread.className = 'explainer-thread';
+  thread.setAttribute('role', 'log');
+  thread.setAttribute('aria-live', 'polite');
+  thread.setAttribute('aria-relevant', 'additions');
+
+  const form = document.createElement('form');
+  form.className = 'explainer-form';
+  const label = addText(form, 'label', 'Ask a question about this item');
+  const question = document.createElement('textarea');
+  question.id = 'explainer-question';
+  question.rows = 3;
+  question.maxLength = 1200;
+  question.required = true;
+  question.setAttribute('aria-describedby', 'explainer-feedback');
+  label.htmlFor = question.id;
+  form.append(question);
+  const submit = document.createElement('button');
+  submit.className = 'button button-primary';
+  submit.type = 'submit';
+  submit.textContent = 'Ask WhatBin';
+  form.append(submit);
+
+  const feedback = document.createElement('p');
+  feedback.id = 'explainer-feedback';
+  feedback.className = 'explainer-feedback';
+  feedback.setAttribute('role', 'status');
+  feedback.setAttribute('aria-live', 'polite');
+  feedback.hidden = true;
+  section.append(thread, form, feedback);
+  resultContent.append(section);
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const text = question.value.trim();
+    if (!text) {
+      feedback.textContent = 'Enter a question first.';
+      feedback.classList.add('feedback-error');
+      feedback.hidden = false;
+      question.focus();
+      return;
+    }
+    const version = ++explanationVersion;
+    const resultVersion = requestVersion;
+    const history = explanationHistory.slice(-10);
+    submit.disabled = true;
+    feedback.textContent = 'Checking the published sources…';
+    feedback.classList.remove('feedback-error');
+    feedback.hidden = false;
+    try {
+      const data = await postJson('/api/explain', {
+        canonicalItemId, jurisdiction: city, question: text, history, confirmed: true
+      });
+      if (version !== explanationVersion || resultVersion !== requestVersion) return;
+      if (typeof data.answer !== 'string' || !data.answer.trim()) throw new Error('The explainer returned no answer.');
+
+      addText(thread, 'p', text, 'explainer-user');
+      const reply = document.createElement('div');
+      reply.className = 'explainer-reply';
+      addText(reply, 'p', data.answer, 'explainer-answer');
+      if (Array.isArray(data.sources) && data.sources.length) {
+        addText(reply, 'h4', 'Relevant source citations');
+        const list = document.createElement('ul');
+        for (const source of data.sources) {
+          if (!source || typeof source !== 'object') continue;
+          const title = [source.title, source.citation].filter(value => typeof value === 'string' && value.trim()).join(' — ');
+          const href = safeUrl(source.url);
+          if (!title && !href) continue;
+          const item = document.createElement('li');
+          if (href) {
+            const link = addText(item, 'a', title || href);
+            link.href = href;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+          } else addText(item, 'span', title);
+          list.append(item);
+        }
+        if (list.childElementCount) reply.append(list);
+      }
+      thread.append(reply);
+      explanationHistory = [...history, {role: 'user', content: text}, {role: 'assistant', content: data.answer}].slice(-10);
+      question.value = '';
+      feedback.hidden = true;
+      question.focus();
+    } catch (error) {
+      if (version === explanationVersion && resultVersion === requestVersion) {
+        feedback.textContent = error instanceof Error ? error.message : 'The explanation could not be retrieved. Try again.';
+        feedback.classList.add('feedback-error');
+        feedback.hidden = false;
+      }
+    } finally {
+      if (version === explanationVersion && resultVersion === requestVersion) submit.disabled = false;
+    }
+  });
 }
 
 confirmButton.addEventListener('click', async () => {
@@ -254,6 +373,8 @@ confirmButton.addEventListener('click', async () => {
   const confirmedItem = candidate;
   const city = citySelect.value;
   const version = ++requestVersion;
+  explanationVersion++;
+  explanationHistory = [];
   confirmButton.disabled = true;
   correctButton.disabled = true;
   resultPanel.hidden = true;
@@ -266,7 +387,7 @@ confirmButton.addEventListener('click', async () => {
     });
     if (version !== requestVersion || city !== citySelect.value) return;
     recognitionFeedback.hidden = true;
-    renderResolution(data, city);
+    renderResolution(data, city, confirmedItem.canonicalItemId);
     resultPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
   } catch (error) {
     if (version === requestVersion) showFeedback(error instanceof Error ? error.message : 'Could not retrieve city guidance. Please try again.', true);

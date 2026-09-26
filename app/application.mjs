@@ -3,6 +3,7 @@ import { readFile, stat } from 'node:fs/promises'
 import { extname, resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { researchSource } from './source-research.mjs'
+import {explainWithContext, requireContextAgentConfiguration, validConversationHistory} from './context-agent.mjs'
 
 const ROOT = resolve(fileURLToPath(new URL('./public/', import.meta.url)))
 const MAX_BODY = 9 * 1024 * 1024
@@ -13,7 +14,7 @@ const ITEM_NAMES = new Map([
   ['old-mattress', 'Old mattress'],
   ['used-household-battery', 'Used household battery'],
   ['used-lithium-ion-battery', 'Used rechargeable lithium-ion battery'],
-  ['used-power-bank', 'Used power bank'],
+  ['used-mobile-phone', 'Used mobile phone'],
   ['used-fluorescent-lamp', 'Used fluorescent lamp'],
   ['used-mercury-thermometer', 'Used mercury thermometer'],
 ])
@@ -70,7 +71,7 @@ async function recognize(input) {
   if (!key) throw Object.assign(new Error('Recognition is unavailable: GEMINI_API_KEY is not configured.'), { status: 503 })
   const image = input.image
   const description = validText(input.description, 4000) ? input.description.trim() : null
-  const prompt = `Identify a household item${image && description ? ` using the attached image and this description: ${description}` : image ? ' from the attached image' : ` from this description: ${description}`}. The only supported items are canonicalItemId "old-mattress", itemName "Old mattress" (an old or used household mattress being discarded); canonicalItemId "used-household-battery", itemName "Used household battery" (a clearly identified discarded, intact household-size AA or AAA cell); canonicalItemId "used-lithium-ion-battery", itemName "Used rechargeable lithium-ion battery" (a clearly identified discarded rechargeable lithium-ion cell or battery pack that is not installed in a device; do not use this category for batteries still installed in devices, whole devices including power banks, other battery chemistries, chargers, or uncertain items); canonicalItemId "used-power-bank", itemName "Used power bank" (a clearly identified discarded, intact portable power bank as a whole item; never identify a whole power bank as a standalone battery); canonicalItemId "used-fluorescent-lamp", itemName "Used fluorescent lamp" (a clearly identified used household fluorescent lamp or tube, whether intact or already broken); and canonicalItemId "used-mercury-thermometer", itemName "Used mercury thermometer" (a clearly identified mercury thermometer being discarded). Return supported true only for one of these exact ID/name pairs with confidence from 0.8 to 1; otherwise return supported false with null ID and name.`
+  const prompt = `Identify a household item${image && description ? ` using the attached image and this description: ${description}` : image ? ' from the attached image' : ` from this description: ${description}`}. The only supported items are canonicalItemId "old-mattress", itemName "Old mattress" (an old or used household mattress being discarded); canonicalItemId "used-household-battery", itemName "Used household battery" (a clearly identified discarded, intact household-size AA or AAA cell); canonicalItemId "used-lithium-ion-battery", itemName "Used rechargeable lithium-ion battery" (a clearly identified discarded rechargeable lithium-ion cell or battery pack that is not installed in a device; do not use this category for batteries still installed in devices, whole devices including power banks, other battery chemistries, chargers, or uncertain items); canonicalItemId "used-power-bank", itemName "Used power bank" (a clearly identified complete discarded portable power bank as a whole item; never identify a whole power bank as a standalone battery); canonicalItemId "used-mobile-phone", itemName "Used mobile phone" (a clearly identified discarded whole mobile phone as one household electronic item; do not use for phone accessories, standalone batteries, batteries installed in a device as separate items, or complete power banks); canonicalItemId "used-fluorescent-lamp", itemName "Used fluorescent lamp" (a clearly identified discarded fluorescent tube or compact fluorescent bulb, whether intact or broken); canonicalItemId "used-mercury-thermometer", itemName "Used mercury thermometer" (a clearly identified discarded mercury thermometer). Do not infer from an uncertain image or description. Return JSON with supported, confidence from 0 to 1, canonicalItemId, and exact itemName. If no supported item is clearly identified, set supported false, confidence below 0.8, canonicalItemId null, and itemName null.`
   const contents = [{ text: prompt }]
   if (image) contents.push({ inlineData: { mimeType: image.mimeType, data: image.base64 } })
   const response = await fetch(GEMINI_URL, {
@@ -97,7 +98,7 @@ async function recognize(input) {
       (result.canonicalItemId === 'used-household-battery' && result.itemName === 'Used household battery') ||
       (result.canonicalItemId === 'used-lithium-ion-battery' && result.itemName === 'Used rechargeable lithium-ion battery') ||
       (result.canonicalItemId === 'used-power-bank' && result.itemName === 'Used power bank') ||
-      (result.canonicalItemId === 'used-fluorescent-lamp' && result.itemName === 'Used fluorescent lamp') ||
+      (result.canonicalItemId === 'used-mobile-phone' && result.itemName === 'Used mobile phone') ||
       (result.canonicalItemId === 'used-mercury-thermometer' && result.itemName === 'Used mercury thermometer'))
   return validCandidate
     ? { candidate: { canonicalItemId: result.canonicalItemId, itemName: result.itemName.trim() } }
@@ -133,6 +134,36 @@ export function selectActiveRule(rules, date) {
   return { status: 'MATCHED', rule: active[0] }
 }
 
+export function selectActiveConflicts(conflicts, date) {
+  const active = conflicts.filter((conflict) => {
+    if (!conflict || !validDate(conflict.validFrom) ||
+      (conflict.validUntil !== null && conflict.validUntil !== undefined &&
+        (!validDate(conflict.validUntil) || conflict.validUntil <= conflict.validFrom))) {
+      throw new TypeError('Published conflict has invalid effective dates.')
+    }
+    return conflict.validFrom <= date && (!conflict.validUntil || date < conflict.validUntil)
+  })
+  if (!active.length) return null
+  return {
+    status: 'CONFLICT',
+    message: 'A reviewer has recorded an unresolved source disagreement. WhatBin cannot determine a disposal route.',
+    conflicts: active.map((conflict) => {
+      if (!validText(conflict.summary, 1000) || !Array.isArray(conflict.claims) || conflict.claims.length < 2 ||
+        conflict.claims.some((claim) => !validText(claim?.sourceTitle, 500) || !isHttpUrl(claim.sourceUrl) ||
+          !validText(claim.sourceVersion, 500) || !validText(claim.citation, 500) || !validText(claim.claim, 5000))) {
+        throw new TypeError('Published conflict has invalid content.')
+      }
+      return {
+        summary: conflict.summary,
+        validFrom: conflict.validFrom,
+        validUntil: conflict.validUntil ?? null,
+        claims: conflict.claims.map(({sourceTitle, sourceUrl, sourceVersion, citation, claim}) =>
+          ({sourceTitle, sourceUrl, sourceVersion, citation, claim})),
+      }
+    }),
+  }
+}
+
 function sameSource(left, right) {
   return left?.title === right?.title && left?.url === right?.url && left?.citation === right?.citation
 }
@@ -153,41 +184,45 @@ export function matchSupportingPassages(sourceReferences, entries) {
     ({ sourceTitle, sourceUrl, sourceCitation, sourceVersion, citation, text, requires, claimType }))
 }
 
-async function publishedRules(input) {
-  const query = '*[_type == "disposalRule" && !(_id in path("drafts.**")) && jurisdiction == $jurisdiction && canonicalItemId == $canonicalItemId]{canonicalItemId,itemName,disposalCategory,instruction,validFrom,validUntil,sourceReferences,supportingPassages}'
+async function publishedContent(input) {
+  const query = '*[_type in ["disposalRule","disposalConflict"] && !(_id in path("drafts.**")) && jurisdiction == $jurisdiction && canonicalItemId == $canonicalItemId]{_type,canonicalItemId,itemName,disposalCategory,instruction,validFrom,validUntil,sourceReferences,supportingPassages,summary,claims}'
   const params = new URLSearchParams({
     query,
     perspective: 'published',
     '$jurisdiction': JSON.stringify(input.jurisdiction),
     '$canonicalItemId': JSON.stringify(input.canonicalItemId),
   })
-  const response = await fetch(`${SANITY_URL}?${params}`, { signal: AbortSignal.timeout(10000), headers: { accept: 'application/json' } })
-  if (!response.ok) throw Object.assign(new Error('Rule service is unavailable.'), { status: 502 })
+  const response = await fetch(`${SANITY_URL}?${params}`, {signal: AbortSignal.timeout(10000), headers: {accept: 'application/json'}})
+  if (!response.ok) throw Object.assign(new Error('Published content service is unavailable.'), {status: 502})
   let payload
-  try { payload = await response.json() } catch { throw Object.assign(new Error('Rule service returned invalid data.'), { status: 502 }) }
-  if (!Array.isArray(payload?.result)) throw Object.assign(new Error('Rule service returned invalid data.'), { status: 502 })
-  return payload.result
+  try { payload = await response.json() } catch { throw Object.assign(new Error('Published content service returned invalid data.'), {status: 502}) }
+  if (!Array.isArray(payload?.result)) throw Object.assign(new Error('Published content service returned invalid data.'), {status: 502})
+  return {
+    rules: payload.result.filter((document) => document?._type !== 'disposalConflict'),
+    conflicts: payload.result.filter((document) => document?._type === 'disposalConflict'),
+  }
 }
 
 async function resolveRule(input) {
-  const rules = await publishedRules(input)
+  const {rules, conflicts} = await publishedContent(input)
   const today = localDate(JURISDICTIONS[input.jurisdiction])
   let selection
   try {
-    selection = selectActiveRule(rules, today)
+    const sourceConflict = selectActiveConflicts(conflicts, today)
+    selection = sourceConflict ?? selectActiveRule(rules, today)
   } catch {
-    throw Object.assign(new Error('Published rule has invalid effective dates.'), { status: 502 })
+    throw Object.assign(new Error('Published content has invalid effective dates or content.'), {status: 502})
   }
-  if (selection.status !== 'MATCHED') return selection
+  if (selection.status !== 'MATCHED') return {...selection, asOf: today}
   const rule = selection.rule
   if (![rule.canonicalItemId, rule.itemName, rule.disposalCategory, rule.instruction].every((value) => validText(value, 5000)) ||
     !Array.isArray(rule.sourceReferences) || !rule.sourceReferences.length || rule.sourceReferences.some((source) =>
       !validText(source?.title, 500) || !validText(source?.citation, 500) || !isHttpUrl(source?.url))) {
-    throw Object.assign(new Error('Published rule has invalid content.'), { status: 502 })
+    throw Object.assign(new Error('Published rule has invalid content.'), {status: 502})
   }
-  return { status: 'MATCHED', itemName: rule.itemName, category: rule.disposalCategory, instruction: rule.instruction,
-    validFrom: rule.validFrom, validUntil: rule.validUntil ?? null, sourceReferences: rule.sourceReferences,
-    supportingPassages: matchSupportingPassages(rule.sourceReferences, rule.supportingPassages) }
+  return {status: 'MATCHED', asOf: today, itemName: rule.itemName, category: rule.disposalCategory,
+    instruction: rule.instruction, validFrom: rule.validFrom, validUntil: rule.validUntil ?? null,
+    sourceReferences: rule.sourceReferences, supportingPassages: matchSupportingPassages(rule.sourceReferences, rule.supportingPassages)}
 }
 
 function allowedStudioOrigins() {
@@ -223,18 +258,48 @@ function overlapsPublished(candidate, rules) {
 }
 
 async function researchRule(input) {
-  const rules = await publishedRules(input)
+  const {rules, conflicts} = await publishedContent(input)
   const today = localDate(JURISDICTIONS[input.jurisdiction])
   let selection
-  try { selection = selectActiveRule(rules, today) } catch {
-    throw Object.assign(new Error('Published rule has invalid effective dates.'), { status: 502 })
+  try {
+    if (selectActiveConflicts(conflicts, today)) {
+      return {status: 'GAP', reason: 'A published reviewer-recorded conflict is active for the current date.'}
+    }
+    selection = selectActiveRule(rules, today)
+  } catch {
+    throw Object.assign(new Error('Published content has invalid effective dates or content.'), {status: 502})
   }
-  if (selection.status === 'MATCHED' || selection.status === 'CONFLICT') return { status: 'GAP', reason: 'A published rule already covers the current date.' }
+  if (selection.status === 'MATCHED' || selection.status === 'CONFLICT') return {status: 'GAP', reason: 'A published rule already covers the current date.'}
   const result = await researchSource(input)
-  if (result?.status !== 'PREVIEW') return result?.status === 'GAP' ? result : { status: 'GAP', reason: 'The sources could not be verified.' }
-  if (overlapsPublished(result, rules)) return { status: 'GAP', reason: 'The proposed effective period overlaps a published rule.' }
-  const { status, ...candidate } = result
-  return { status: 'PREVIEW', candidate }
+  if (result?.status !== 'PREVIEW') return result?.status === 'GAP' ? result : {status: 'GAP', reason: 'The sources could not be verified.'}
+  if (overlapsPublished(result, rules) || overlapsPublished(result, conflicts)) {
+    return {status: 'GAP', reason: 'The proposed effective period overlaps published content.'}
+  }
+  const {status, ...candidate} = result
+  return {status: 'PREVIEW', candidate}
+}
+
+function explanationSources(outcomes) {
+  const sources = outcomes.flatMap((outcome) => {
+    if (outcome.status === 'MATCHED') return outcome.sourceReferences.map(({title, url, citation}) => ({title, url, citation}))
+    return (outcome.conflicts ?? []).flatMap((conflict) =>
+      conflict.claims.map(({sourceTitle: title, sourceUrl: url, citation, sourceVersion}) =>
+        ({title, url, citation, sourceVersion})))
+  })
+  return [...new Map(sources.map((source) => [`${source.url}\\0${source.citation}`, source])).values()]
+}
+
+async function explainRule(input) {
+  requireContextAgentConfiguration()
+  const jurisdictions = [input.jurisdiction, input.jurisdiction === 'hanoi' ? 'ho-chi-minh-city' : 'hanoi']
+  const outcomes = await Promise.all(jurisdictions.map(async (jurisdiction) => ({
+    jurisdiction,
+    date: localDate(JURISDICTIONS[jurisdiction]),
+    ...await resolveRule({canonicalItemId: input.canonicalItemId, jurisdiction}),
+  })))
+  const eligibleOutcomes = outcomes.every((outcome) => outcome.status === 'MATCHED') ? outcomes : [outcomes[0]]
+  const answer = await explainWithContext({question: input.question, history: input.history, outcomes: eligibleOutcomes})
+  return {answer, sources: explanationSources(eligibleOutcomes)}
 }
 
 
@@ -267,6 +332,7 @@ export function createServer() {
         if (!await authorizeStudio(req)) { send(res, 401, { error: 'Studio authorization is required.' }); return }
         const input = await bodyJson(req)
         if (!ITEM_NAMES.has(input.canonicalItemId) || !Object.hasOwn(JURISDICTIONS, input.jurisdiction) ||
+          (input.canonicalItemId === 'used-mobile-phone' && input.jurisdiction !== 'hanoi') ||
           Object.keys(input).some((key) => !['canonicalItemId', 'jurisdiction'].includes(key))) {
           send(res, 400, { error: 'A valid canonical item ID and jurisdiction are required.' }); return
         }
@@ -289,6 +355,20 @@ export function createServer() {
           send(res, 400, { error: 'A valid jurisdiction, canonical item ID, and explicit confirmation are required.' }); return
         }
         send(res, 200, await resolveRule(input)); return
+      }
+      if (url.pathname === '/api/explain') {
+        if (req.method !== 'POST') { send(res, 405, {error: 'Method not allowed.'}); return }
+        const input = await bodyJson(req)
+        const history = input.history === undefined ? [] : input.history
+        if (!Object.hasOwn(JURISDICTIONS, input.jurisdiction) ||
+          !validText(input.canonicalItemId, 100) || input.canonicalItemId.length > 100 ||
+          !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(input.canonicalItemId) ||
+          !validText(input.question, 1200) || input.question.length > 1200 ||
+          !validConversationHistory(history) || input.confirmed !== true ||
+          Object.keys(input).some((key) => !['canonicalItemId', 'jurisdiction', 'question', 'history', 'confirmed'].includes(key))) {
+          send(res, 400, {error: 'A confirmed item result and valid question are required.'}); return
+        }
+        send(res, 200, await explainRule({...input, history})); return
       }
       if (url.pathname.startsWith('/api/')) { send(res, 404, { error: 'Not found.' }); return }
       if (req.method !== 'GET' && req.method !== 'HEAD') { send(res, 405, { error: 'Method not allowed.' }); return }

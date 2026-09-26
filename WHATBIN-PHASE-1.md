@@ -10,20 +10,21 @@
 
 ## Decision and evidence boundary
 
-- Sanity structured rules determine the disposal action.
-- The Knowledge Base supplies supporting official-source passages; it cannot override a structured rule. Each rule stores its governing source references and effective dates. Show a retrieved passage only when it matches the rule's cited source and version.
-- Resolve against published rules active on the selected city's local date. `validFrom` is inclusive; `validUntil`, when present, is exclusive. Ignore drafts and future or expired rules. Disagreement between authoritative sources or overlapping active rules is `CONFLICT`; no active rule is `UNKNOWN`.
-- Return explicit outcomes: `MATCHED`, `CLARIFICATION_REQUIRED`, `UNKNOWN`, or `CONFLICT`. Withhold actionable advice for `UNKNOWN` and `CONFLICT`.
-- Invoke Jev only when a rule identifies a missing fact that could change its outcome. Jev may return only a bounded structured fact; the resolver runs again, and Jev never chooses the disposal action.
-- Do not invoke Jev on the deterministic mattress path. Do not substitute generic advice for an item without a reviewed local rule.
+- Published Sanity structured rules are the only authority for disposal instructions. They contain jurisdiction, canonical item, effective dates, and reviewed source references.
+- A reviewer records unresolved disagreement in a separate published `disposalConflict` record with competing source claims and citations. For the same item, city, and local date, that record takes precedence over an otherwise matching rule. Overlapping active rules also produce `CONFLICT`.
+- Resolve only against published content active on the selected city's local date. `validFrom` is inclusive; `validUntil`, when present, is exclusive. Ignore drafts and future or expired content.
+- The Knowledge Base contains published rules, every official source document cited by those rules, and published conflict records. It excludes drafts, unpublished research, and phone previews. It explains evidence but never chooses or changes an action.
+- Return `MATCHED`, `UNKNOWN`, or `CONFLICT`. `UNKNOWN` means WhatBin has no reviewed rule for that item, city, and date; it does not prove that no legal route exists. Withhold action for `UNKNOWN` and `CONFLICT`.
+- Residents may explicitly ask for an explanation after deterministic resolution. Explain matched evidence or reviewer-recorded conflict claims with citations; never choose which conflict claim prevails. Compare cities only for the same item when both independently resolve `MATCHED`.
+- Chat history stays in the current page and is not persisted. The server calls Gemini GenerateContent with read-only Sanity Context MCP tools; when the explainer is unavailable, leave the deterministic result intact.
+- Do not substitute generic advice for an item without a reviewed local rule. The content owner resolves coverage through Sanity review and publication.
 
 ## Runtime architecture
 
-- The browser sends the selected city and item input to one thin server endpoint. The endpoint reads published Sanity rules only; no user account is required, and drafts remain inaccessible to the public response.
+- The browser sends the selected city and item to a thin server endpoint. The public resolver reads only published Sanity rules and conflict records; drafts remain inaccessible to the public response.
 - Hosted image recognition proposes a canonical item for user confirmation before rule lookup. If recognition is uncertain or unsupported, let the user correct or describe the item; never silently choose the closest rule.
-- Keep model credentials on the server. Do not retain or log user photos. Disclose external image processing.
-- If the Knowledge Base is unavailable but a valid rule is available, show the rule and its direct source link without an excerpt. If rule resolution fails, or Jev is unavailable when clarification is required, withhold the action.
-- Do not persist user cases for `UNKNOWN` or `CONFLICT` in Phase 1. Show the status to the user; the content owner reviews coverage through Sanity.
+- Keep Gemini and Sanity organization credentials on the server. Do not retain or log photos, questions, or chat history. Disclose external image and explanation processing.
+- If the Knowledge Base is unavailable but a valid rule is available, show the deterministic rule and its direct source link without an explanation. If rule resolution fails, withhold the action.
 
 ## Content review
 
