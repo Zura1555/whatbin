@@ -16,17 +16,19 @@ Published Sanity rules remain the sole authority for disposal instructions. A re
 
 Item recognition uses Gemini. Recognition proposes an item for the user to confirm; it does not choose a disposal rule. Photos are sent to Gemini for recognition and are not retained by the app. Keep `GEMINI_API_KEY` server-side.
 
-After deterministic resolution, residents may explicitly ask for a source explanation. The server-side Gemini explainer reads the Sanity Context Knowledge Base containing published rules, their cited official source documents, and conflict records. It cannot choose or change an action; `UNKNOWN` and `CONFLICT` never receive a disposal route. City comparison is allowed only when both cities independently resolve the same item as `MATCHED`. Chat stays in the current page and is not persisted.
+After deterministic resolution, residents may explicitly ask for a source explanation. A server-side Gemini agent uses the AI SDK and read-only Sanity Context MCP tools, then streams its answer into the existing chat UI. It cannot choose or change an action; `UNKNOWN` and `CONFLICT` never receive a disposal route. City comparison is allowed only when both cities independently resolve the same item as `MATCHED`. Chat stays in the current page and is not persisted.
 
 ## Run locally
 
-Requirements: Node.js.
+Requirements: Node.js 22 or later.
+
+Copy `app/.env.example` to `app/.env` and fill in the Gemini API key, Sanity Context MCP URL, and organization Context Viewer token (`SANITY_API_READ_TOKEN`) before starting the server.
 
 ```sh
-node app/server.mjs
+node --env-file=app/.env app/server.mjs
 ```
 
-Set `GEMINI_API_KEY`, `SANITY_CONTEXT_MCP_URL`, and `SANITY_ORGANIZATION_TOKEN` in the server environment for Gemini and Sanity Context explanations. Use an organization-level Context Viewer token. Configure the endpoint in Knowledge Base mode with `initial_context` and `knowledge_base_read` only, and include published rules, their cited official sources, and conflict records; exclude drafts and unpublished research. Recognition and source research use `GEMINI_API_KEY`. Configure `SANITY_STUDIO_ORIGINS` with exact allowed Studio origins before enabling source research. Rule lookup uses the public Sanity production dataset.
+`app/.env` is Git-ignored and loaded with Node's built-in `--env-file`; on Vercel, set the same values as Environment Variables. Configure the Context endpoint to expose `initial_context` and a content reader (`knowledge_base_read`, `groq_query`, or `array_field_reader`); the server passes through the endpoint's configured tools. Use an organization-level Context Viewer token. Configure `SANITY_STUDIO_ORIGINS` with exact allowed Studio origins before enabling source research. Rule lookup uses the public Sanity production dataset.
 
 Run the server tests from the repository root:
 
@@ -44,7 +46,7 @@ npm run dev
 
 ## Deploy with Vercel
 
-Import the GitHub repository into Vercel, set the project root directory to `app/`, and configure `GEMINI_API_KEY`, `SANITY_CONTEXT_MCP_URL`, `SANITY_ORGANIZATION_TOKEN`, and `SANITY_STUDIO_ORIGINS`. The Context token must be an organization-level Context Viewer token; the endpoint must use Knowledge Base mode and only `initial_context` and `knowledge_base_read`. Build the Studio with `SANITY_STUDIO_RESEARCH_API_URL` pointing to the deployed app's `/api/research-source`. Migrate existing evidence passages before deploying the new resolver; see [`studio/README.md`](studio/README.md). Vercel builds deployments from GitHub pushes; pushes to the configured production branch publish production deployments. `app/vercel.json` includes the static assets required by the server.
+Import the GitHub repository into Vercel, set the project root directory to `app/`, and configure `GEMINI_API_KEY`, `SANITY_CONTEXT_MCP_URL`, `SANITY_API_READ_TOKEN`, and `SANITY_STUDIO_ORIGINS`. Use an organization-level Context Viewer token. The endpoint must expose `initial_context` plus a content reader (`knowledge_base_read`, `groq_query`, or `array_field_reader`). Build the Studio with `SANITY_STUDIO_RESEARCH_API_URL` pointing to the deployed app's `/api/research-source`. Migrate existing evidence passages before deploying the new resolver; see [`studio/README.md`](studio/README.md). Vercel builds deployments from GitHub pushes; pushes to the configured production branch publish production deployments. `app/vercel.json` includes the static assets required by the server. Do not use `vercel --prod` without production approval.
 
 See [`app/README.md`](app/README.md) for server and API details and [`studio/README.md`](studio/README.md) for the content studio.
 

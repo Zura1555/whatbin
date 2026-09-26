@@ -69,6 +69,36 @@ async function postJson(path, body) {
   if (!response.ok) throw new Error(typeof data?.error === 'string' ? data.error : typeof data?.message === 'string' ? data.message : 'The request could not be completed. Please try again.');
   return data;
 }
+async function postTextStream(path, body, onText) {
+  const response = await fetch(path, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(body)
+  });
+  if (!response.ok) {
+    let data;
+    try { data = await response.json(); } catch {}
+    throw new Error(typeof data?.error === 'string' ? data.error : 'The request could not be completed. Please try again.');
+  }
+  if (!response.body) throw new Error('The service did not provide a response stream.');
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let text = '';
+  try {
+    while (true) {
+      const {done, value} = await reader.read();
+      if (done) break;
+      text += decoder.decode(value, {stream: true});
+      onText(text);
+    }
+    text += decoder.decode();
+    if (text) onText(text);
+  } finally {
+    reader.releaseLock();
+  }
+  return text;
+}
 
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
@@ -321,42 +351,27 @@ function renderExplainer(city, canonicalItemId) {
     feedback.textContent = 'Checking the published sources…';
     feedback.classList.remove('feedback-error');
     feedback.hidden = false;
+    addText(thread, 'p', text, 'explainer-user');
+    const reply = document.createElement('div');
+    reply.className = 'explainer-reply';
+    const answerContent = addText(reply, 'p', '', 'explainer-answer');
+    thread.append(reply);
     try {
-      const data = await postJson('/api/explain', {
-        canonicalItemId, jurisdiction: city, question: text, history, confirmed: true
-      });
-      if (version !== explanationVersion || resultVersion !== requestVersion) return;
-      if (typeof data.answer !== 'string' || !data.answer.trim()) throw new Error('The explainer returned no answer.');
+        const answer = await postTextStream('/api/explain', {
+          canonicalItemId, jurisdiction: city, question: text, history, confirmed: true
+        }, (value) => {
+          answerContent.textContent = value;
+          feedback.hidden = true;
+        });
+        if (version !== explanationVersion || resultVersion !== requestVersion) return;
+        if (!answer.trim()) throw new Error('The explainer returned no answer.');
 
-      addText(thread, 'p', text, 'explainer-user');
-      const reply = document.createElement('div');
-      reply.className = 'explainer-reply';
-      addText(reply, 'p', data.answer, 'explainer-answer');
-      if (Array.isArray(data.sources) && data.sources.length) {
-        addText(reply, 'h4', 'Relevant source citations');
-        const list = document.createElement('ul');
-        for (const source of data.sources) {
-          if (!source || typeof source !== 'object') continue;
-          const title = [source.title, source.citation].filter(value => typeof value === 'string' && value.trim()).join(' — ');
-          const href = safeUrl(source.url);
-          if (!title && !href) continue;
-          const item = document.createElement('li');
-          if (href) {
-            const link = addText(item, 'a', title || href);
-            link.href = href;
-            link.target = '_blank';
-            link.rel = 'noopener noreferrer';
-          } else addText(item, 'span', title);
-          list.append(item);
-        }
-        if (list.childElementCount) reply.append(list);
-      }
-      thread.append(reply);
-      explanationHistory = [...history, {role: 'user', content: text}, {role: 'assistant', content: data.answer}].slice(-10);
-      question.value = '';
-      feedback.hidden = true;
-      question.focus();
+        explanationHistory = [...history, {role: 'user', content: text}, {role: 'assistant', content: answer}].slice(-10);
+        question.value = '';
+        feedback.hidden = true;
+        question.focus();
     } catch (error) {
+      reply.remove();
       if (version === explanationVersion && resultVersion === requestVersion) {
         feedback.textContent = error instanceof Error ? error.message : 'The explanation could not be retrieved. Try again.';
         feedback.classList.add('feedback-error');

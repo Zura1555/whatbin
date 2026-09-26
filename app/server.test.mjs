@@ -482,7 +482,7 @@ test('explain route fails closed before data access with missing or unsafe confi
   server.listen(0, '127.0.0.1')
   await new Promise((resolve) => server.once('listening', resolve))
   const originalFetch = globalThis.fetch
-  const envNames = ['GEMINI_API_KEY', 'SANITY_CONTEXT_MCP_URL', 'SANITY_ORGANIZATION_TOKEN']
+  const envNames = ['GEMINI_API_KEY', 'SANITY_CONTEXT_MCP_URL', 'SANITY_API_READ_TOKEN', 'SANITY_ORGANIZATION_TOKEN']
   const originalEnv = Object.fromEntries(envNames.map((name) => [name, process.env[name]]))
   for (const name of envNames) delete process.env[name]
   let externalCalls = 0

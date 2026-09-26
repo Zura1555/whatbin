@@ -1,9 +1,10 @@
+import { once } from 'node:events'
 import { createServer as createHttpServer } from 'node:http'
 import { readFile, stat } from 'node:fs/promises'
 import { extname, resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { researchSource } from './source-research.mjs'
-import {explainWithContext, requireContextAgentConfiguration, validConversationHistory} from './context-agent.mjs'
+import {startExplanationStream, requireContextAgentConfiguration, validConversationHistory} from './context-agent.mjs'
 
 const ROOT = resolve(fileURLToPath(new URL('./public/', import.meta.url)))
 const MAX_BODY = 9 * 1024 * 1024
@@ -279,15 +280,6 @@ async function researchRule(input) {
   return {status: 'PREVIEW', candidate}
 }
 
-function explanationSources(outcomes) {
-  const sources = outcomes.flatMap((outcome) => {
-    if (outcome.status === 'MATCHED') return outcome.sourceReferences.map(({title, url, citation}) => ({title, url, citation}))
-    return (outcome.conflicts ?? []).flatMap((conflict) =>
-      conflict.claims.map(({sourceTitle: title, sourceUrl: url, citation, sourceVersion}) =>
-        ({title, url, citation, sourceVersion})))
-  })
-  return [...new Map(sources.map((source) => [`${source.url}\\0${source.citation}`, source])).values()]
-}
 
 async function explainRule(input) {
   requireContextAgentConfiguration()
@@ -297,9 +289,7 @@ async function explainRule(input) {
     date: localDate(JURISDICTIONS[jurisdiction]),
     ...await resolveRule({canonicalItemId: input.canonicalItemId, jurisdiction}),
   })))
-  const eligibleOutcomes = outcomes.every((outcome) => outcome.status === 'MATCHED') ? outcomes : [outcomes[0]]
-  const answer = await explainWithContext({question: input.question, history: input.history, outcomes: eligibleOutcomes})
-  return {answer, sources: explanationSources(eligibleOutcomes)}
+  return outcomes.every((outcome) => outcome.status === 'MATCHED') ? outcomes : [outcomes[0]]
 }
 
 
@@ -368,7 +358,47 @@ export function createServer() {
           Object.keys(input).some((key) => !['canonicalItemId', 'jurisdiction', 'question', 'history', 'confirmed'].includes(key))) {
           send(res, 400, {error: 'A confirmed item result and valid question are required.'}); return
         }
-        send(res, 200, await explainRule({...input, history})); return
+        const outcomes = await explainRule({...input, history})
+        const disconnect = new AbortController()
+        const abortOnDisconnect = () => {
+          if (!res.writableEnded) disconnect.abort()
+        }
+        res.once('close', abortOnDisconnect)
+        let agent
+        try {
+          agent = await startExplanationStream({
+            question: input.question,
+            history,
+            outcomes,
+            abortSignal: AbortSignal.any([AbortSignal.timeout(45000), disconnect.signal]),
+          })
+          res.writeHead(200, {
+            'content-type': 'text/plain; charset=utf-8',
+            'cache-control': 'no-cache, no-transform',
+            'x-content-type-options': 'nosniff',
+          })
+          let emitted = false
+          let failed = false
+          try {
+            for await (const chunk of agent.result.textStream) {
+              if (!chunk) continue
+              emitted = true
+              if (!res.write(chunk)) await once(res, 'drain')
+            }
+          } catch {
+            failed = true
+          }
+          if (!res.destroyed) {
+            if (!emitted || failed) {
+              if (emitted) res.write('\n\n')
+              res.end("I couldn't verify an explanation from Sanity Context. The displayed WhatBin result remains authoritative.")
+            } else res.end()
+          }
+        } finally {
+          res.off('close', abortOnDisconnect)
+          await agent?.close()
+        }
+        return
       }
       if (url.pathname.startsWith('/api/')) { send(res, 404, { error: 'Not found.' }); return }
       if (req.method !== 'GET' && req.method !== 'HEAD') { send(res, 405, { error: 'Method not allowed.' }); return }
