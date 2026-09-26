@@ -53,6 +53,19 @@
       </form>
 
       <div id="recognition-feedback" class="feedback" role="status" aria-live="polite" hidden></div>
+      <section id="manual-panel" class="candidate-panel" aria-labelledby="manual-heading" hidden>
+        <h2 id="manual-heading">Choose a supported item</h2>
+        <p class="candidate-intro">Choose only if an item matches what you described or photographed. Otherwise, edit the description or photo and try again.</p>
+        <div class="field-group">
+          <label for="manual-item">Supported item</label>
+          <select id="manual-item" disabled>
+            <option value="">Choose a supported item</option>
+          </select>
+        </div>
+        <div class="candidate-actions">
+          <button class="button button-secondary" id="manual-choose-button" type="button" disabled>Use this item</button>
+        </div>
+      </section>
       <section id="candidate-panel" class="candidate-panel" aria-labelledby="candidate-heading" hidden>
         <div class="step-heading"><span class="step-number" aria-hidden="true">02</span><h2 id="candidate-heading">Confirm the item</h2></div>
         <p class="candidate-intro">Check this identification before looking up city guidance.</p>

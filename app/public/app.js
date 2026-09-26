@@ -11,15 +11,21 @@ const resultPanel = document.querySelector('#result-panel');
 const resultStatus = document.querySelector('#result-status');
 const resultContent = document.querySelector('#result-content');
 const recognizeButton = document.querySelector('#recognize-button');
+const manualPanel = document.querySelector('#manual-panel');
+const manualItemSelect = document.querySelector('#manual-item');
+const manualChooseButton = document.querySelector('#manual-choose-button');
 
 let candidate = null;
 let requestVersion = 0;
 let explanationHistory = [];
+let manualItems = [];
 let explanationVersion = 0;
 
 function clearResults() {
   candidate = null;
   candidatePanel.hidden = true;
+  manualPanel.hidden = true;
+  manualItemSelect.replaceChildren();
   resultPanel.hidden = true;
   resultStatus.textContent = '';
   resultContent.replaceChildren();
@@ -34,6 +40,51 @@ function showFeedback(message, isError = false) {
   recognitionFeedback.textContent = message;
   recognitionFeedback.classList.toggle('feedback-error', isError);
   recognitionFeedback.hidden = false;
+}
+
+async function offerManualSelection(message, version) {
+  showFeedback(`${message} Loading supported items…`, true);
+  manualPanel.hidden = true;
+  manualChooseButton.disabled = true;
+  manualItemSelect.disabled = true;
+  manualItemSelect.replaceChildren();
+  try {
+    const response = await fetch('/api/items');
+    const data = await response.json();
+    if (!response.ok || !Array.isArray(data?.items) || !data.items.length) throw new Error();
+    manualItems = data.items;
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = 'Choose a supported item';
+    manualItemSelect.append(placeholder);
+    for (const item of manualItems) {
+      if (typeof item?.canonicalItemId !== 'string' || typeof item?.itemName !== 'string') throw new Error();
+      const option = document.createElement('option');
+      option.value = item.canonicalItemId;
+      option.textContent = item.itemName;
+      manualItemSelect.append(option);
+    }
+    if (version !== requestVersion) return;
+    manualPanel.hidden = false;
+    manualItemSelect.disabled = false;
+    manualChooseButton.disabled = false;
+    showFeedback(`${message} Choose from the supported-item list below.`, true);
+    manualItemSelect.focus();
+  } catch {
+    if (version === requestVersion) {
+      manualPanel.hidden = true;
+      showFeedback(`${message} The supported-item list could not be loaded. Please try again.`, true);
+    }
+  }
+}
+
+function setCandidate(item) {
+  candidate = { canonicalItemId: item.canonicalItemId, itemName: item.itemName };
+  manualPanel.hidden = true;
+  recognitionFeedback.hidden = true;
+  candidateName.textContent = candidate.itemName;
+  candidatePanel.hidden = false;
+  confirmButton.focus();
 }
 
 function cityName(city) {
@@ -123,19 +174,27 @@ form.addEventListener('submit', async (event) => {
     if (version !== requestVersion) return;
     const proposed = data?.candidate;
     if (!proposed || typeof proposed.canonicalItemId !== 'string' || !proposed.canonicalItemId.trim() || typeof proposed.itemName !== 'string' || !proposed.itemName.trim()) {
-      showFeedback(typeof data?.message === 'string' && data.message ? data.message : 'I could not confidently identify that item. Add or correct the description and try again.', true);
+      await offerManualSelection(typeof data?.message === 'string' && data.message
+        ? `${data.message} Or choose a supported item:`
+        : 'I could not confidently identify that item. Choose a supported item instead:', version);
       return;
     }
-    candidate = { canonicalItemId: proposed.canonicalItemId, itemName: proposed.itemName };
-    recognitionFeedback.hidden = true;
-    candidateName.textContent = candidate.itemName;
-    candidatePanel.hidden = false;
-    confirmButton.focus();
+    setCandidate(proposed);
   } catch (error) {
-    if (version === requestVersion) showFeedback(error instanceof Error ? error.message : 'Recognition failed. Please try again.', true);
+    if (version === requestVersion) await offerManualSelection(`${error instanceof Error ? error.message : 'Recognition failed.'} Choose a supported item instead:`, version);
   } finally {
     if (version === requestVersion) recognizeButton.disabled = false;
   }
+});
+
+manualChooseButton.addEventListener('click', () => {
+  const selected = manualItems.find((item) => item.canonicalItemId === manualItemSelect.value);
+  if (!selected) {
+    showFeedback('Choose an item from the supported-item list.', true);
+    manualItemSelect.focus();
+    return;
+  }
+  setCandidate(selected);
 });
 
 citySelect.addEventListener('change', () => {
@@ -153,9 +212,12 @@ citySelect.addEventListener('change', () => {
   if (candidate) {
     candidatePanel.hidden = false;
     showFeedback('Confirm the identified item to get guidance for ' + cityName(citySelect.value) + '.');
+  } else if (!manualPanel.hidden) {
+    candidatePanel.hidden = true;
   } else {
     candidatePanel.hidden = true;
     candidateName.textContent = '';
+    manualItemSelect.replaceChildren();
   }
 });
 

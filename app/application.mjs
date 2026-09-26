@@ -328,6 +328,11 @@ export function createServer() {
         }
         send(res, 200, await researchRule(input)); return
       }
+      if (url.pathname === '/api/items') {
+        if (req.method !== 'GET') { send(res, 405, { error: 'Method not allowed.' }); return }
+        send(res, 200, { items: [...ITEM_NAMES].map(([canonicalItemId, itemName]) => ({ canonicalItemId, itemName })) })
+        return
+      }
       if (url.pathname === '/api/recognize') {
         if (req.method !== 'POST') { send(res, 405, { error: 'Method not allowed.' }); return }
         const input = await bodyJson(req)

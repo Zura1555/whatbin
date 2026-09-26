@@ -89,6 +89,34 @@ test('static server serves the public app and blocks path traversal', async () =
   }
 })
 
+test('GET /api/items exposes only the supported canonical item catalog', async () => {
+  const server = createServer()
+  server.listen(0, '127.0.0.1')
+  await new Promise((resolve) => server.once('listening', resolve))
+
+  try {
+    const { port } = server.address()
+    const origin = `http://127.0.0.1:${port}`
+    const response = await fetch(`${origin}/api/items`)
+    assert.equal(response.status, 200)
+    assert.deepEqual(await response.json(), {
+      items: [
+        { canonicalItemId: 'old-mattress', itemName: 'Old mattress' },
+        { canonicalItemId: 'used-household-battery', itemName: 'Used household battery' },
+        { canonicalItemId: 'used-lithium-ion-battery', itemName: 'Used rechargeable lithium-ion battery' },
+        { canonicalItemId: 'used-mobile-phone', itemName: 'Used mobile phone' },
+        { canonicalItemId: 'used-fluorescent-lamp', itemName: 'Used fluorescent lamp' },
+        { canonicalItemId: 'used-mercury-thermometer', itemName: 'Used mercury thermometer' },
+      ],
+    })
+    assert.equal((await fetch(`${origin}/api/items`, { method: 'POST' })).status, 405)
+  } finally {
+    await new Promise((resolve, reject) => {
+      server.close((error) => error ? reject(error) : resolve())
+    })
+  }
+})
+
 test('recognize accepts exact phone, battery, and power-bank pairs without conflating items', async () => {
   const server = createServer()
   server.listen(0, '127.0.0.1')
