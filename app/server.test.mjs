@@ -65,3 +65,75 @@ test('static server serves the public app and blocks path traversal', async () =
     })
   }
 })
+
+test('recognize accepts only exact lithium-ion battery and power-bank candidate pairs', async () => {
+  const server = createServer()
+  server.listen(0, '127.0.0.1')
+  await new Promise((resolve) => server.once('listening', resolve))
+
+  const originalFetch = globalThis.fetch
+  const originalApiKey = process.env.GEMINI_API_KEY
+  const batteryCandidate = {
+    supported: true, confidence: 0.8,
+    canonicalItemId: 'used-lithium-ion-battery', itemName: 'Used rechargeable lithium-ion battery',
+  }
+  const powerBankCandidate = {
+    supported: true, confidence: 0.8,
+    canonicalItemId: 'used-power-bank', itemName: 'Used power bank',
+  }
+  let mockedCandidate = batteryCandidate
+  let description = 'discarded rechargeable lithium-ion battery pack'
+  let prompt
+  process.env.GEMINI_API_KEY = 'test-key'
+  globalThis.fetch = async (input, init) => {
+    if (String(input).includes('generativelanguage.googleapis.com')) {
+      prompt = JSON.parse(init.body).contents[0].parts[0].text
+      return new Response(JSON.stringify({
+        candidates: [{ content: { parts: [{ text: JSON.stringify(mockedCandidate) }] } }],
+      }), { status: 200, headers: { 'content-type': 'application/json' } })
+    }
+    return originalFetch(input, init)
+  }
+
+  try {
+    const origin = `http://127.0.0.1:${server.address().port}`
+    const recognize = async () => {
+      const response = await fetch(`${origin}/api/recognize`, {
+        method: 'POST', headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ description }),
+      })
+      assert.equal(response.status, 200)
+      return response.json()
+    }
+
+    assert.deepEqual((await recognize()).candidate, {
+      canonicalItemId: batteryCandidate.canonicalItemId, itemName: batteryCandidate.itemName,
+    })
+    assert.match(prompt, /"used-lithium-ion-battery".*"Used rechargeable lithium-ion battery".*cell or battery pack/)
+    assert.match(prompt, /"used-power-bank".*"Used power bank".*as a whole item/)
+    assert.match(prompt, /not installed in a device.*batteries still installed in devices, whole devices including power banks, other battery chemistries, chargers, or uncertain items/)
+    assert.match(prompt, /never identify a whole power bank as a standalone battery/)
+    assert.match(prompt, /"used-household-battery".*"Used household battery".*AA or AAA/)
+
+    description = 'discarded portable power bank'
+    mockedCandidate = powerBankCandidate
+    assert.deepEqual((await recognize()).candidate, {
+      canonicalItemId: powerBankCandidate.canonicalItemId, itemName: powerBankCandidate.itemName,
+    })
+    mockedCandidate = { ...batteryCandidate, itemName: 'Used household battery' }
+    assert.equal((await recognize()).candidate, null)
+    mockedCandidate = { ...batteryCandidate, canonicalItemId: 'used-household-battery' }
+    assert.equal((await recognize()).candidate, null)
+    mockedCandidate = { ...batteryCandidate, itemName: 'Used power bank' }
+    assert.equal((await recognize()).candidate, null)
+    mockedCandidate = { ...powerBankCandidate, canonicalItemId: 'used-lithium-ion-battery' }
+    assert.equal((await recognize()).candidate, null)
+  } finally {
+    globalThis.fetch = originalFetch
+    if (originalApiKey === undefined) delete process.env.GEMINI_API_KEY
+    else process.env.GEMINI_API_KEY = originalApiKey
+    await new Promise((resolve, reject) => {
+      server.close((error) => error ? reject(error) : resolve())
+    })
+  }
+})
