@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import {mapEvidence} from './migrate-evidence.mjs'
+import {mapEvidence, samePassage} from './migrate-evidence.mjs'
 
 const source = {title: 'Decision 1', url: 'https://example.gov.vn/1', citation: 'Articles 2 and 3'}
 const requirement = {title: 'Official record', url: 'https://example.gov.vn/record', citation: 'Decision identity'}
@@ -13,6 +13,16 @@ const entry = {
   text: 'Exact quoted text',
   requires: [requirement],
 }
+
+test('recognizes an existing passage when Sanity reorders required-source object keys', () => {
+  const passage = {...entry, claimType: 'disposal'}
+  const existing = {
+    ...passage,
+    requires: [{citation: requirement.citation, title: requirement.title, url: requirement.url}],
+  }
+  assert.equal(samePassage(existing, passage), true)
+  assert.equal(samePassage({...existing, text: 'Changed quoted text'}, passage), false)
+})
 
 test('maps only rules satisfying exact primary and required source references', () => {
   const rules = [

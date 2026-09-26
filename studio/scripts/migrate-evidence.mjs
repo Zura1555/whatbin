@@ -62,9 +62,11 @@ export function mapEvidence(entries, rules) {
   return mapped
 }
 
-function samePassage(a, b) {
+export function samePassage(a, b) {
   return ['sourceTitle', 'sourceUrl', 'sourceCitation', 'sourceVersion', 'citation', 'text', 'claimType'].every((key) => a?.[key] === b[key]) &&
-    JSON.stringify(a?.requires) === JSON.stringify(b.requires)
+    Array.isArray(a?.requires) && Array.isArray(b?.requires) &&
+    a.requires.length === b.requires.length &&
+    a.requires.every((required, index) => sameSource(required, b.requires[index]))
 }
 
 async function request(path, options = {}) {
