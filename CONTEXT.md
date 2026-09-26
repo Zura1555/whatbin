@@ -18,7 +18,16 @@ _Avoid_: raw model label
 A reviewed instruction for a canonical item within a jurisdiction and effective period.
 
 **Evidence passage**:
-An excerpt from an official source that supports a disposal rule; it is not itself a disposal instruction.
+An exact excerpt from a current official source linked to the rule by source title, URL, citation, and version; it supports the rule but is not itself an instruction.
+
+**Binding rule source**:
+A current, in-force legal instrument that establishes the disposal decision for an item and jurisdiction.
+
+**Agency clarification**:
+Current official operational guidance that adds handling or collection detail but cannot establish or contradict the disposal rule.
+
+**Research evidence gap**:
+A source-research attempt failed to confirm a current, non-conflicting basis for a draft; it does not prove that no disposal route exists.
 
 **Clarification**:
 A bounded answer about a missing fact that could change which disposal rule applies.

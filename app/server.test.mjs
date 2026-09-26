@@ -16,6 +16,8 @@ test('selectActiveRule applies exclusive effective dates and fails closed', () =
 
   assert.throws(() => selectActiveRule([{ validFrom: '2026-02-30', validUntil: null }], '2026-09-10'),
     /invalid effective dates/)
+  assert.throws(() => selectActiveRule([{ validFrom: '2026-09-20', validUntil: '2026-09-19' }], '2026-09-10'),
+    /invalid effective dates/)
 })
 
 test('supporting passages require the exact cited source and version', () => {
@@ -29,11 +31,13 @@ test('supporting passages require the exact cited source and version', () => {
     sourceVersion: 'Decision 36, retained after Decision 2736',
     citation: 'Article 5(2)',
     text: 'Exact source text.',
+    claimType: 'disposal',
   }
 
   assert.deepEqual(matchSupportingPassages([source, version], [passage]), [{
-    sourceTitle: source.title, sourceUrl: source.url, sourceVersion: passage.sourceVersion,
-    citation: passage.citation, text: passage.text,
+    sourceTitle: source.title, sourceUrl: source.url, sourceCitation: source.citation,
+    sourceVersion: passage.sourceVersion, citation: passage.citation, text: passage.text,
+    requires: [version], claimType: 'disposal',
   }])
   assert.deepEqual(matchSupportingPassages([{ ...source, citation: 'Article 5(2)' }, version], [passage]), [])
   assert.deepEqual(matchSupportingPassages([source], [passage]), [])
@@ -135,5 +139,168 @@ test('recognize accepts only exact lithium-ion battery and power-bank candidate 
     await new Promise((resolve, reject) => {
       server.close((error) => error ? reject(error) : resolve())
     })
+  }
+})
+test('research-source enforces Studio origin and bearer authorization', async () => {
+  const server = createServer()
+  server.listen(0, '127.0.0.1')
+  await new Promise((resolve) => server.once('listening', resolve))
+  const originalFetch = globalThis.fetch
+  const originalOrigins = process.env.SANITY_STUDIO_ORIGINS
+  const originalApiKey = process.env.GEMINI_API_KEY
+  process.env.SANITY_STUDIO_ORIGINS = 'https://studio.example, http://localhost:3333'
+  process.env.GEMINI_API_KEY = 'isolated-test-key'
+  let accesses = 0
+  globalThis.fetch = async (input, init) => {
+    if (String(input).startsWith('http://127.0.0.1:')) return originalFetch(input, init)
+    if (String(input).includes('/access/project/')) { accesses++; return new Response('{}', { status: 200 }) }
+    return new Response(JSON.stringify({ result: [] }), { status: 200 })
+  }
+  try {
+    const origin = `http://127.0.0.1:${server.address().port}`
+    const options = await fetch(`${origin}/api/research-source`, {
+      method: 'OPTIONS', headers: { origin: 'https://studio.example', 'access-control-request-method': 'POST' },
+    })
+    assert.equal(options.status, 204)
+    assert.equal(options.headers.get('access-control-allow-origin'), 'https://studio.example')
+    assert.equal(options.headers.get('access-control-allow-methods'), 'POST, OPTIONS')
+    assert.equal(accesses, 0)
+
+    const deniedOrigin = await fetch(`${origin}/api/research-source`, {
+      method: 'POST', headers: { origin: 'https://evil.example', authorization: 'Bearer hidden' },
+      body: JSON.stringify({ canonicalItemId: 'old-mattress', jurisdiction: 'hanoi' }),
+    })
+    assert.equal(deniedOrigin.status, 403)
+    const noToken = await fetch(`${origin}/api/research-source`, {
+      method: 'POST', headers: { origin: 'https://studio.example' },
+      body: JSON.stringify({ canonicalItemId: 'old-mattress', jurisdiction: 'hanoi' }),
+    })
+    assert.equal(noToken.status, 401)
+    assert.equal(accesses, 0)
+  } finally {
+    globalThis.fetch = originalFetch
+    if (originalOrigins === undefined) delete process.env.SANITY_STUDIO_ORIGINS
+    else process.env.SANITY_STUDIO_ORIGINS = originalOrigins
+    if (originalApiKey === undefined) delete process.env.GEMINI_API_KEY
+    else process.env.GEMINI_API_KEY = originalApiKey
+    await new Promise((resolve, reject) => server.close((error) => error ? reject(error) : resolve()))
+  }
+})
+
+test('research-source skips covered rules and returns only non-overlapping previews', async () => {
+  const server = createServer()
+  server.listen(0, '127.0.0.1')
+  await new Promise((resolve) => server.once('listening', resolve))
+  const originalFetch = globalThis.fetch
+  const originalOrigins = process.env.SANITY_STUDIO_ORIGINS
+  const originalApiKey = process.env.GEMINI_API_KEY
+  process.env.SANITY_STUDIO_ORIGINS = 'https://studio.example'
+  process.env.GEMINI_API_KEY = 'isolated-test-key'
+  let rules = []
+  let providerCalls = 0
+  const refs = [
+    { title: 'Decision A', url: 'https://vbpl.vn/decision-a', citation: 'Article 1', sourceRole: 'binding-rule' },
+    { title: 'Decision B', url: 'https://vbpl.vn/decision-b', citation: 'Article 2', sourceRole: 'currentness-record' },
+  ]
+  const candidate = {
+    status: 'PREVIEW', canonicalItemId: 'old-mattress', itemName: 'Old mattress', jurisdiction: 'hanoi',
+    disposalCategory: 'collection', instruction: 'Use municipal collection.', validFrom: '2000-01-01', validUntil: null,
+    sourceReferences: refs,
+    supportingPassages: refs.map((ref, index) => ({
+      sourceTitle: ref.title, sourceUrl: ref.url, sourceCitation: ref.citation, sourceVersion: 'Current version',
+      citation: 'Article 1', text: `Passage ${index}`,
+      requires: [{title: refs[1 - index].title, url: refs[1 - index].url, citation: refs[1 - index].citation}],
+      claimType: index ? 'currentness' : 'disposal',
+    })),
+  }
+  globalThis.fetch = async (input, init) => {
+    const url = String(input)
+    if (url.startsWith('http://127.0.0.1:')) return originalFetch(input, init)
+    if (url.includes('/access/project/')) return new Response('{}', { status: 200 })
+    if (url.includes('/data/query/')) return new Response(JSON.stringify({ result: rules }), { status: 200 })
+    providerCalls++
+    const text = JSON.stringify(candidate)
+    return new Response(JSON.stringify({ steps: [{
+      type: 'model_output', content: [{ type: 'text', text, annotations: refs.map((ref) => ({
+        type: 'url_citation', url: ref.url, start_index: 0, end_index: text.length,
+      })) }],
+    }] }), { status: 200 })
+  }
+  try {
+    const origin = `http://127.0.0.1:${server.address().port}`
+    const research = async () => {
+      const response = await fetch(`${origin}/api/research-source`, {
+        method: 'POST',
+        headers: { origin: 'https://studio.example', authorization: 'Bearer isolated-token', 'content-type': 'application/json' },
+        body: JSON.stringify({ canonicalItemId: 'old-mattress', jurisdiction: 'hanoi' }),
+      })
+      return { status: response.status, body: await response.json() }
+    }
+    rules = [{ validFrom: '2020-01-01', validUntil: null }]
+    assert.equal((await research()).body.status, 'GAP')
+    assert.equal(providerCalls, 0)
+
+    rules = [{ validFrom: '1980-01-01', validUntil: '1990-01-01' }]
+    const preview = await research()
+    assert.equal(preview.status, 200)
+    assert.equal(preview.body.status, 'PREVIEW')
+    const { status: previewStatus, ...expectedCandidate } = candidate
+    assert.equal(previewStatus, 'PREVIEW')
+    assert.deepEqual(preview.body.candidate, expectedCandidate)
+
+    rules = [{ validFrom: '1999-01-01', validUntil: '2001-01-01' }]
+    assert.equal((await research()).body.status, 'GAP')
+    assert.equal(providerCalls, 2)
+  } finally {
+    globalThis.fetch = originalFetch
+    if (originalOrigins === undefined) delete process.env.SANITY_STUDIO_ORIGINS
+    else process.env.SANITY_STUDIO_ORIGINS = originalOrigins
+    if (originalApiKey === undefined) delete process.env.GEMINI_API_KEY
+    else process.env.GEMINI_API_KEY = originalApiKey
+    await new Promise((resolve, reject) => server.close((error) => error ? reject(error) : resolve()))
+  }
+})
+test('resolve selects published Sanity passages through the exact source/version gate', async () => {
+  const server = createServer()
+  server.listen(0, '127.0.0.1')
+  await new Promise((resolve) => server.once('listening', resolve))
+  const originalFetch = globalThis.fetch
+  const source = { title: 'Decision 36/2024', url: 'https://official.example/decision-36', citation: 'Article 5(2)' }
+  const version = { title: 'Decision 2736', url: 'https://official.example/decision-2736', citation: 'Article 1' }
+  const passage = {
+    sourceTitle: source.title, sourceUrl: source.url, sourceCitation: source.citation,
+    sourceVersion: 'Decision 36 retained after Decision 2736', citation: 'Article 5(2)',
+    text: 'Dispose through collection.', requires: [version], claimType: 'disposal',
+  }
+  let query
+  globalThis.fetch = async (input, init) => {
+    const url = String(input)
+    if (url.startsWith('http://127.0.0.1:')) return originalFetch(input, init)
+    query = url
+    return new Response(JSON.stringify({ result: [{
+      canonicalItemId: 'old-mattress', itemName: 'Old mattress', disposalCategory: 'collection',
+      instruction: 'Use collection.', validFrom: '2020-01-01', validUntil: null,
+      sourceReferences: [source, version], supportingPassages: [passage, {...passage, claimType: 'unknown'}],
+    }] }), { status: 200 })
+  }
+  try {
+    const origin = `http://127.0.0.1:${server.address().port}`
+    const response = await fetch(`${origin}/api/resolve`, {
+      method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ canonicalItemId: 'old-mattress', jurisdiction: 'hanoi', confirmed: true }),
+    })
+    assert.equal(response.status, 200)
+    const result = await response.json()
+    assert.equal(result.status, 'MATCHED')
+    assert.deepEqual(result.supportingPassages, [{
+      sourceTitle: passage.sourceTitle, sourceUrl: passage.sourceUrl, sourceCitation: passage.sourceCitation,
+      sourceVersion: passage.sourceVersion, citation: passage.citation, text: passage.text,
+      requires: [version], claimType: 'disposal',
+    }])
+    assert.match(query, /^https:\/\/xqeddep2\.api\.sanity\.io\/v2025-02-19\/data\/query\/production\?/)
+    assert.match(decodeURIComponent(query), /supportingPassages/)
+  } finally {
+    globalThis.fetch = originalFetch
+    await new Promise((resolve, reject) => server.close((error) => error ? reject(error) : resolve()))
   }
 })

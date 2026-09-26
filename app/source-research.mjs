@@ -1,0 +1,111 @@
+const INTERACTIONS_URL = 'https://generativelanguage.googleapis.com/v1beta/interactions'
+const ITEMS = new Map([
+  ['old-mattress', 'Old mattress'],
+  ['used-household-battery', 'Used household battery'],
+  ['used-lithium-ion-battery', 'Used rechargeable lithium-ion battery'],
+  ['used-power-bank', 'Used power bank'],
+  ['used-fluorescent-lamp', 'Used fluorescent lamp'],
+  ['used-mercury-thermometer', 'Used mercury thermometer'],
+])
+const ROLES = new Set(['binding-rule', 'agency-clarification', 'currentness-record'])
+const CLAIM_TYPE_BY_ROLE = new Map([
+  ['binding-rule', 'disposal'],
+  ['currentness-record', 'currentness'],
+  ['agency-clarification', 'agency-logistics'],
+])
+const LEGAL_HOSTS = new Set(['vbpl.vn', 'vanban.chinhphu.vn', 'congbao.chinhphu.vn'])
+
+function text(value, max = 5000) {
+  return typeof value === 'string' && value.trim().length > 0 && value.trim().length <= max
+}
+
+function officialUrl(value) {
+  try {
+    const url = new URL(value)
+    const host = url.hostname.toLowerCase()
+    return url.protocol === 'https:' && (host === 'gov.vn' || host.endsWith('.gov.vn') || LEGAL_HOSTS.has(host))
+  } catch { return false }
+}
+
+function validDate(value) {
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false
+  const date = new Date(`${value}T00:00:00Z`)
+  return Number.isFinite(date.getTime()) && date.toISOString().slice(0, 10) === value
+}
+
+function gap(reason) {
+  return { status: 'GAP', reason }
+}
+
+function matchingCandidate(value, groundedUrls, expected) {
+  if (!value || value.status !== 'PREVIEW' || value.canonicalItemId !== expected.canonicalItemId ||
+    value.itemName !== ITEMS.get(expected.canonicalItemId) || value.jurisdiction !== expected.jurisdiction ||
+    !text(value.disposalCategory, 500) || !text(value.instruction) || !validDate(value.validFrom) ||
+    !(value.validUntil === null || value.validUntil === undefined || validDate(value.validUntil)) ||
+    (value.validUntil && value.validUntil <= value.validFrom) || !Array.isArray(value.sourceReferences) ||
+    !Array.isArray(value.supportingPassages)) return null
+
+  const refs = value.sourceReferences
+  if (refs.some((ref) => !ROLES.has(ref?.sourceRole) || !text(ref.title, 500) || !text(ref.citation, 500) ||
+    !officialUrl(ref.url) || !groundedUrls.has(ref.url))) return null
+  if (!refs.some((ref) => ref.sourceRole === 'binding-rule') || !refs.some((ref) => ref.sourceRole === 'currentness-record') ||
+    !value.supportingPassages.length) return null
+  const sameReference = (ref, source) => ref.title === source.title && ref.url === source.url && ref.citation === source.citation
+  const passages = value.supportingPassages
+  if (passages.some((passage) => !text(passage.sourceTitle, 500) || !officialUrl(passage.sourceUrl) ||
+    !groundedUrls.has(passage.sourceUrl) || !text(passage.sourceCitation, 500) || !text(passage.sourceVersion, 500) ||
+    !text(passage.citation, 500) || !text(passage.text) || CLAIM_TYPE_BY_ROLE.get(refs.find((ref) =>
+      sameReference(ref, { title: passage.sourceTitle, url: passage.sourceUrl, citation: passage.sourceCitation,
+      }))?.sourceRole) !== passage.claimType ||
+    !Array.isArray(passage.requires) || passage.requires.length === 0 || passage.requires.some((required) =>
+      !refs.some((ref) => sameReference(ref, required))))) return null
+  if (refs.some((ref) => !passages.some((passage) => passage.sourceTitle === ref.title &&
+    passage.sourceUrl === ref.url && passage.sourceCitation === ref.citation))) return null
+  if (!passages.some((passage) => refs.some((ref) => ref.sourceRole === 'binding-rule' && sameReference(ref, {
+    title: passage.sourceTitle, url: passage.sourceUrl, citation: passage.sourceCitation,
+  })) && passage.claimType === 'disposal')) return null
+  if (!passages.some((passage) => refs.some((ref) => ref.sourceRole === 'currentness-record' && sameReference(ref, {
+    title: passage.sourceTitle, url: passage.sourceUrl, citation: passage.sourceCitation,
+  })) && passage.claimType === 'currentness')) return null
+  return {
+    status: 'PREVIEW', canonicalItemId: value.canonicalItemId, itemName: value.itemName,
+    jurisdiction: value.jurisdiction, disposalCategory: value.disposalCategory, instruction: value.instruction,
+    validFrom: value.validFrom, validUntil: value.validUntil ?? null,
+    sourceReferences: refs.map(({ title, url, citation, sourceRole }) => ({ title, url, citation, sourceRole })),
+    supportingPassages: passages.map(({ sourceTitle, sourceUrl, sourceCitation, sourceVersion, citation, text: passageText, requires, claimType }) => ({
+      sourceTitle, sourceUrl, sourceCitation, sourceVersion, citation, text: passageText,
+      requires: requires.map(({ title, url, citation }) => ({ title, url, citation })), claimType,
+    })),
+  }
+}
+
+function outputBlocks(envelope) {
+  return (envelope?.steps ?? []).filter((step) => step.type === 'model_output')
+    .flatMap((step) => step.content ?? []).filter((block) => block.type === 'text')
+}
+
+export async function researchSource(input, { fetchImpl = fetch } = {}) {
+  const key = process.env.GEMINI_API_KEY
+  if (!key) throw Object.assign(new Error('Source research is unavailable: GEMINI_API_KEY is not configured.'), { status: 503 })
+  const prompt = `Research a disposal rule for canonical item ${input.canonicalItemId} (${ITEMS.get(input.canonicalItemId)}) in ${input.jurisdiction}. Cite current official Vietnamese legal/government sources only. Verify that the binding instrument is currently in force, including amendments and repeals, and cite official currentness evidence. If status is unclear or sources conflict, return status GAP with a brief reason. Never infer. Return one JSON object: status; for PREVIEW include canonicalItemId, itemName, jurisdiction, disposalCategory, instruction, validFrom, validUntil, sourceReferences and supportingPassages. Each source reference requires exact title/url/citation and role binding-rule, agency-clarification, or currentness-record. Each passage requires exact sourceTitle/sourceUrl/sourceCitation/sourceVersion/citation/text/requires/claimType. claimType is disposal, currentness, or agency-logistics. Every factual claim and each passage must have a claim-level URL citation annotation in your response. Include only official current Vietnam sources (government or legal domains).`
+  const response = await fetchImpl(INTERACTIONS_URL, {
+    method: 'POST', headers: { 'content-type': 'application/json', 'x-goog-api-key': key }, signal: AbortSignal.timeout(30000),
+    body: JSON.stringify({ model: 'gemini-3.8-flash', input: prompt, tools: [{ type: 'google_search' }, { type: 'url_context' }] }),
+  })
+  if (!response.ok) throw Object.assign(new Error('Source research provider request failed.'), { status: 502 })
+  let envelope
+  try { envelope = await response.json() } catch { throw Object.assign(new Error('Source research provider returned invalid data.'), { status: 502 }) }
+  const blocks = outputBlocks(envelope)
+  const raw = blocks.map((block) => block.text ?? '').join('\n')
+  let candidate
+  try { candidate = JSON.parse(raw) } catch { return gap('The sources could not be verified.') }
+  if (candidate?.status === 'GAP') return gap(text(candidate.reason, 1000) ? candidate.reason.trim() : 'The sources could not be verified.')
+  const citations = blocks.flatMap((block) => (block.annotations ?? []).filter((annotation) => annotation.type === 'url_citation' &&
+    typeof annotation.url === 'string' && Number.isInteger(annotation.start_index) && Number.isInteger(annotation.end_index) &&
+    annotation.start_index >= 0 && annotation.end_index > annotation.start_index).map((annotation) => ({
+      url: annotation.url, attributedText: block.text.slice(annotation.start_index, annotation.end_index),
+    })))
+  const groundedUrls = new Set(citations.filter((citation) => officialUrl(citation.url) && text(citation.attributedText)).map(({ url }) => url))
+  const validated = matchingCandidate(candidate, groundedUrls, input)
+  return validated ?? gap('Official currentness or claim-linked source evidence could not be verified.')
+}

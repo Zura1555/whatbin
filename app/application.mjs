@@ -2,19 +2,21 @@ import { createServer as createHttpServer } from 'node:http'
 import { readFile, stat } from 'node:fs/promises'
 import { extname, resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { researchSource } from './source-research.mjs'
 
 const ROOT = resolve(fileURLToPath(new URL('./public/', import.meta.url)))
 const MAX_BODY = 9 * 1024 * 1024
-const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent'
 const SANITY_URL = 'https://xqeddep2.api.sanity.io/v2025-02-19/data/query/production'
-const KNOWLEDGE_BASE_PATH = resolve(fileURLToPath(new URL('./knowledge-base.json', import.meta.url)))
-const knowledgeBase = readFile(KNOWLEDGE_BASE_PATH, 'utf8')
-  .then((contents) => {
-    let entries
-    try { entries = JSON.parse(contents) } catch { return [] }
-    return Array.isArray(entries) ? entries : []
-  })
-  .catch(() => [])
+const SANITY_ACCESS_URL = 'https://api.sanity.io/v2025-07-11/access/project/xqeddep2/user-permissions/me'
+const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent'
+const ITEM_NAMES = new Map([
+  ['old-mattress', 'Old mattress'],
+  ['used-household-battery', 'Used household battery'],
+  ['used-lithium-ion-battery', 'Used rechargeable lithium-ion battery'],
+  ['used-power-bank', 'Used power bank'],
+  ['used-fluorescent-lamp', 'Used fluorescent lamp'],
+  ['used-mercury-thermometer', 'Used mercury thermometer'],
+])
 const JURISDICTIONS = {
   hanoi: 'Asia/Ho_Chi_Minh',
   'ho-chi-minh-city': 'Asia/Ho_Chi_Minh',
@@ -120,7 +122,8 @@ function validDate(value) {
 export function selectActiveRule(rules, date) {
   const active = rules.filter((rule) => {
     if (!rule || !validDate(rule.validFrom) ||
-      (rule.validUntil !== null && rule.validUntil !== undefined && !validDate(rule.validUntil))) {
+      (rule.validUntil !== null && rule.validUntil !== undefined &&
+        (!validDate(rule.validUntil) || rule.validUntil <= rule.validFrom))) {
       throw new TypeError('Published rule has invalid effective dates.')
     }
     return rule.validFrom <= date && (!rule.validUntil || date < rule.validUntil)
@@ -140,18 +143,18 @@ export function matchSupportingPassages(sourceReferences, entries) {
     validText(entry?.sourceTitle, 500) && isHttpUrl(entry.sourceUrl) &&
     validText(entry?.sourceCitation, 500) && validText(entry?.sourceVersion, 500) &&
     validText(entry?.citation, 500) && validText(entry?.text, 5000) &&
+    ['disposal', 'currentness', 'agency-logistics'].includes(entry.claimType) &&
     sourceReferences.some((reference) => sameSource(reference, {
       title: entry.sourceTitle, url: entry.sourceUrl, citation: entry.sourceCitation,
     })) &&
     Array.isArray(entry.requires) && entry.requires.length > 0 &&
     entry.requires.every((required) => sourceReferences.some((reference) => sameSource(reference, required))),
-  ).map(({ sourceTitle, sourceUrl, sourceVersion, citation, text }) =>
-    ({ sourceTitle, sourceUrl, sourceVersion, citation, text }))
+  ).map(({ sourceTitle, sourceUrl, sourceCitation, sourceVersion, citation, text, requires, claimType }) =>
+    ({ sourceTitle, sourceUrl, sourceCitation, sourceVersion, citation, text, requires, claimType }))
 }
 
-
-async function resolveRule(input) {
-  const query = '*[_type == "disposalRule" && !(_id in path("drafts.**")) && jurisdiction == $jurisdiction && canonicalItemId == $canonicalItemId]{canonicalItemId,itemName,disposalCategory,instruction,validFrom,validUntil,sourceReferences}'
+async function publishedRules(input) {
+  const query = '*[_type == "disposalRule" && !(_id in path("drafts.**")) && jurisdiction == $jurisdiction && canonicalItemId == $canonicalItemId]{canonicalItemId,itemName,disposalCategory,instruction,validFrom,validUntil,sourceReferences,supportingPassages}'
   const params = new URLSearchParams({
     query,
     perspective: 'published',
@@ -163,10 +166,15 @@ async function resolveRule(input) {
   let payload
   try { payload = await response.json() } catch { throw Object.assign(new Error('Rule service returned invalid data.'), { status: 502 }) }
   if (!Array.isArray(payload?.result)) throw Object.assign(new Error('Rule service returned invalid data.'), { status: 502 })
+  return payload.result
+}
+
+async function resolveRule(input) {
+  const rules = await publishedRules(input)
   const today = localDate(JURISDICTIONS[input.jurisdiction])
   let selection
   try {
-    selection = selectActiveRule(payload.result, today)
+    selection = selectActiveRule(rules, today)
   } catch {
     throw Object.assign(new Error('Published rule has invalid effective dates.'), { status: 502 })
   }
@@ -179,8 +187,57 @@ async function resolveRule(input) {
   }
   return { status: 'MATCHED', itemName: rule.itemName, category: rule.disposalCategory, instruction: rule.instruction,
     validFrom: rule.validFrom, validUntil: rule.validUntil ?? null, sourceReferences: rule.sourceReferences,
-    supportingPassages: matchSupportingPassages(rule.sourceReferences, await knowledgeBase) }
+    supportingPassages: matchSupportingPassages(rule.sourceReferences, rule.supportingPassages) }
 }
+
+function allowedStudioOrigins() {
+  const configured = process.env.SANITY_STUDIO_ORIGINS
+  if (configured !== undefined) return new Set(configured.split(',').map((origin) => origin.trim()).filter(Boolean))
+  return new Set(process.env.NODE_ENV === 'production' ? [] : ['http://localhost:3333'])
+}
+
+function researchCors(req, res) {
+  const origin = req.headers.origin
+  if (typeof origin !== 'string' || !allowedStudioOrigins().has(origin)) return false
+  res.setHeader('access-control-allow-origin', origin)
+  res.setHeader('access-control-allow-methods', 'POST, OPTIONS')
+  res.setHeader('access-control-allow-headers', 'Authorization, Content-Type')
+  res.setHeader('vary', 'Origin')
+  return true
+}
+
+async function authorizeStudio(req) {
+  const match = /^Bearer ([^\s]+)$/.exec(req.headers.authorization ?? '')
+  if (!match) return false
+  const response = await fetch(SANITY_ACCESS_URL, {
+    headers: { authorization: `Bearer ${match[1]}`, accept: 'application/json' },
+    signal: AbortSignal.timeout(10000),
+  })
+  return response.ok
+}
+
+function overlapsPublished(candidate, rules) {
+  return rules.some((rule) =>
+    (!rule.validUntil || candidate.validFrom < rule.validUntil) &&
+    (!candidate.validUntil || rule.validFrom < candidate.validUntil))
+}
+
+async function researchRule(input) {
+  const rules = await publishedRules(input)
+  const today = localDate(JURISDICTIONS[input.jurisdiction])
+  let selection
+  try { selection = selectActiveRule(rules, today) } catch {
+    throw Object.assign(new Error('Published rule has invalid effective dates.'), { status: 502 })
+  }
+  if (selection.status === 'MATCHED' || selection.status === 'CONFLICT') return { status: 'GAP', reason: 'A published rule already covers the current date.' }
+  const result = await researchSource(input)
+  if (result?.status !== 'PREVIEW') return result?.status === 'GAP' ? result : { status: 'GAP', reason: 'The sources could not be verified.' }
+  if (overlapsPublished(result, rules)) return { status: 'GAP', reason: 'The proposed effective period overlaps a published rule.' }
+  const { status, ...candidate } = result
+  return { status: 'PREVIEW', candidate }
+}
+
+
 
 async function serveStatic(req, res, pathname) {
   let decoded
@@ -203,6 +260,18 @@ export function createServer() {
   return createHttpServer(async (req, res) => {
     const url = new URL(req.url, 'http://localhost')
     try {
+      if (url.pathname === '/api/research-source') {
+        if (!researchCors(req, res)) { send(res, 403, { error: 'Origin is not allowed.' }); return }
+        if (req.method === 'OPTIONS') { res.writeHead(204); res.end(); return }
+        if (req.method !== 'POST') { send(res, 405, { error: 'Method not allowed.' }); return }
+        if (!await authorizeStudio(req)) { send(res, 401, { error: 'Studio authorization is required.' }); return }
+        const input = await bodyJson(req)
+        if (!ITEM_NAMES.has(input.canonicalItemId) || !Object.hasOwn(JURISDICTIONS, input.jurisdiction) ||
+          Object.keys(input).some((key) => !['canonicalItemId', 'jurisdiction'].includes(key))) {
+          send(res, 400, { error: 'A valid canonical item ID and jurisdiction are required.' }); return
+        }
+        send(res, 200, await researchRule(input)); return
+      }
       if (url.pathname === '/api/recognize') {
         if (req.method !== 'POST') { send(res, 405, { error: 'Method not allowed.' }); return }
         const input = await bodyJson(req)

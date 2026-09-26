@@ -10,7 +10,7 @@ For discarded household mercury thermometers, Hanoi requires safe, corrosion- an
 
 ## How guidance works
 
-Sanity's published, structured rules are the authority for disposal instructions and effective dates. The curated excerpts in `app/knowledge-base.json` are supporting evidence only; the app displays an excerpt only when its source and version match the rule. If no active rule applies, or applicable rules conflict, the app withholds actionable guidance.
+Sanity's published structured rules are the sole authority for disposal instructions. Runtime resolution reads exact, source-versioned evidence passages attached to those rules and displays a passage only when its exact source references match. Migrate the existing curated passages before deploying the new resolver; instructions are withheld when no active rule applies or applicable rules conflict.
 
 Item recognition uses Gemini. Recognition proposes an item for the user to confirm; it does not choose a disposal rule. Photos are sent to Gemini for recognition and are not retained by the app. Keep `GEMINI_API_KEY` server-side.
 
@@ -22,12 +22,12 @@ Requirements: Node.js.
 node app/server.mjs
 ```
 
-Open `http://localhost:3000`. Set `PORT` to change the port. Set `GEMINI_API_KEY` in the server environment to enable item recognition. Rule lookup uses the public Sanity production dataset.
+Set `GEMINI_API_KEY` in the server environment for recognition and source research. Configure `SANITY_STUDIO_ORIGINS` with exact allowed Studio origins before enabling source research. Rule lookup uses the public Sanity production dataset.
 
 Run the server tests from the repository root:
 
 ```sh
-node --test app/server.test.mjs
+node --test app/server.test.mjs app/source-research.test.mjs studio/scripts/migrate-evidence.test.mjs
 ```
 
 Run the Sanity Studio from its directory:
@@ -40,14 +40,14 @@ npm run dev
 
 ## Deploy with Vercel
 
-Import the GitHub repository into Vercel, set the project root directory to `app/`, and configure `GEMINI_API_KEY` in the project's environment variables. Vercel builds deployments from GitHub pushes; pushes to the configured production branch publish production deployments. `app/vercel.json` includes the evidence file and static assets needed by the server.
+Import the GitHub repository into Vercel, set the project root directory to `app/`, and configure `GEMINI_API_KEY` and `SANITY_STUDIO_ORIGINS`. Build the Studio with `SANITY_STUDIO_RESEARCH_API_URL` pointing to the deployed app's `/api/research-source`. Migrate existing evidence passages before deploying the new resolver; see [`studio/README.md`](studio/README.md). Vercel builds deployments from GitHub pushes; pushes to the configured production branch publish production deployments. `app/vercel.json` includes the static assets required by the server.
 
 See [`app/README.md`](app/README.md) for server and API details and [`studio/README.md`](studio/README.md) for the content studio.
 
 ## Repository map
 
-- `app/` — Node.js HTTP server, browser app, tests, and curated supporting evidence.
-- `studio/` — Sanity Studio for managing disposal rules.
+- `app/` — Node.js HTTP server, browser app, tests, and the legacy evidence migration input.
+- `studio/` — Sanity Studio for managing disposal rules and human-reviewed research drafts.
 - `docs/adr/` — architecture decisions.
 - `CONTEXT.md` — project terminology and domain definitions.
 - `WHATBIN-PHASE-1.md` — initial product scope and reviewed seed-rule notes.
