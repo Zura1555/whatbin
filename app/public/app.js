@@ -173,6 +173,68 @@ function addText(parent, tag, text, className) {
   return node;
 }
 
+function appendMarkdownInline(parent, text) {
+  const pattern = /(\*\*[^*]+\*\*|\*[^*]+\*)/g;
+  let position = 0;
+  for (const match of text.matchAll(pattern)) {
+    parent.append(document.createTextNode(text.slice(position, match.index)));
+    const strong = match[0].startsWith('**');
+    const node = document.createElement(strong ? 'strong' : 'em');
+    node.textContent = match[0].slice(strong ? 2 : 1, strong ? -2 : -1);
+    parent.append(node);
+    position = match.index + match[0].length;
+  }
+  parent.append(document.createTextNode(text.slice(position)));
+}
+
+function renderMarkdown(container, markdown) {
+  container.replaceChildren();
+  let paragraph = [];
+  let list = null;
+  const flushParagraph = () => {
+    if (!paragraph.length) return;
+    const node = document.createElement('p');
+    appendMarkdownInline(node, paragraph.join(' '));
+    container.append(node);
+    paragraph = [];
+  };
+
+  for (const line of markdown.split(/\r?\n/)) {
+    if (!line.trim()) {
+      flushParagraph();
+      list = null;
+      continue;
+    }
+    const heading = line.match(/^\s{0,3}#{1,6}\s+(.+)$/);
+    if (heading) {
+      flushParagraph();
+      list = null;
+      const node = document.createElement('h4');
+      appendMarkdownInline(node, heading[1]);
+      container.append(node);
+      continue;
+    }
+    const item = line.match(/^\s{0,3}(?:(\d+)[.)]\s+|[-*+]\s+)(.+)$/);
+    if (item) {
+      flushParagraph();
+      const tag = item[1] ? 'ol' : 'ul';
+      if (!list || list.tagName.toLowerCase() !== tag) {
+        list = document.createElement(tag);
+        if (item[1]) list.start = Number(item[1]);
+        container.append(list);
+      }
+      const node = document.createElement('li');
+      appendMarkdownInline(node, item[2]);
+      list.append(node);
+      continue;
+    }
+    list = null;
+    paragraph.push(line.trim());
+  }
+  flushParagraph();
+}
+
+
 function safeUrl(value) {
   if (typeof value !== 'string') return null;
   try {
@@ -354,13 +416,12 @@ function renderExplainer(city, canonicalItemId) {
     addText(thread, 'p', text, 'explainer-user');
     const reply = document.createElement('div');
     reply.className = 'explainer-reply';
-    const answerContent = addText(reply, 'p', '', 'explainer-answer');
     thread.append(reply);
     try {
         const answer = await postTextStream('/api/explain', {
           canonicalItemId, jurisdiction: city, question: text, history, confirmed: true
         }, (value) => {
-          answerContent.textContent = value;
+          renderMarkdown(reply, value);
           feedback.hidden = true;
         });
         if (version !== explanationVersion || resultVersion !== requestVersion) return;

@@ -94,10 +94,10 @@ a:hover { color: #143b28; }
 .explainer-thread { display: grid; gap: 12px; margin: 16px 0; }
 .explainer-user, .explainer-reply { margin: 0; padding: 13px 15px; border-radius: 9px; line-height: 1.55; white-space: pre-wrap; }
 .explainer-user { justify-self: end; max-width: 90%; color: var(--green-dark); background: #eef6ef; }
-.explainer-reply { background: #f6f7f4; }
-.explainer-reply h4 { margin: 12px 0 5px; font-size: 12px; }
+.explainer-reply { display: grid; gap: 8px; background: #f6f7f4; white-space: normal; }
+.explainer-reply h4 { margin: 0; font-size: 12px; }
 .explainer-reply p { margin: 0; }
-.explainer-reply ul { display: grid; gap: 6px; margin: 0; padding-left: 19px; font-size: 13px; }
+.explainer-reply ul, .explainer-reply ol { display: grid; gap: 6px; margin: 0; padding-left: 19px; font-size: 13px; }
 .explainer-form { display: grid; gap: 9px; }
 .explainer-form label { font-size: 13px; font-weight: 700; }
 .explainer-form textarea { width: 100%; min-height: 86px; resize: vertical; padding: 11px; border: 1px solid #cbd8ce; border-radius: 8px; color: var(--ink); font: inherit; line-height: 1.5; }
