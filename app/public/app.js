@@ -2,6 +2,9 @@ const form = document.querySelector('#recognize-form');
 const citySelect = document.querySelector('#jurisdiction');
 const descriptionInput = document.querySelector('#description');
 const imageInput = document.querySelector('#image');
+const cameraInput = document.querySelector('#camera-image');
+const takePhotoButton = document.querySelector('#take-photo-button');
+const choosePhotoButton = document.querySelector('#choose-photo-button');
 const imagePreview = document.querySelector('#image-preview');
 const imagePreviewImage = document.querySelector('#image-preview-image');
 const imagePreviewName = document.querySelector('#image-preview-name');
@@ -25,6 +28,7 @@ let explanationHistory = [];
 let manualItems = [];
 let explanationVersion = 0;
 let imagePreviewUrl = null;
+let selectedImage = null;
 
 function clearResults() {
   candidate = null;
@@ -119,21 +123,32 @@ function clearImagePreview() {
   imagePreview.hidden = true;
 }
 
-imageInput.addEventListener('change', () => {
-  const file = imageInput.files?.[0];
+function showImagePreview(file) {
   clearImagePreview();
-  if (!file) return;
+  selectedImage = file;
   imagePreviewUrl = URL.createObjectURL(file);
   imagePreviewImage.src = imagePreviewUrl;
   imagePreviewImage.alt = `Preview of selected photo: ${file.name}`;
   imagePreviewName.textContent = file.name;
   imagePreview.hidden = false;
-});
+}
+
+for (const input of [imageInput, cameraInput]) {
+  input.addEventListener('change', () => {
+    const file = input.files?.[0];
+    if (file) showImagePreview(file);
+  });
+}
+
+takePhotoButton.addEventListener('click', () => cameraInput.click());
+choosePhotoButton.addEventListener('click', () => imageInput.click());
 
 removeImageButton.addEventListener('click', () => {
   imageInput.value = '';
+  cameraInput.value = '';
+  selectedImage = null;
   clearImagePreview();
-  imageInput.focus();
+  choosePhotoButton.focus();
 });
 
 async function postJson(path, body) {
@@ -185,10 +200,10 @@ async function postTextStream(path, body, onText) {
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
   const description = descriptionInput.value.trim();
-  const file = imageInput.files?.[0];
+  const file = selectedImage;
   if (!description && !file) {
-    showFeedback('Add a short description or choose a photo to identify the item.', true);
-    (descriptionInput).focus();
+    showFeedback('Add a description, take a photo, or choose an image to identify the item.', true);
+    descriptionInput.focus();
     return;
   }
 
