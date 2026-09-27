@@ -38,13 +38,18 @@
 
         <div class="field-group">
           <label for="description">What is the item?</label>
-          <textarea id="description" name="description" rows="3" maxlength="2000" placeholder="For example: an old mattress, a discarded mobile phone, an intact used AA battery, a broken fluorescent tube, or a used mercury thermometer"></textarea>
-          <span class="field-hint">Include material and condition if you know them.</span>
+          <textarea id="description" name="description" rows="3" maxlength="2000" placeholder="Describe the item, e.g. a glass bottle or a used battery"></textarea>
+          <span class="field-hint">Include material and condition if known. Examples: old mattress, intact AA battery, broken fluorescent tube.</span>
         </div>
 
         <div class="field-group photo-field">
           <label for="image">Add a photo <span class="optional">(optional)</span></label>
           <input id="image" name="image" type="file" accept="image/jpeg,image/png,image/webp">
+          <div id="image-preview" class="photo-preview" hidden>
+            <img id="image-preview-image" alt="">
+            <span id="image-preview-name"></span>
+            <button class="button button-secondary" id="remove-image-button" type="button">Remove photo</button>
+          </div>
           <span class="field-hint">A clear photo can help identify the item.</span>
         </div>
 

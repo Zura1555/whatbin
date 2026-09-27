@@ -2,6 +2,10 @@ const form = document.querySelector('#recognize-form');
 const citySelect = document.querySelector('#jurisdiction');
 const descriptionInput = document.querySelector('#description');
 const imageInput = document.querySelector('#image');
+const imagePreview = document.querySelector('#image-preview');
+const imagePreviewImage = document.querySelector('#image-preview-image');
+const imagePreviewName = document.querySelector('#image-preview-name');
+const removeImageButton = document.querySelector('#remove-image-button');
 const recognitionFeedback = document.querySelector('#recognition-feedback');
 const candidatePanel = document.querySelector('#candidate-panel');
 const candidateName = document.querySelector('#candidate-name');
@@ -20,6 +24,7 @@ let requestVersion = 0;
 let explanationHistory = [];
 let manualItems = [];
 let explanationVersion = 0;
+let imagePreviewUrl = null;
 
 function clearResults() {
   candidate = null;
@@ -104,6 +109,32 @@ async function readImage(file) {
     reader.readAsDataURL(file);
   });
 }
+
+function clearImagePreview() {
+  if (imagePreviewUrl) URL.revokeObjectURL(imagePreviewUrl);
+  imagePreviewUrl = null;
+  imagePreviewImage.removeAttribute('src');
+  imagePreviewImage.alt = '';
+  imagePreviewName.textContent = '';
+  imagePreview.hidden = true;
+}
+
+imageInput.addEventListener('change', () => {
+  const file = imageInput.files?.[0];
+  clearImagePreview();
+  if (!file) return;
+  imagePreviewUrl = URL.createObjectURL(file);
+  imagePreviewImage.src = imagePreviewUrl;
+  imagePreviewImage.alt = `Preview of selected photo: ${file.name}`;
+  imagePreviewName.textContent = file.name;
+  imagePreview.hidden = false;
+});
+
+removeImageButton.addEventListener('click', () => {
+  imageInput.value = '';
+  clearImagePreview();
+  imageInput.focus();
+});
 
 async function postJson(path, body) {
   const response = await fetch(path, {
@@ -212,12 +243,12 @@ citySelect.addEventListener('change', () => {
   if (candidate) {
     candidatePanel.hidden = false;
     showFeedback('Confirm the identified item to get guidance for ' + cityName(citySelect.value) + '.');
-  } else if (!manualPanel.hidden) {
-    candidatePanel.hidden = true;
-  } else {
+  } else if (manualPanel.hidden) {
     candidatePanel.hidden = true;
     candidateName.textContent = '';
     manualItemSelect.replaceChildren();
+  } else {
+    candidatePanel.hidden = true;
   }
 });
 
@@ -351,7 +382,11 @@ function renderResolution(data, city, canonicalItemId) {
   const status = typeof data?.status === 'string' ? data.status : '';
   resultPanel.hidden = false;
   resultStatus.textContent = status || 'UNAVAILABLE';
-  resultStatus.className = 'status-pill' + (status === 'MATCHED' ? ' status-matched' : '');
+  let statusClass = 'status-unavailable';
+  if (status === 'MATCHED') statusClass = 'status-matched';
+  else if (status === 'UNKNOWN') statusClass = 'status-unknown';
+  else if (status === 'CONFLICT') statusClass = 'status-conflict';
+  resultStatus.className = `status-pill ${statusClass}`;
   resultContent.replaceChildren();
   addText(resultContent, 'p', cityName(city), 'result-city');
 
@@ -395,9 +430,9 @@ function renderResolution(data, city, canonicalItemId) {
   renderSources(data.sourceReferences);
   const supportingPassages = Array.isArray(data.supportingPassages) ? data.supportingPassages : [];
   if (supportingPassages.length) {
-    const section = document.createElement('section');
-    section.className = 'result-section supporting-passage';
-    addText(section, 'h3', 'Supporting passages (original Vietnamese)');
+    const section = document.createElement('details');
+    section.className = 'result-section supporting-passage passage-disclosure';
+    addText(section, 'summary', 'Supporting passages (original Vietnamese)');
     for (const passage of supportingPassages) {
       const entry = document.createElement('div');
       entry.className = 'supporting-passage-entry';
