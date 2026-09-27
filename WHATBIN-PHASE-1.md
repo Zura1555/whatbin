@@ -1,5 +1,11 @@
 # WhatBin — Phase 1 Product Specification
 
+## Current status
+
+This document specifies the initial mattress-focused phase. Its two seed rules were published on 2026-09-24. Current expanded coverage is maintained in the root README; this file is not a current roadmap, and no post-Phase-1 scope is approved.
+
+Before declaring the current system release-ready, verify resident and Studio workflows against deployed services, including available Gemini quota, read-only Sanity Context access, and authenticated Studio login/CORS configuration. Unpublished research stays non-actionable until reviewer and content-owner approval.
+
 ## Scope
 
 - Primary user: a household resident deciding how to dispose of an item locally.
@@ -16,7 +22,7 @@
 - The Knowledge Base contains published rules, every official source document cited by those rules, and published conflict records. It excludes drafts, unpublished research, and phone previews. It explains evidence but never chooses or changes an action.
 - Return `MATCHED`, `UNKNOWN`, or `CONFLICT`. `UNKNOWN` means WhatBin has no reviewed rule for that item, city, and date; it does not prove that no legal route exists. Withhold action for `UNKNOWN` and `CONFLICT`.
 - Residents may explicitly ask for an explanation after deterministic resolution. Explain matched evidence or reviewer-recorded conflict claims with citations; never choose which conflict claim prevails. Compare cities only for the same item when both independently resolve `MATCHED`.
-- Chat history stays in the current page and is not persisted. The server calls Gemini GenerateContent with read-only Sanity Context MCP tools; when the explainer is unavailable, leave the deterministic result intact.
+- Chat history stays in the current page and is not persisted. The server streams Gemini explanations through the AI SDK (`streamText`, `@ai-sdk/google`) with read-only Sanity Context MCP tools (`@ai-sdk/mcp`); when the explainer is unavailable, leave the deterministic result intact.
 - Do not substitute generic advice for an item without a reviewed local rule. The content owner resolves coverage through Sanity review and publication.
 
 ## Runtime architecture

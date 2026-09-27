@@ -56,4 +56,4 @@ See [`app/README.md`](app/README.md) for server and API details and [`studio/REA
 - `studio/` — Sanity Studio for managing disposal rules, reviewer-recorded conflicts, and human-reviewed research drafts.
 - `docs/adr/` — architecture decisions.
 - `CONTEXT.md` — project terminology and domain definitions.
-- `WHATBIN-PHASE-1.md` — initial product scope and reviewed seed-rule notes.
+- `WHATBIN-PHASE-1.md` — initial product scope and reviewed seed-rule notes; the root README lists current expanded coverage. No post-Phase-1 roadmap is approved.
