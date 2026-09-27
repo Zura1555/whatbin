@@ -18,7 +18,7 @@
     <section class="intro" aria-labelledby="page-title">
       <p class="eyebrow">A clearer next step for your waste</p>
       <h1 id="page-title">Where does it go?</h1>
-      <p class="intro-copy">Identify an item, check the guidance for your city, and verify it with the official source.</p>
+      <p class="intro-copy">Check for a reviewed rule in your city, then verify any guidance against its linked official source.</p>
     </section>
 
     <section class="lookup-card" aria-labelledby="lookup-title">
@@ -38,8 +38,8 @@
 
         <div class="field-group">
           <label for="description">What is the item?</label>
-          <textarea id="description" name="description" rows="3" maxlength="2000" placeholder="Describe the item, e.g. a glass bottle or a used battery"></textarea>
-          <span class="field-hint">Include material and condition if known. Examples: old mattress, intact AA battery, broken fluorescent tube.</span>
+          <textarea id="description" name="description" rows="3" maxlength="2000" placeholder="Describe the item and its condition"></textarea>
+          <span class="field-hint">Current guidance covers old mattresses; intact household AA/AAA batteries; standalone rechargeable lithium-ion batteries; fluorescent lamps or tubes, intact or broken; and household mercury thermometers, intact or broken.</span>
         </div>
 
         <div class="field-group photo-field">
@@ -59,12 +59,12 @@
 
       <div id="recognition-feedback" class="feedback" role="status" aria-live="polite" hidden></div>
       <section id="manual-panel" class="candidate-panel" aria-labelledby="manual-heading" hidden>
-        <h2 id="manual-heading">Choose a supported item</h2>
-        <p class="candidate-intro">Choose only if an item matches what you described or photographed. Otherwise, edit the description or photo and try again.</p>
+        <h2 id="manual-heading">Choose a catalog item</h2>
+        <p class="candidate-intro">Choose only a close match. The next step checks for a reviewed rule in your city; if none exists, WhatBin will not provide a disposal route.</p>
         <div class="field-group">
-          <label for="manual-item">Supported item</label>
+          <label for="manual-item">Catalog item</label>
           <select id="manual-item" disabled>
-            <option value="">Choose a supported item</option>
+            <option value="">Choose a catalog item</option>
           </select>
         </div>
         <div class="candidate-actions">

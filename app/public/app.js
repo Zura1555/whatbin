@@ -48,7 +48,7 @@ function showFeedback(message, isError = false) {
 }
 
 async function offerManualSelection(message, version) {
-  showFeedback(`${message} Loading supported items…`, true);
+  showFeedback(`${message} Loading the item catalog…`, true);
   manualPanel.hidden = true;
   manualChooseButton.disabled = true;
   manualItemSelect.disabled = true;
@@ -60,7 +60,7 @@ async function offerManualSelection(message, version) {
     manualItems = data.items;
     const placeholder = document.createElement('option');
     placeholder.value = '';
-    placeholder.textContent = 'Choose a supported item';
+    placeholder.textContent = 'Choose a catalog item';
     manualItemSelect.append(placeholder);
     for (const item of manualItems) {
       if (typeof item?.canonicalItemId !== 'string' || typeof item?.itemName !== 'string') throw new Error();
@@ -73,12 +73,12 @@ async function offerManualSelection(message, version) {
     manualPanel.hidden = false;
     manualItemSelect.disabled = false;
     manualChooseButton.disabled = false;
-    showFeedback(`${message} Choose from the supported-item list below.`, true);
+    showFeedback(message, true);
     manualItemSelect.focus();
   } catch {
     if (version === requestVersion) {
       manualPanel.hidden = true;
-      showFeedback(`${message} The supported-item list could not be loaded. Please try again.`, true);
+      showFeedback(`${message} The item catalog could not be loaded. Please try again.`, true);
     }
   }
 }
@@ -206,13 +206,13 @@ form.addEventListener('submit', async (event) => {
     const proposed = data?.candidate;
     if (!proposed || typeof proposed.canonicalItemId !== 'string' || !proposed.canonicalItemId.trim() || typeof proposed.itemName !== 'string' || !proposed.itemName.trim()) {
       await offerManualSelection(typeof data?.message === 'string' && data.message
-        ? `${data.message} Or choose a supported item:`
-        : 'I could not confidently identify that item. Choose a supported item instead:', version);
+        ? `${data.message} Or choose a catalog item:`
+        : 'I could not confidently identify that item. Choose a catalog item instead:', version);
       return;
     }
     setCandidate(proposed);
   } catch (error) {
-    if (version === requestVersion) await offerManualSelection(`${error instanceof Error ? error.message : 'Recognition failed.'} Choose a supported item instead:`, version);
+    if (version === requestVersion) await offerManualSelection(`${error instanceof Error ? error.message : 'Recognition failed.'} Choose a catalog item instead:`, version);
   } finally {
     if (version === requestVersion) recognizeButton.disabled = false;
   }
@@ -221,7 +221,7 @@ form.addEventListener('submit', async (event) => {
 manualChooseButton.addEventListener('click', () => {
   const selected = manualItems.find((item) => item.canonicalItemId === manualItemSelect.value);
   if (!selected) {
-    showFeedback('Choose an item from the supported-item list.', true);
+    showFeedback('Choose an item from the catalog.', true);
     manualItemSelect.focus();
     return;
   }
@@ -459,7 +459,7 @@ function renderExplainer(city, canonicalItemId) {
   const section = document.createElement('section');
   section.className = 'explainer result-section';
   addText(section, 'h3', 'Ask about this result');
-  addText(section, 'p', 'Get an explanation of the reviewed sources. WhatBin’s displayed status and instruction stay authoritative.', 'muted-copy');
+  addText(section, 'p', 'Get an explanation of this result. WhatBin’s displayed status and any instruction stay authoritative.', 'muted-copy');
 
   const thread = document.createElement('div');
   thread.className = 'explainer-thread';
