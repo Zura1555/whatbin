@@ -561,7 +561,7 @@ confirmButton.addEventListener('click', async () => {
     if (version !== requestVersion || city !== citySelect.value) return;
     recognitionFeedback.hidden = true;
     renderResolution(data, city, confirmedItem.canonicalItemId);
-    resultPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    resultPanel.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
   } catch (error) {
     if (version === requestVersion) showFeedback(error instanceof Error ? error.message : 'Could not retrieve city guidance. Please try again.', true);
   } finally {
