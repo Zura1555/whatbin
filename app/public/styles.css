@@ -15,10 +15,12 @@
   background: var(--canvas);
 }
 
+html { -webkit-tap-highlight-color: transparent; -webkit-text-size-adjust: 100%; }
 * { box-sizing: border-box; }
-body { margin: 0; min-width: 320px; min-height: 100vh; }
+body { margin: 0; min-width: 320px; min-height: 100svh; padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px); }
 button, input, textarea, select { font: inherit; }
-button { cursor: pointer; }
+button { cursor: pointer; touch-action: manipulation; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+a, [role="button"] { touch-action: manipulation; }
 button:disabled { cursor: wait; opacity: .65; }
 :focus-visible { outline: 3px solid #d99437; outline-offset: 3px; }
 
@@ -101,6 +103,7 @@ a { color: #24583e; text-decoration-thickness: 1px; text-underline-offset: 3px; 
 .passage-disclosure[open] summary { border-bottom: 1px solid var(--line); }
 .passage-disclosure > :not(summary) { margin: 12px; }
 .source-list a { font-weight: 650; text-decoration-thickness: 1.5px; }
+a:active, .passage-disclosure summary:active { color: var(--green-dark); }
 @media (hover: hover) and (pointer: fine) {
   .button:hover:not(:disabled) { transform: translateY(-1px); }
   .button-primary:hover:not(:disabled) { background: var(--green-dark); }
