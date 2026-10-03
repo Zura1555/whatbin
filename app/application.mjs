@@ -10,7 +10,12 @@ const ROOT = resolve(fileURLToPath(new URL('./public/', import.meta.url)))
 const MAX_BODY = 9 * 1024 * 1024
 const SANITY_URL = 'https://xqeddep2.api.sanity.io/v2025-02-19/data/query/production'
 const SANITY_ACCESS_URL = 'https://api.sanity.io/v2025-07-11/access/project/xqeddep2/user-permissions/me'
-const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent'
+const GEMINI_BASE_URL = 'https://generativelanguage.googleapis.com/v1beta/models'
+const GEMINI_DEFAULT_MODEL = 'gemini-3.1-flash-lite'
+function geminiUrl() {
+  const model = process.env.GEMINI_MODEL || GEMINI_DEFAULT_MODEL
+  return `${GEMINI_BASE_URL}/${model}:generateContent`
+}
 const OPENROUTER_COMPLETIONS_URL = 'https://openrouter.ai/api/v1/chat/completions'
 const OPENROUTER_DECISIONS_URL = 'https://openrouter.ai/api/alpha/decisions'
 const RECOGNITION_CATEGORIES = new Map([
@@ -179,7 +184,7 @@ async function recognize(input) {
   if (image) contents.push({ inlineData: { mimeType: image.mimeType, data: image.base64 } })
   let response
   for (let attempt = 0; attempt < 3; attempt++) {
-    response = await fetch(GEMINI_URL, {
+    response = await fetch(geminiUrl(), {
       method: 'POST', headers: { 'content-type': 'application/json', 'x-goog-api-key': key }, signal: AbortSignal.timeout(20000),
       body: JSON.stringify({
         store: false,
