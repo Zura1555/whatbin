@@ -691,6 +691,9 @@ const TRANSLATIONS = {
     streamHazardous: 'Nguy hại',
     streamBulky: 'Cồng kềnh',
     streamOther: 'Rác khác',
+    modeCatalog: 'Danh mục 5 nhóm',
+    modeText: 'Mô tả / Giọng nói',
+    modePhoto: 'Chụp ảnh AI',
     photoLabel: 'Chụp ảnh hoặc chọn ảnh',
     photoOptional: '(không bắt buộc)',
     photoPickerTitle: 'Hình ảnh vật dụng',
@@ -818,6 +821,9 @@ const TRANSLATIONS = {
     streamHazardous: 'Hazardous',
     streamBulky: 'Bulky',
     streamOther: 'Other waste',
+    modeCatalog: '5 Waste Streams',
+    modeText: 'Describe / Voice',
+    modePhoto: 'AI Camera',
     photoLabel: 'Add a photo',
     photoOptional: '(optional)',
     photoPickerTitle: 'Show us the item',
@@ -1500,6 +1506,26 @@ function setupStreamTabs() {
   }
 }
 
+function setInputMode(mode) {
+  const form = document.querySelector('#recognize-form');
+  if (form) form.dataset.activeMode = mode;
+  const modeTabs = document.querySelectorAll('.mode-tab');
+  for (const t of modeTabs) {
+    const isCurrent = t.dataset.mode === mode;
+    t.classList.toggle('active', isCurrent);
+    t.setAttribute('aria-selected', String(isCurrent));
+  }
+}
+
+function setupModeSwitcher() {
+  const modeTabs = document.querySelectorAll('.mode-tab');
+  for (const tab of modeTabs) {
+    tab.addEventListener('click', () => {
+      setInputMode(tab.dataset.mode);
+    });
+  }
+}
+
 function clearResults() {
   candidate = null;
   currentResolvedData = null;
@@ -1690,6 +1716,7 @@ function clearImagePreview() {
 function showImagePreview(file) {
   clearImagePreview();
   selectedImage = file;
+  setInputMode('photo');
   imagePreviewUrl = URL.createObjectURL(file);
   imagePreviewImage.src = imagePreviewUrl;
   imagePreviewImage.alt = `Selected photo: ${file.name}`;
@@ -1914,6 +1941,7 @@ citySelect.addEventListener('change', () => {
 correctButton.addEventListener('click', () => {
   requestVersion++;
   clearResults();
+  setInputMode('text');
   descriptionInput.focus();
 });
 
@@ -2956,6 +2984,7 @@ if ('serviceWorker' in navigator) {
 
 // Initial setup
 setupStreamTabs();
+setupModeSwitcher();
 setupVoiceSearch();
 setupDropoffFilters();
 setLanguage(currentLang);
