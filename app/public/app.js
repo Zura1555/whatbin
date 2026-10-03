@@ -5,6 +5,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'pet-plastic-bottle',
     stream: 'recyclables',
+    tagVi: 'Bán ve chai',
+    tagEn: 'Scrap sell',
     nameEn: 'PET plastic beverage bottle',
     nameVi: 'Chai nhựa PET đựng đồ uống',
     chipEn: 'PET plastic bottle',
@@ -17,6 +19,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'corrugated-cardboard-box',
     stream: 'recyclables',
+    tagVi: 'Bán ve chai',
+    tagEn: 'Scrap sell',
     nameEn: 'Corrugated cardboard box',
     nameVi: 'Thùng bìa carton sóng',
     chipEn: 'Cardboard box',
@@ -29,6 +33,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'aluminum-beverage-can',
     stream: 'recyclables',
+    tagVi: 'Bán ve chai',
+    tagEn: 'Scrap sell',
     nameEn: 'Aluminum beverage can',
     nameVi: 'Lon nhôm đồ uống',
     chipEn: 'Aluminum can',
@@ -41,6 +47,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'glass-bottle-jar',
     stream: 'recyclables',
+    tagVi: 'Ve chai / Tái chế',
+    tagEn: 'Recycle / Scrap',
     nameEn: 'Glass bottle or jar',
     nameVi: 'Chai lọ thủy tinh thực phẩm',
     chipEn: 'Glass bottle / jar',
@@ -53,6 +61,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'plastic-bubble-wrap',
     stream: 'recyclables',
+    tagVi: 'Tái sử dụng',
+    tagEn: 'Reuse',
     nameEn: 'Plastic bubble wrap packaging',
     nameVi: 'Màng xốp bóng khí bọc hàng',
     chipEn: 'Bubble wrap',
@@ -65,6 +75,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'used-clothing-textile',
     stream: 'recyclables',
+    tagVi: 'Quyên góp',
+    tagEn: 'Donation',
     nameEn: 'Wearable second-hand clothing',
     nameVi: 'Quần áo cũ còn mặc được',
     chipEn: 'Clothing / textiles',
@@ -77,6 +89,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'beverage-carton-tetra-pak',
     stream: 'recyclables',
+    tagVi: 'Điểm thu gom',
+    tagEn: 'Drop-off',
     nameEn: 'Aseptic multi-layer beverage carton',
     nameVi: 'Vỏ hộp sữa giấy nhiều lớp (Tetra Pak)',
     chipEn: 'Tetra Pak carton',
@@ -89,6 +103,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'discarded-laptop',
     stream: 'recyclables',
+    tagVi: 'Thu hồi EPR',
+    tagEn: 'EPR take-back',
     nameEn: 'Discarded laptop computer',
     nameVi: 'Máy tính xách tay / Laptop cũ',
     chipEn: 'Laptop computer',
@@ -101,6 +117,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'discarded-electric-fan',
     stream: 'recyclables',
+    tagVi: 'Ve chai / EPR',
+    tagEn: 'Scrap / EPR',
     nameEn: 'Discarded electric fan',
     nameVi: 'Quạt điện gia đình cũ hỏng',
     chipEn: 'Electric fan',
@@ -113,6 +131,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'discarded-microwave-oven',
     stream: 'recyclables',
+    tagVi: 'Thu hồi EPR',
+    tagEn: 'EPR take-back',
     nameEn: 'Discarded microwave oven',
     nameVi: 'Lò vi sóng cũ hỏng',
     chipEn: 'Microwave oven',
@@ -125,6 +145,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'discarded-charging-cable',
     stream: 'recyclables',
+    tagVi: 'Rác điện tử',
+    tagEn: 'E-waste',
     nameEn: 'Discarded charging cable',
     nameVi: 'Dây cáp sạc điện thoại / USB',
     chipEn: 'Charging cable',
@@ -137,6 +159,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'used-mobile-phone',
     stream: 'recyclables',
+    tagVi: 'Thu hồi EPR',
+    tagEn: 'EPR take-back',
     nameEn: 'Used mobile phone',
     nameVi: 'Điện thoại di động cũ hỏng',
     chipEn: 'Mobile phone',
@@ -151,6 +175,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'cooked-food-scrap',
     stream: 'food',
+    tagVi: 'Rác hữu cơ',
+    tagEn: 'Organics',
     nameEn: 'Cooked food scrap',
     nameVi: 'Thức ăn thừa đã nấu chín',
     chipEn: 'Cooked food scraps',
@@ -163,6 +189,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'fruit-vegetable-peel',
     stream: 'food',
+    tagVi: 'Ủ phân compost',
+    tagEn: 'Compost',
     nameEn: 'Raw fruit and vegetable peel',
     nameVi: 'Vỏ trái cây, rau củ quả',
     chipEn: 'Fruit & vegetable peels',
@@ -175,6 +203,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'fallen-leaves-garden-waste',
     stream: 'food',
+    tagVi: 'Mùn cây / Ủ phân',
+    tagEn: 'Mulch / Compost',
     nameEn: 'Fallen leaves and garden waste',
     nameVi: 'Lá cây rụng, cành lá vườn nhà',
     chipEn: 'Garden leaves & waste',
@@ -187,6 +217,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'coffee-grounds-tea-leaves',
     stream: 'food',
+    tagVi: 'Bón cây cảnh',
+    tagEn: 'Fertilizer',
     nameEn: 'Coffee grounds and loose tea leaves',
     nameVi: 'Bã cà phê, bã trà sau khi pha',
     chipEn: 'Coffee / tea grounds',
@@ -201,6 +233,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'used-household-battery',
     stream: 'hazardous',
+    tagVi: 'Điểm thu hồi pin',
+    tagEn: 'Battery drop-off',
     nameEn: 'Used household battery',
     nameVi: 'Pin tiểu gia dụng (AA, AAA)',
     chipEn: 'AA / AAA battery',
@@ -213,6 +247,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'used-lithium-ion-battery',
     stream: 'hazardous',
+    tagVi: 'Chống cháy / CTNH',
+    tagEn: 'Fire risk / CTNH',
     nameEn: 'Used rechargeable lithium-ion battery',
     nameVi: 'Pin sạc lithium-ion rời',
     chipEn: 'Li-ion battery',
@@ -225,6 +261,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'used-power-bank',
     stream: 'hazardous',
+    tagVi: 'Thu hồi EPR',
+    tagEn: 'EPR take-back',
     nameEn: 'Used power bank',
     nameVi: 'Pin sạc dự phòng cũ hỏng',
     chipEn: 'Power bank',
@@ -237,6 +275,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'used-fluorescent-lamp',
     stream: 'hazardous',
+    tagVi: 'Thủy ngân / CTNH',
+    tagEn: 'Mercury / CTNH',
     nameEn: 'Used fluorescent lamp',
     nameVi: 'Bóng đèn huỳnh quang / bóng tuýp',
     chipEn: 'Fluorescent lamp',
@@ -249,6 +289,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'used-mercury-thermometer',
     stream: 'hazardous',
+    tagVi: 'Độc hại / CTNH',
+    tagEn: 'Toxic / CTNH',
     nameEn: 'Used mercury thermometer',
     nameVi: 'Nhiệt kế thủy ngân vỡ / cũ',
     chipEn: 'Mercury thermometer',
@@ -261,6 +303,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'expired-household-medicine',
     stream: 'hazardous',
+    tagVi: 'Trạm y tế',
+    tagEn: 'Clinic / Pharmacy',
     nameEn: 'Expired household medicine',
     nameVi: 'Thuốc tây gia đình hết hạn',
     chipEn: 'Expired medicine',
@@ -273,6 +317,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'aerosol-spray-can',
     stream: 'hazardous',
+    tagVi: 'Áp suất / CTNH',
+    tagEn: 'Pressurized / CTNH',
     nameEn: 'Aerosol spray can',
     nameVi: 'Bình xịt khí nén (xịt muỗi, xịt tóc)',
     chipEn: 'Aerosol spray can',
@@ -285,6 +331,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'household-pesticide-container',
     stream: 'hazardous',
+    tagVi: 'Độc cao / CTNH',
+    tagEn: 'Toxic / CTNH',
     nameEn: 'Household pesticide container',
     nameVi: 'Chai lọ thuốc diệt côn trùng / mối',
     chipEn: 'Pesticide container',
@@ -297,6 +345,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'used-motor-oil',
     stream: 'hazardous',
+    tagVi: 'Tiệm xe máy',
+    tagEn: 'Repair shop',
     nameEn: 'Used motorbike engine motor oil',
     nameVi: 'Dầu nhớt xe máy thải',
     chipEn: 'Motorbike engine oil',
@@ -309,6 +359,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'used-lead-acid-accumulator',
     stream: 'hazardous',
+    tagVi: 'Đại lý EPR',
+    tagEn: 'EPR dealer',
     nameEn: 'Discarded motorbike lead-acid battery',
     nameVi: 'Bình ắc quy xe máy hỏng',
     chipEn: 'Lead-acid accumulator',
@@ -321,6 +373,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'household-medical-sharps',
     stream: 'hazardous',
+    tagVi: 'Sắc nhọn / Y tế',
+    tagEn: 'Sharps / Clinic',
     nameEn: 'Household medical sharps and needles',
     nameVi: 'Kim tiêm, vật sắc nhọn y tế gia đình',
     chipEn: 'Medical sharps / needles',
@@ -333,6 +387,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'discarded-nail-polish-bottle',
     stream: 'hazardous',
+    tagVi: 'Dung môi / CTNH',
+    tagEn: 'Solvent / CTNH',
     nameEn: 'Nail polish and solvent bottle',
     nameVi: 'Lọ sơn móng tay, nước tẩy sơn',
     chipEn: 'Nail polish bottle',
@@ -345,6 +401,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'leftover-paint-can',
     stream: 'hazardous',
+    tagVi: 'Hóa chất / CTNH',
+    tagEn: 'Chemical / CTNH',
     nameEn: 'Leftover household paint can',
     nameVi: 'Lon sơn tường còn thừa',
     chipEn: 'Leftover paint can',
@@ -359,6 +417,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'old-mattress',
     stream: 'bulky',
+    tagVi: 'Hẹn xe trả phí',
+    tagEn: 'Paid pickup',
     nameEn: 'Old mattress',
     nameVi: 'Đệm lò xo / đệm mút cũ',
     chipEn: 'Old mattress',
@@ -371,6 +431,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'discarded-wooden-furniture',
     stream: 'bulky',
+    tagVi: 'Điểm tập kết',
+    tagEn: 'Drop-off hub',
     nameEn: 'Discarded wooden furniture',
     nameVi: 'Bàn ghế, tủ gỗ gia dụng cũ',
     chipEn: 'Wooden furniture',
@@ -383,6 +445,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'discarded-upholstered-sofa',
     stream: 'bulky',
+    tagVi: 'Hẹn xe trả phí',
+    tagEn: 'Paid pickup',
     nameEn: 'Discarded upholstered sofa',
     nameVi: 'Ghế sofa đệm mút cũ',
     chipEn: 'Upholstered sofa',
@@ -395,6 +459,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'used-motorbike-tire',
     stream: 'bulky',
+    tagVi: 'Tiệm xe / EPR',
+    tagEn: 'Tire / EPR',
     nameEn: 'Used motorbike tires and inner tubes',
     nameVi: 'Lốp, săm xe máy cũ hỏng',
     chipEn: 'Motorbike tires',
@@ -407,6 +473,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'renovation-rubble-tiles',
     stream: 'bulky',
+    tagVi: 'Xe xà bần',
+    tagEn: 'Rubble truck',
     nameEn: 'Minor home renovation rubble and tiles',
     nameVi: 'Xà bần, gạch vỡ sửa nhà nhỏ',
     chipEn: 'Rubble & broken tiles',
@@ -419,6 +487,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'discarded-ceramic-toilet-sink',
     stream: 'bulky',
+    tagVi: 'Xe chuyên dụng',
+    tagEn: 'Special hauler',
     nameEn: 'Discarded ceramic toilet or sink',
     nameVi: 'Bồn cầu, chậu rửa sứ cũ hỏng',
     chipEn: 'Ceramic toilet / sink',
@@ -433,6 +503,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'discarded-coconut-shell',
     stream: 'other',
+    tagVi: 'Đốt phát điện',
+    tagEn: 'Waste-to-energy',
     nameEn: 'Discarded coconut shell',
     nameVi: 'Vỏ dừa khô / vỏ dừa tươi',
     chipEn: 'Coconut shell',
@@ -445,6 +517,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'large-animal-bone',
     stream: 'other',
+    tagVi: 'Rác đốt',
+    tagEn: 'Incinerate',
     nameEn: 'Large animal bone',
     nameVi: 'Xương động vật kích thước lớn (bò, heo)',
     chipEn: 'Large animal bone',
@@ -457,6 +531,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'disposable-baby-diaper',
     stream: 'other',
+    tagVi: 'Rác đốt kín',
+    tagEn: 'Residual trash',
     nameEn: 'Disposable baby diaper',
     nameVi: 'Tã bỉm trẻ em, băng vệ sinh',
     chipEn: 'Disposable diaper',
@@ -469,6 +545,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'broken-ceramic-tableware',
     stream: 'other',
+    tagVi: 'Bọc kỹ / Chôn lấp',
+    tagEn: 'Wrap / Landfill',
     nameEn: 'Broken ceramic dish or shards',
     nameVi: 'Mảnh bát đĩa gốm sứ vỡ',
     chipEn: 'Broken ceramic dish',
@@ -481,6 +559,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'multi-layer-snack-packaging',
     stream: 'other',
+    tagVi: 'Rác đốt',
+    tagEn: 'Incinerate',
     nameEn: 'Multi-layer snack packaging',
     nameVi: 'Vỏ bao bì bánh kẹo, vỏ bim bim',
     chipEn: 'Snack packaging',
@@ -493,6 +573,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'discarded-motorbike-helmet',
     stream: 'other',
+    tagVi: 'Rác còn lại',
+    tagEn: 'Residual trash',
     nameEn: 'Discarded motorbike helmet',
     nameVi: 'Mũ bảo hiểm xe máy hỏng',
     chipEn: 'Motorbike helmet',
@@ -505,6 +587,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'polystyrene-foam-box',
     stream: 'other',
+    tagVi: 'Rác đốt',
+    tagEn: 'Incinerate',
     nameEn: 'Expanded polystyrene foam box',
     nameVi: 'Hộp xốp đựng cơm, thùng xốp',
     chipEn: 'Foam takeaway box',
@@ -517,6 +601,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'single-use-plastic-bag',
     stream: 'other',
+    tagVi: 'Rác đốt',
+    tagEn: 'Incinerate',
     nameEn: 'Single-use plastic carrier bag',
     nameVi: 'Túi ni lông dùng một lần dính bẩn',
     chipEn: 'Single-use plastic bag',
@@ -529,6 +615,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'worn-out-footwear',
     stream: 'other',
+    tagVi: 'Rác đốt',
+    tagEn: 'Incinerate',
     nameEn: 'Old worn-out shoes and footwear',
     nameVi: 'Giày dép cũ rách hỏng',
     chipEn: 'Worn-out footwear',
@@ -541,6 +629,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'used-medical-mask',
     stream: 'other',
+    tagVi: 'Rác đốt kín',
+    tagEn: 'Residual trash',
     nameEn: 'Used disposable medical mask',
     nameVi: 'Khẩu trang y tế dùng một lần',
     chipEn: 'Disposable medical mask',
@@ -553,6 +643,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'incense-joss-paper-ash',
     stream: 'other',
+    tagVi: 'Dập nguội / Rác khác',
+    tagEn: 'Cooled / Residual',
     nameEn: 'Incense ash and joss paper ash',
     nameVi: 'Tàn nhang, tro vàng mã đã nguội',
     chipEn: 'Incense / joss ash',
@@ -565,6 +657,8 @@ const CANONICAL_CATALOG = [
   {
     id: 'used-cooking-oil',
     stream: 'other',
+    tagVi: 'Tái chế Biodiesel',
+    tagEn: 'Biodiesel recovery',
     nameEn: 'Used cooking oil',
     nameVi: 'Dầu ăn đã qua sử dụng',
     chipEn: 'Used cooking oil',
@@ -871,6 +965,44 @@ const HEROICONS = {
   academicCap: '<svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-5.25 6.557q.217.375.467.732m4.783-7.289a55.437 55.437 0 0 1 5.25 2.882V15m-5.25-2.882q-.314.159-.625.32" /></svg>',
 };
 
+const STREAM_META = {
+  recyclables: {
+    titleVi: 'Tái chế & Phế liệu',
+    titleEn: 'Recyclables & Scrap',
+    descVi: 'Thu gom khô sạch, ép gọn bán ve chai hoặc gửi điểm thu hồi tái chế.',
+    descEn: 'Keep dry & clean, flatten to sell as scrap or deposit at recycling hubs.',
+    icon: HEROICONS.recyclables,
+  },
+  food: {
+    titleVi: 'Rác thực phẩm',
+    titleEn: 'Food & Organics',
+    descVi: 'Gạn sạch nước, ủ phân hữu cơ hoặc giao đơn vị thu gom rác dễ phân hủy hàng ngày.',
+    descEn: 'Drain liquids, compost or hand over for daily municipal organic collection.',
+    icon: HEROICONS.food,
+  },
+  hazardous: {
+    titleVi: 'Chất thải nguy hại',
+    titleEn: 'Household Hazardous',
+    descVi: 'Độc hại & nguy cơ cháy nổ — Tách riêng gửi điểm thu hồi CTNH cấp xã/phường.',
+    descEn: 'Toxic & flammable risk — Keep separate and deliver to municipal drop-off hubs.',
+    icon: HEROICONS.hazardous,
+  },
+  bulky: {
+    titleVi: 'Rác cồng kềnh',
+    titleEn: 'Bulky Waste',
+    descVi: 'Kích thước lớn — Đăng ký dịch vụ thu gom trả phí hoặc tự chở ra điểm tập kết.',
+    descEn: 'Oversized items — Book municipal paid pickup or transport to ward collection hubs.',
+    icon: HEROICONS.bulky,
+  },
+  other: {
+    titleVi: 'Rác sinh hoạt còn lại',
+    titleEn: 'Residual Waste',
+    descVi: 'Chứa túi kín chuyển nhà máy đốt rác phát điện hoặc bãi chôn lấp.',
+    descEn: 'Pack securely for waste-to-energy incineration or sanitary landfill.',
+    icon: HEROICONS.other,
+  },
+};
+
 const BAG_BADGE_INFO = {
   food: {
     icon: HEROICONS.food,
@@ -1113,6 +1245,7 @@ const manualItemSelect = document.querySelector('#manual-item');
 const manualChooseButton = document.querySelector('#manual-choose-button');
 const streamTabsContainer = document.querySelector('.stream-tabs');
 const streamChipsContainer = document.querySelector('#stream-chips');
+const streamBanner = document.querySelector('#stream-banner');
 const langButtons = document.querySelectorAll('.lang-btn');
 
 // Quick Nav & Modals DOM
@@ -1280,6 +1413,23 @@ function setLanguage(lang) {
 
 // Stream Tabs & Catalog Chips
 function renderStreamChips(stream) {
+  if (streamBanner) {
+    const meta = STREAM_META[stream];
+    if (meta) {
+      streamBanner.className = `stream-banner stream-${stream}`;
+      const title = currentLang === 'vi' ? meta.titleVi : meta.titleEn;
+      const desc = currentLang === 'vi' ? meta.descVi : meta.descEn;
+      streamBanner.innerHTML = `
+        <span class="stream-banner-icon" aria-hidden="true">${meta.icon}</span>
+        <div class="stream-banner-content">
+          <strong class="stream-banner-title">${title}</strong>
+          <span class="stream-banner-desc">${desc}</span>
+        </div>
+      `;
+    }
+  }
+
+  streamChipsContainer.dataset.stream = stream;
   streamChipsContainer.replaceChildren();
   const items = CANONICAL_CATALOG.filter((item) => item.stream === stream);
 
@@ -1288,8 +1438,17 @@ function renderStreamChips(stream) {
     button.type = 'button';
     button.className = 'example-chip';
     button.dataset.itemId = item.id;
-    button.textContent = currentLang === 'vi' ? item.chipVi : item.chipEn;
     button.setAttribute('aria-controls', 'description');
+
+    const labelSpan = document.createElement('span');
+    labelSpan.className = 'chip-label';
+    labelSpan.textContent = currentLang === 'vi' ? item.chipVi : item.chipEn;
+
+    const tagSpan = document.createElement('span');
+    tagSpan.className = 'chip-tag';
+    tagSpan.textContent = currentLang === 'vi' ? (item.tagVi || '') : (item.tagEn || '');
+
+    button.append(labelSpan, tagSpan);
 
     button.addEventListener('click', () => {
       requestVersion++;
@@ -1323,6 +1482,12 @@ function renderStreamChips(stream) {
 function setupStreamTabs() {
   const tabs = document.querySelectorAll('.stream-tab');
   for (const tab of tabs) {
+    const stream = tab.dataset.stream;
+    const count = CANONICAL_CATALOG.filter((item) => item.stream === stream).length;
+    const countEl = tab.querySelector('.stream-tab-count');
+    if (countEl) {
+      countEl.textContent = String(count);
+    }
     tab.addEventListener('click', () => {
       for (const t of tabs) {
         const isCurrent = t === tab;
