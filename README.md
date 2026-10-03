@@ -14,7 +14,7 @@ For discarded household mercury thermometers, Hanoi requires safe, corrosion- an
 
 Published Sanity rules remain the sole authority for disposal instructions. A reviewer-published `disposalConflict` record for the same item, city, and effective date takes precedence over a matching rule; overlapping active rules also produce `CONFLICT`. Runtime resolution uses published records only. It reads exact, source-versioned evidence passages and shows a passage only when its cited sources and versions match.
 
-Item recognition uses Gemini. Recognition proposes an item for the user to confirm; it does not choose a disposal rule. Photos are sent to Gemini for recognition and are not retained by the app. Keep `GEMINI_API_KEY` server-side.
+Item recognition uses Gemini and proposes only supported item categories for the user to confirm; it does not identify arbitrary objects or choose disposal rules. The current supported list is in [`app/README.md`](app/README.md). Photos are sent to Gemini for recognition and are not retained by the app. Keep `GEMINI_API_KEY` server-side.
 
 After deterministic resolution, residents may explicitly ask for a source explanation. A server-side Gemini agent uses the AI SDK and read-only Sanity Context MCP tools, then streams its answer into the existing chat UI. It cannot choose or change an action; `UNKNOWN` and `CONFLICT` never receive a disposal route. City comparison is allowed only when both cities independently resolve the same item as `MATCHED`. Chat stays in the current page and is not persisted.
 

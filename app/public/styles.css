@@ -233,7 +233,56 @@ textarea {
  transition: border-color 140ms ease;
 }
 select {
- padding: 0 14px;
+ min-height: 48px;
+ padding: 0 48px 0 15px;
+ appearance: none;
+ -webkit-appearance: none;
+ border: 1px solid #cbdacc;
+ border-radius: 14px;
+ color: var(--green-dark);
+ background-color: #f8fbf8;
+ background-image:
+  linear-gradient(45deg, transparent 50%, var(--green) 50%),
+  linear-gradient(135deg, var(--green) 50%, transparent 50%),
+  linear-gradient(to right, var(--line), var(--line));
+ background-position:
+  calc(100% - 17px) 50%,
+  calc(100% - 12px) 50%,
+  calc(100% - 36px) 50%;
+ background-repeat: no-repeat;
+ background-size: 5px 5px, 5px 5px, 1px 22px;
+ box-shadow: 0 1px 2px rgb(32 53 42 / 6%);
+ font-weight: 600;
+ transition:
+  border-color 140ms ease,
+  background-color 140ms ease,
+  box-shadow 140ms ease;
+}
+
+select:not(:disabled) {
+ cursor: pointer;
+}
+
+select:disabled {
+ cursor: not-allowed;
+ opacity: 0.65;
+}
+
+select:hover:not(:disabled) {
+ border-color: #a9c0af;
+ background-color: #fff;
+}
+
+select option {
+ color: var(--ink);
+ background: #fff;
+ font-weight: 500;
+}
+
+select option:checked {
+ color: var(--green-dark);
+ background: var(--soft-green);
+ font-weight: 600;
 }
 textarea {
  min-height: 98px;

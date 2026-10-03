@@ -107,6 +107,46 @@ test('GET /api/items exposes only the supported canonical item catalog', async (
         { canonicalItemId: 'used-mobile-phone', itemName: 'Used mobile phone' },
         { canonicalItemId: 'used-fluorescent-lamp', itemName: 'Used fluorescent lamp' },
         { canonicalItemId: 'used-mercury-thermometer', itemName: 'Used mercury thermometer' },
+        { canonicalItemId: 'cooked-food-scrap', itemName: 'Cooked food scrap' },
+        { canonicalItemId: 'fruit-vegetable-peel', itemName: 'Raw fruit and vegetable peel' },
+        { canonicalItemId: 'fallen-leaves-garden-waste', itemName: 'Fallen leaves and garden waste' },
+        { canonicalItemId: 'discarded-coconut-shell', itemName: 'Discarded coconut shell' },
+        { canonicalItemId: 'large-animal-bone', itemName: 'Large animal bone' },
+        { canonicalItemId: 'pet-plastic-bottle', itemName: 'PET plastic beverage bottle' },
+        { canonicalItemId: 'corrugated-cardboard-box', itemName: 'Corrugated cardboard box' },
+        { canonicalItemId: 'aluminum-beverage-can', itemName: 'Aluminum beverage can' },
+        { canonicalItemId: 'glass-bottle-jar', itemName: 'Glass bottle or jar' },
+        { canonicalItemId: 'expired-household-medicine', itemName: 'Expired household medicine' },
+        { canonicalItemId: 'used-cooking-oil', itemName: 'Used cooking oil' },
+        { canonicalItemId: 'aerosol-spray-can', itemName: 'Aerosol spray can' },
+        { canonicalItemId: 'household-pesticide-container', itemName: 'Household pesticide container' },
+        { canonicalItemId: 'discarded-wooden-furniture', itemName: 'Discarded wooden furniture' },
+        { canonicalItemId: 'discarded-upholstered-sofa', itemName: 'Discarded upholstered sofa' },
+        { canonicalItemId: 'discarded-electric-fan', itemName: 'Discarded electric fan' },
+        { canonicalItemId: 'discarded-laptop', itemName: 'Discarded laptop computer' },
+        { canonicalItemId: 'discarded-microwave-oven', itemName: 'Discarded microwave oven' },
+        { canonicalItemId: 'discarded-charging-cable', itemName: 'Discarded charging cable' },
+        { canonicalItemId: 'disposable-baby-diaper', itemName: 'Disposable baby diaper' },
+        { canonicalItemId: 'broken-ceramic-tableware', itemName: 'Broken ceramic dish or shards' },
+        { canonicalItemId: 'multi-layer-snack-packaging', itemName: 'Multi-layer snack packaging' },
+        { canonicalItemId: 'used-motor-oil', itemName: 'Used motorbike engine motor oil' },
+        { canonicalItemId: 'used-lead-acid-accumulator', itemName: 'Discarded motorbike lead-acid battery' },
+        { canonicalItemId: 'used-motorbike-tire', itemName: 'Used motorbike tires and inner tubes' },
+        { canonicalItemId: 'discarded-motorbike-helmet', itemName: 'Discarded motorbike helmet' },
+        { canonicalItemId: 'beverage-carton-tetra-pak', itemName: 'Aseptic multi-layer beverage carton' },
+        { canonicalItemId: 'polystyrene-foam-box', itemName: 'Expanded polystyrene foam box' },
+        { canonicalItemId: 'single-use-plastic-bag', itemName: 'Single-use plastic carrier bag' },
+        { canonicalItemId: 'plastic-bubble-wrap', itemName: 'Plastic bubble wrap packaging' },
+        { canonicalItemId: 'renovation-rubble-tiles', itemName: 'Minor home renovation rubble and tiles' },
+        { canonicalItemId: 'discarded-ceramic-toilet-sink', itemName: 'Discarded ceramic toilet or sink' },
+        { canonicalItemId: 'used-clothing-textile', itemName: 'Wearable second-hand clothing' },
+        { canonicalItemId: 'worn-out-footwear', itemName: 'Old worn-out shoes and footwear' },
+        { canonicalItemId: 'used-medical-mask', itemName: 'Used disposable medical mask' },
+        { canonicalItemId: 'household-medical-sharps', itemName: 'Household medical sharps and needles' },
+        { canonicalItemId: 'discarded-nail-polish-bottle', itemName: 'Nail polish and solvent bottle' },
+        { canonicalItemId: 'leftover-paint-can', itemName: 'Leftover household paint can' },
+        { canonicalItemId: 'incense-joss-paper-ash', itemName: 'Incense ash and joss paper ash' },
+        { canonicalItemId: 'coffee-grounds-tea-leaves', itemName: 'Coffee grounds and loose tea leaves' },
       ],
     })
     assert.equal((await fetch(`${origin}/api/items`, { method: 'POST' })).status, 405)
@@ -275,6 +315,10 @@ test('recognition uses OpenRouter Jev for text and configurable chat models for 
     })
     assert.equal(completionRequest.body.model, 'google/gemini-test-vision')
     assert.equal(completionRequest.body.messages[0].content[1].image_url.url, 'data:image/jpeg;base64,AA==')
+    mockedCandidate = {supported: true, confidence: 0.9, canonicalItemId: 'used-fluorescent-lamp', itemName: 'Used fluorescent lamp'}
+    assert.deepEqual((await recognize({image: {mimeType: 'image/jpeg', base64: 'AA=='}})).candidate, {
+      canonicalItemId: 'used-fluorescent-lamp', itemName: 'Used fluorescent lamp',
+    })
   } finally {
     globalThis.fetch = originalFetch
     for (const name of envNames) {
