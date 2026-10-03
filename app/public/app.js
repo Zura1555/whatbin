@@ -1551,10 +1551,37 @@ function setupModeSwitcher() {
   }
 }
 
+function prefersReducedMotion() {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+const flowPanelEnterOnce = { candidate: false, result: false };
+
+function playEnterTransition(element) {
+  if (!element || prefersReducedMotion()) return;
+  element.classList.add('enter-from');
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => element.classList.remove('enter-from'));
+  });
+}
+
+function showFlowPanel(element, onceKey) {
+  if (!element) return;
+  const wasHidden = element.hidden;
+  element.hidden = false;
+  if (wasHidden && onceKey && !flowPanelEnterOnce[onceKey]) {
+    flowPanelEnterOnce[onceKey] = true;
+    if (!element.classList.contains('enter-transition')) {
+      element.classList.add('enter-transition');
+    }
+    playEnterTransition(element);
+  }
+}
+
 function scrollFlowTarget(element) {
   if (!element) return;
   element.scrollIntoView({
-    behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+    behavior: prefersReducedMotion() ? 'auto' : 'smooth',
     block: 'start',
   });
 }
@@ -1580,7 +1607,10 @@ function setFlowStep(step) {
   if (flowHome) flowHome.hidden = step !== 'lookup';
   if (lookupScreen) lookupScreen.hidden = step !== 'lookup';
   if (confirmScreen) confirmScreen.hidden = step !== 'confirm';
-  if (resultPanel) resultPanel.hidden = step !== 'result';
+  if (resultPanel) {
+    if (step === 'result') showFlowPanel(resultPanel, 'result');
+    else resultPanel.hidden = true;
+  }
   updateFlowProgress(step);
 
   if (step === 'lookup') scrollFlowTarget(flowHome || lookupScreen);
@@ -1684,7 +1714,7 @@ function setCandidate(item) {
   candidate = { canonicalItemId: item.canonicalItemId, itemName: item.itemName };
   manualPanel.hidden = true;
   candidateName.textContent = itemDisplayName(candidate.canonicalItemId, candidate.itemName);
-  candidatePanel.hidden = false;
+  showFlowPanel(candidatePanel, 'candidate');
   recognitionFeedback.textContent = '';
   recognitionFeedback.hidden = true;
   setFlowStep('confirm');
@@ -2008,7 +2038,7 @@ citySelect.addEventListener('change', () => {
     confirmFeedback.hidden = true;
   }
   if (candidate) {
-    candidatePanel.hidden = false;
+    showFlowPanel(candidatePanel, 'candidate');
     setFlowStep('confirm');
     showFeedback(
       currentLang === 'vi'
@@ -2052,7 +2082,7 @@ resultBackButton?.addEventListener('click', () => {
   currentResolvedData = null;
   if (candidate) {
     setFlowStep('confirm');
-    candidatePanel.hidden = false;
+    showFlowPanel(candidatePanel, 'candidate');
     confirmButton.focus();
   } else {
     clearResults();
@@ -2719,9 +2749,11 @@ function setupVoiceSearch() {
 
 function showVoiceStatus(message, isRecording = false) {
   if (!voiceStatus) return;
+  const wasHidden = voiceStatus.hidden;
   voiceStatus.textContent = message;
   voiceStatus.classList.toggle('listening', isRecording);
   voiceStatus.hidden = false;
+  if (wasHidden) playEnterTransition(voiceStatus);
   if (!isRecording) {
     setTimeout(() => {
       if (!isListening && voiceStatus) voiceStatus.hidden = true;
@@ -2827,7 +2859,7 @@ function renderQuizQuestion() {
   progBar.className = 'quiz-progress-bar';
   const progFill = document.createElement('div');
   progFill.className = 'quiz-progress-fill';
-  progFill.style.width = `${((currentNum - 1) / total) * 100}%`;
+  progFill.style.transform = `scaleX(${(currentNum - 1) / total})`;
   progBar.append(progFill);
 
   const counter = document.createElement('div');
@@ -2886,7 +2918,7 @@ function handleAnswerSelected(selectedIdx, buttons, question) {
   });
 
   const feedback = document.createElement('div');
-  feedback.className = `quiz-feedback ${isCorrect ? '' : 'is-wrong'}`;
+  feedback.className = `quiz-feedback enter-transition ${isCorrect ? '' : 'is-wrong'}`;
 
   const fbTitle = document.createElement('div');
   fbTitle.className = 'quiz-feedback-title';
@@ -2917,6 +2949,7 @@ function handleAnswerSelected(selectedIdx, buttons, question) {
 
   navActions.append(nextBtn);
   quizBody.append(feedback, navActions);
+  playEnterTransition(feedback);
 }
 
 function renderQuizScoreScreen() {

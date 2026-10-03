@@ -1,5 +1,6 @@
 :root {
  color-scheme: light;
+ --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
  --ink: #26372e;
  --muted: #69776e;
  --green: #276247;
@@ -129,7 +130,11 @@ button:disabled {
  font-weight: 500;
  line-height: 24px;
  cursor: pointer;
- transition: all 140ms ease;
+ transition:
+  color 100ms ease,
+  background-color 100ms ease,
+  border-color 100ms ease,
+  box-shadow 100ms ease;
 }
 .lang-btn:hover:not(.active) {
  color: var(--green-dark);
@@ -196,7 +201,7 @@ h1 {
  box-shadow: 0 20px 60px rgb(38 62 48 / 8%), 0 2px 8px rgb(38 62 48 / 3%);
 }
 .confirm-card {
- animation: guided-arrive 260ms cubic-bezier(0.23, 1, 0.32, 1) both;
+ animation: guided-arrive 260ms var(--ease-out) both;
  transform-origin: 50% 100%;
 }
 .flow-screen[hidden] {
@@ -294,7 +299,7 @@ h1 {
 .lookup-card {
  grid-column: 1;
  align-self: center;
- animation: guided-arrive 260ms cubic-bezier(0.23, 1, 0.32, 1) both;
+ animation: guided-arrive 260ms var(--ease-out) both;
  transform-origin: 50% 100%;
 }
 .section-heading,
@@ -464,7 +469,11 @@ textarea::placeholder {
  font-size: 13px;
  font-weight: 500;
  cursor: pointer;
- transition: all 140ms ease;
+ transition:
+  color 100ms ease,
+  background-color 100ms ease,
+  border-color 100ms ease,
+  box-shadow 100ms ease;
  white-space: nowrap;
 }
 .mode-tab:hover:not(.active) {
@@ -602,11 +611,10 @@ textarea::placeholder {
  white-space: nowrap;
  cursor: pointer;
  transition:
-  background-color 140ms ease,
-  border-color 140ms ease,
-  color 140ms ease,
-  box-shadow 140ms ease,
-  transform 120ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  background-color 100ms ease,
+  border-color 100ms ease,
+  color 100ms ease,
+  box-shadow 100ms ease;
 }
 .stream-tab:hover {
  border-color: #b8cbbd;
@@ -706,7 +714,10 @@ textarea::placeholder {
  border: 1px solid transparent;
  font-size: 13px;
  line-height: 18px;
- transition: all 160ms ease;
+ transition:
+  background-color 100ms ease,
+  border-color 100ms ease,
+  color 100ms ease;
 }
 .stream-banner-icon {
  flex: 0 0 auto;
@@ -793,12 +804,10 @@ textarea::placeholder {
   border-color 140ms ease,
   color 140ms ease,
   box-shadow 140ms ease,
-  transform 120ms cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.example-chip:hover {
- transform: translateY(-1px);
+  transform 80ms ease-out;
 }
 .example-chip:active {
+ transition: transform 120ms ease-out;
  transform: scale(0.98);
 }
 .chip-label {
@@ -917,8 +926,10 @@ textarea::placeholder {
  font-weight: 500;
  transition:
   background-color 140ms ease,
+  border-color 140ms ease,
+  color 140ms ease,
   box-shadow 140ms ease,
-  transform 120ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform 80ms ease-out;
 }
 .button-primary {
  color: white;
@@ -931,6 +942,12 @@ textarea::placeholder {
  background: white;
 }
 .button:active:not(:disabled) {
+ transition:
+  background-color 140ms ease,
+  border-color 140ms ease,
+  color 140ms ease,
+  box-shadow 140ms ease,
+  transform 120ms ease-out;
  transform: scale(0.98);
 }
 
@@ -958,12 +975,6 @@ textarea::placeholder {
  margin-top: 25px;
  padding-top: 24px;
  border-top: 1px solid var(--line);
- animation: guided-arrive 240ms cubic-bezier(0.23, 1, 0.32, 1) both;
- transform-origin: top center;
-}
-.candidate-panel-standalone {
- animation: guided-arrive 240ms cubic-bezier(0.23, 1, 0.32, 1) both;
- transform-origin: top center;
 }
 .step-heading {
  align-items: center;
@@ -999,8 +1010,6 @@ textarea::placeholder {
  grid-column: 1;
  margin: 22px auto 0;
  scroll-margin-top: 96px;
- animation: guided-arrive 240ms cubic-bezier(0.23, 1, 0.32, 1) both;
- transform-origin: top center;
 }
 .compare-button {
  margin-top: 22px;
@@ -1309,6 +1318,13 @@ a:active,
  .example-chip:hover {
   border-color: #b8cbbd;
   background: #edf5ef;
+  transform: translateY(-1px);
+ }
+ .quick-nav-btn:hover {
+  transform: translateY(-1px);
+ }
+ .photo-clear-btn:hover {
+  transform: scale(1.1);
  }
  .button-primary:hover:not(:disabled) {
   background: var(--green-dark);
@@ -1442,6 +1458,17 @@ footer span:first-child {
 @keyframes guided-arrive {
  from { opacity: 0; transform: translateY(8px); }
  to { opacity: 1; transform: translateY(0); }
+}
+.enter-transition {
+ opacity: 1;
+ transform: translateY(0);
+ transition:
+  opacity 200ms var(--ease-out),
+  transform 200ms var(--ease-out);
+}
+.enter-transition.enter-from {
+ opacity: 0;
+ transform: translateY(8px);
 }
 [hidden] {
  display: none !important;
@@ -1611,12 +1638,16 @@ footer span:first-child {
   font-size: 13px;
   font-weight: 500;
   box-shadow: 0 1px 3px rgb(38 62 48 / 6%);
-  transition: all 140ms ease;
+  transition:
+   background-color 140ms ease,
+   border-color 140ms ease,
+   color 140ms ease,
+   box-shadow 140ms ease,
+   transform 80ms ease-out;
 }
 .quick-nav-btn:hover {
   background: var(--soft-green);
   border-color: var(--green);
-  transform: translateY(-1px);
 }
 .quick-nav-btn:active {
   transform: translateY(0);
@@ -1754,7 +1785,10 @@ footer span:first-child {
   border-radius: 50%;
   color: var(--muted);
   background: #f8faf8;
-  transition: all 140ms ease;
+  transition:
+   color 140ms ease,
+   border-color 140ms ease,
+   background-color 140ms ease;
 }
 .voice-search-btn:hover {
   color: var(--green);
@@ -1765,12 +1799,20 @@ footer span:first-child {
   color: #ffffff;
   border-color: #dc2626;
   background: #dc2626;
+}
+.voice-search-btn.listening::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 2px solid rgb(220 38 38 / 60%);
+  border-radius: 50%;
+  pointer-events: none;
   animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
 }
 @keyframes pulse-ring {
-  0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.6); }
-  70% { box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+  0% { opacity: 1; transform: scale(1); }
+  70% { opacity: 0; transform: scale(1.35); }
+  100% { opacity: 0; transform: scale(1.35); }
 }
 .mic-icon {
   width: 17px;
@@ -1785,7 +1827,6 @@ footer span:first-child {
   background: #edf5ef;
   color: var(--green-dark);
   border-left: 3px solid var(--green);
-  animation: guided-arrive 180ms ease;
 }
 .voice-status.listening {
   background: #fef2f2;
@@ -1824,11 +1865,13 @@ footer span:first-child {
   font-size: 11px;
   font-weight: 700;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  transition: all 120ms ease;
+  transition:
+   background-color 120ms ease,
+   color 120ms ease,
+   transform 80ms ease-out;
 }
 .photo-clear-btn:hover {
   background: #ef4444;
-  transform: scale(1.1);
 }
 .photo-preview-actions {
   display: flex;
@@ -1981,7 +2024,7 @@ footer span:first-child {
   inset: 0;
   background: rgba(15, 23, 42, 0.55);
   backdrop-filter: blur(4px);
-  animation: fadeIn 200ms ease;
+  animation: fadeIn 200ms var(--ease-out);
 }
 .modal-dialog {
   position: relative;
@@ -1993,7 +2036,7 @@ footer span:first-child {
   border-radius: 20px;
   background: #ffffff;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  animation: modalScaleUp 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  animation: modalScaleUp 220ms var(--ease-out);
   overflow: hidden;
 }
 .modal-dialog-lg {
@@ -2039,7 +2082,9 @@ footer span:first-child {
   background: #f1f5f9;
   font-size: 15px;
   font-weight: 700;
-  transition: all 120ms ease;
+  transition:
+   color 120ms ease,
+   background-color 120ms ease;
 }
 .modal-close-btn:hover {
   color: var(--ink);
@@ -2060,8 +2105,11 @@ footer span:first-child {
 }
 .quiz-progress-fill {
   height: 100%;
+  width: 100%;
   background: var(--green);
-  transition: width 240ms ease;
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 200ms var(--ease-out);
 }
 .quiz-counter {
   font-size: 12px;
@@ -2095,7 +2143,10 @@ footer span:first-child {
   text-align: left;
   font-size: 14px;
   line-height: 20px;
-  transition: all 140ms ease;
+  transition:
+   border-color 140ms ease,
+   background-color 140ms ease,
+   color 140ms ease;
 }
 .quiz-option-btn:hover:not(:disabled) {
   border-color: var(--green);
@@ -2137,7 +2188,6 @@ footer span:first-child {
   border-radius: 12px;
   background: #f8fafc;
   border-left: 4px solid var(--green);
-  animation: guided-arrive 200ms ease;
 }
 .quiz-feedback.is-wrong {
   border-left-color: #ef4444;
@@ -2236,7 +2286,10 @@ footer span:first-child {
   color: var(--muted);
   font-size: 12px;
   font-weight: 500;
-  transition: all 120ms ease;
+  transition:
+   background-color 100ms ease,
+   border-color 100ms ease,
+   color 100ms ease;
 }
 .filter-chip:hover {
   background: #f1f5f2;
@@ -2525,12 +2578,36 @@ footer {
 }
 
 @media (prefers-reduced-motion: reduce) {
- *,
- *::before,
- *::after {
-  scroll-behavior: auto !important;
-  transition-duration: 0.01ms !important;
-  animation: none !important;
+ html {
+  scroll-behavior: auto;
+ }
+ .lookup-card,
+ .confirm-card {
+  animation: guided-arrive-opacity 200ms var(--ease-out) both;
+ }
+ @keyframes guided-arrive-opacity {
+  from { opacity: 0; }
+  to { opacity: 1; }
+ }
+ @keyframes guided-arrive {
+  from { opacity: 0; transform: none; }
+  to { opacity: 1; transform: none; }
+ }
+ @keyframes modalScaleUp {
+  from { opacity: 0; transform: none; }
+  to { opacity: 1; transform: none; }
+ }
+ .enter-transition.enter-from {
+  transform: none;
+ }
+ .button:hover:not(:disabled),
+ .example-chip:hover,
+ .quick-nav-btn:hover,
+ .photo-clear-btn:hover {
+  transform: none !important;
+ }
+ .voice-search-btn.listening::after {
+  animation: none;
  }
 }
 
