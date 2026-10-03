@@ -17,27 +17,48 @@ const correctButton = document.querySelector('#correct-button');
 const resultPanel = document.querySelector('#result-panel');
 const resultStatus = document.querySelector('#result-status');
 const resultContent = document.querySelector('#result-content');
+const compareCitiesButton = document.querySelector('#compare-cities-button');
+const comparisonFeedback = document.querySelector('#comparison-feedback');
+const comparisonPanel = document.querySelector('#comparison-panel');
 const recognizeButton = document.querySelector('#recognize-button');
 const manualPanel = document.querySelector('#manual-panel');
 const manualItemSelect = document.querySelector('#manual-item');
 const manualChooseButton = document.querySelector('#manual-choose-button');
-
 let candidate = null;
 let requestVersion = 0;
 let explanationHistory = [];
 let manualItems = [];
 let explanationVersion = 0;
+let comparisonVersion = 0;
 let imagePreviewUrl = null;
 let selectedImage = null;
+for (const exampleButton of document.querySelectorAll('[data-example]')) {
+  exampleButton.addEventListener('click', () => {
+    requestVersion++;
+    clearResults();
+    recognizeButton.disabled = false;
+    confirmButton.disabled = false;
+    correctButton.disabled = false;
+    descriptionInput.value = exampleButton.dataset.example;
+    descriptionInput.focus();
+  });
+}
 
 function clearResults() {
   candidate = null;
+  comparisonVersion++;
   candidatePanel.hidden = true;
   manualPanel.hidden = true;
   manualItemSelect.replaceChildren();
   resultPanel.hidden = true;
   resultStatus.textContent = '';
   resultContent.replaceChildren();
+  compareCitiesButton.hidden = true;
+  compareCitiesButton.disabled = false;
+  comparisonFeedback.hidden = true;
+  comparisonFeedback.textContent = '';
+  comparisonPanel.hidden = true;
+  comparisonPanel.replaceChildren();
   candidateName.textContent = '';
   recognitionFeedback.textContent = '';
   recognitionFeedback.hidden = true;
@@ -245,6 +266,7 @@ manualChooseButton.addEventListener('click', () => {
 
 citySelect.addEventListener('change', () => {
   requestVersion++;
+  comparisonVersion++;
   explanationVersion++;
   explanationHistory = [];
   recognizeButton.disabled = false;
@@ -253,6 +275,12 @@ citySelect.addEventListener('change', () => {
   resultPanel.hidden = true;
   resultStatus.textContent = '';
   resultContent.replaceChildren();
+  compareCitiesButton.hidden = true;
+  compareCitiesButton.disabled = false;
+  comparisonFeedback.hidden = true;
+  comparisonFeedback.textContent = '';
+  comparisonPanel.hidden = true;
+  comparisonPanel.replaceChildren();
   recognitionFeedback.textContent = '';
   recognitionFeedback.hidden = true;
   if (candidate) {
@@ -353,13 +381,13 @@ function safeUrl(value) {
   }
 }
 
-function renderSources(references) {
+function renderSources(references, contentNode = resultContent) {
   const section = document.createElement('section');
   section.className = 'result-section';
   addText(section, 'h3', 'Official sources');
   if (!Array.isArray(references) || references.length === 0) {
     addText(section, 'p', 'No source references were provided.', 'muted-copy');
-    resultContent.append(section);
+    contentNode.append(section);
     return;
   }
   const list = document.createElement('ul');
@@ -390,44 +418,90 @@ function renderSources(references) {
   }
   if (list.childElementCount) section.append(list);
   else addText(section, 'p', 'No usable source links were provided.', 'muted-copy');
-  resultContent.append(section);
+  contentNode.append(section);
 }
 
-function renderResolution(data, city, canonicalItemId) {
+function renderResolution(data, city, canonicalItemId, {
+  panel = resultPanel,
+  statusNode = resultStatus,
+  contentNode = resultContent,
+  includeExplainer = true,
+  includeCity = true
+} = {}) {
   const status = typeof data?.status === 'string' ? data.status : '';
-  resultPanel.hidden = false;
-  resultStatus.textContent = status || 'UNAVAILABLE';
+  panel.hidden = false;
+  statusNode.textContent = status || 'UNAVAILABLE';
   let statusClass = 'status-unavailable';
   if (status === 'MATCHED') statusClass = 'status-matched';
   else if (status === 'UNKNOWN') statusClass = 'status-unknown';
   else if (status === 'CONFLICT') statusClass = 'status-conflict';
-  resultStatus.className = `status-pill ${statusClass}`;
-  resultContent.replaceChildren();
-  addText(resultContent, 'p', cityName(city), 'result-city');
-
+  statusNode.className = `status-pill ${statusClass}`;
+  contentNode.replaceChildren();
+  if (includeCity) addText(contentNode, 'p', cityName(city), 'result-city');
   if (status !== 'MATCHED') {
     if (status === 'UNKNOWN') {
       const date = typeof data.asOf === 'string' ? data.asOf : 'the current local date';
-      addText(resultContent, 'p', `WhatBin has no reviewed rule for this item in ${cityName(city)} as of ${date}. This does not establish that no legal route exists.`, 'result-message');
-      renderExplainer(city, canonicalItemId);
+      addText(contentNode, 'p', `WhatBin has no reviewed rule for this item in ${cityName(city)} as of ${date}. This does not establish that no legal route exists.`, 'result-message');
+      if (includeExplainer) renderExplainer(city, canonicalItemId);
     } else if (status === 'CONFLICT') {
-      addText(resultContent, 'p', typeof data.message === 'string' && data.message ? data.message : 'Published records conflict for this item and city; no disposal action is provided.', 'result-message');
-      renderExplainer(city, canonicalItemId);
-    } else addText(resultContent, 'p', 'The service did not return a usable matched result. Please try again later.', 'result-message');
+      addText(contentNode, 'p', typeof data.message === 'string' && data.message ? data.message : 'Published records conflict for this item and city; no disposal action is provided.', 'result-message');
+      if (Array.isArray(data.conflicts) && data.conflicts.length) {
+        const section = document.createElement('section');
+        section.className = 'result-section conflict-evidence';
+        addText(section, 'h3', 'Conflicting records');
+        for (const conflict of data.conflicts) {
+          if (!conflict || typeof conflict !== 'object') continue;
+          const entry = document.createElement('div');
+          entry.className = 'conflict-entry';
+          if (typeof conflict.summary === 'string' && conflict.summary) addText(entry, 'p', conflict.summary);
+          const from = conflict.effectiveFrom ?? conflict.validFrom;
+          const until = conflict.effectiveUntil ?? conflict.validUntil;
+          if ((typeof from === 'string' && from) || (typeof until === 'string' && until)) {
+            const dates = document.createElement('p');
+            dates.className = 'muted-copy';
+            if (typeof from === 'string' && from) addText(dates, 'span', `Effective from ${from}`);
+            if (typeof until === 'string' && until) addText(dates, 'span', `Effective until ${until}`);
+            entry.append(dates);
+          }
+          if (Array.isArray(conflict.claims)) {
+            for (const claim of conflict.claims) {
+              if (!claim || typeof claim !== 'object') continue;
+              const claimEntry = document.createElement('div');
+              claimEntry.className = 'conflict-claim';
+              if (typeof claim.sourceTitle === 'string' && claim.sourceTitle) addText(claimEntry, 'h4', claim.sourceTitle);
+              if (typeof claim.sourceVersion === 'string' && claim.sourceVersion) addText(claimEntry, 'p', claim.sourceVersion, 'muted-copy');
+              if (typeof claim.citation === 'string' && claim.citation) addText(claimEntry, 'p', claim.citation);
+              if (typeof claim.claim === 'string' && claim.claim) addText(claimEntry, 'blockquote', claim.claim);
+              const href = safeUrl(claim.sourceUrl);
+              if (href) {
+                const link = addText(claimEntry, 'a', 'Open cited source');
+                link.href = href;
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+              }
+              entry.append(claimEntry);
+            }
+          }
+          section.append(entry);
+        }
+        if (section.childElementCount > 1) contentNode.append(section);
+      }
+      if (includeExplainer) renderExplainer(city, canonicalItemId);
+    } else addText(contentNode, 'p', 'The service did not return a usable matched result. Please try again later.', 'result-message');
     if ((status === 'UNKNOWN' || status === 'CONFLICT') && typeof data.asOf === 'string') {
-      addText(resultContent, 'p', `Resolved for local date ${data.asOf}.`, 'muted-copy');
+      addText(contentNode, 'p', `Resolved for local date ${data.asOf}.`, 'muted-copy');
     }
     return;
   }
 
   const itemName = typeof data.itemName === 'string' ? data.itemName : '';
-  if (itemName) addText(resultContent, 'p', itemName, 'result-item-name');
-  if (typeof data.category === 'string' && data.category) addText(resultContent, 'p', data.category, 'result-category');
+  if (itemName) addText(contentNode, 'p', itemName, 'result-item-name');
+  if (typeof data.category === 'string' && data.category) addText(contentNode, 'p', data.category, 'result-category');
   if (typeof data.instruction === 'string' && data.instruction) {
     const instruction = document.createElement('div');
     instruction.className = 'instruction';
     addText(instruction, 'p', data.instruction);
-    resultContent.append(instruction);
+    contentNode.append(instruction);
   }
 
   const from = data.effectiveFrom ?? data.validFrom;
@@ -440,9 +514,9 @@ function renderResolution(data, city, canonicalItemId) {
   addText(dates, 'dd', typeof until === 'string' && until ? until : 'Not provided');
   addText(dates, 'dt', 'Resolved for local date');
   addText(dates, 'dd', typeof data.asOf === 'string' && data.asOf ? data.asOf : 'Not provided');
-  resultContent.append(dates);
+  contentNode.append(dates);
 
-  renderSources(data.sourceReferences);
+  renderSources(data.sourceReferences, contentNode);
   const supportingPassages = Array.isArray(data.supportingPassages) ? data.supportingPassages : [];
   if (supportingPassages.length) {
     const section = document.createElement('details');
@@ -465,9 +539,9 @@ function renderResolution(data, city, canonicalItemId) {
       }
       section.append(entry);
     }
-    resultContent.append(section);
+    contentNode.append(section);
   }
-  renderExplainer(city, canonicalItemId);
+  if (includeExplainer) renderExplainer(city, canonicalItemId);
 }
 
 function renderExplainer(city, canonicalItemId) {
@@ -561,8 +635,14 @@ confirmButton.addEventListener('click', async () => {
   const confirmedItem = candidate;
   const city = citySelect.value;
   const version = ++requestVersion;
+  comparisonVersion++;
   explanationVersion++;
   explanationHistory = [];
+  compareCitiesButton.hidden = true;
+  compareCitiesButton.disabled = false;
+  comparisonFeedback.textContent = '';
+  comparisonPanel.hidden = true;
+  comparisonPanel.replaceChildren();
   confirmButton.disabled = true;
   correctButton.disabled = true;
   resultPanel.hidden = true;
@@ -576,6 +656,7 @@ confirmButton.addEventListener('click', async () => {
     if (version !== requestVersion || city !== citySelect.value) return;
     recognitionFeedback.hidden = true;
     renderResolution(data, city, confirmedItem.canonicalItemId);
+    compareCitiesButton.hidden = false;
     resultPanel.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
   } catch (error) {
     if (version === requestVersion) showFeedback(error instanceof Error ? error.message : 'Could not retrieve city guidance. Please try again.', true);
@@ -585,4 +666,63 @@ confirmButton.addEventListener('click', async () => {
       correctButton.disabled = false;
     }
   }
+});
+compareCitiesButton.addEventListener('click', async () => {
+  if (!candidate || compareCitiesButton.disabled) return;
+  const confirmedItem = candidate;
+  const version = ++comparisonVersion;
+  const cities = ['hanoi', 'ho-chi-minh-city'];
+  compareCitiesButton.disabled = true;
+  comparisonFeedback.textContent = 'Checking guidance for Hanoi and Ho Chi Minh City…';
+  comparisonFeedback.classList.remove('feedback-error');
+  comparisonFeedback.hidden = false;
+  comparisonPanel.replaceChildren();
+
+  const cards = cities.map(city => {
+    const card = document.createElement('article');
+    card.className = 'comparison-card';
+    addText(card, 'h3', cityName(city));
+    const content = document.createElement('div');
+    const status = addText(card, 'span', 'LOADING', 'status-pill status-unavailable');
+    addText(content, 'p', 'Checking current guidance…', 'muted-copy');
+    card.append(status, content);
+    comparisonPanel.append(card);
+    return { card, status, content };
+  });
+  comparisonPanel.hidden = false;
+
+  const outcomes = await Promise.all(cities.map(async (jurisdiction, index) => {
+    try {
+      const data = await postJson('/api/resolve', {
+        jurisdiction,
+        canonicalItemId: confirmedItem.canonicalItemId,
+        confirmed: true
+      });
+      if (version !== comparisonVersion || candidate !== confirmedItem) return 'stale';
+      renderResolution(data, jurisdiction, confirmedItem.canonicalItemId, {
+        panel: cards[index].card,
+        statusNode: cards[index].status,
+        contentNode: cards[index].content,
+        includeExplainer: false,
+        includeCity: false
+      });
+      return 'complete';
+    } catch {
+      if (version !== comparisonVersion || candidate !== confirmedItem) return 'stale';
+      const { card, status, content } = cards[index];
+      status.textContent = 'UNAVAILABLE';
+      status.className = 'status-pill status-unavailable';
+      content.replaceChildren();
+      addText(content, 'p', 'Guidance could not be loaded for this city. Please try again.', 'result-message');
+      card.hidden = false;
+      return 'failed';
+    }
+  }));
+  if (version !== comparisonVersion || candidate !== confirmedItem) return;
+  const failed = outcomes.includes('failed');
+  comparisonFeedback.textContent = failed
+    ? 'Comparison complete. Guidance could not be loaded for one or more cities.'
+    : 'Comparison complete.';
+  comparisonFeedback.classList.toggle('feedback-error', failed);
+  compareCitiesButton.disabled = false;
 });

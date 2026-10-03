@@ -1,111 +1,341 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#f4f6f0">
-  <title>WhatBin — Check where it goes</title>
-  <link rel="stylesheet" href="/styles.css">
-  <script src="/app.js" defer></script>
-</head>
-<body>
-  <main class="page-shell">
-    <header class="masthead">
-      <a class="wordmark" href="/" aria-label="WhatBin home"><span class="mark" aria-hidden="true">W</span> WhatBin</a>
-      <span class="location-note">Vietnam · local sorting guide</span>
-    </header>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#f4f6f0" />
+    <title>WhatBin — Check where it goes</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="masthead">
+        <a class="wordmark" href="/" aria-label="WhatBin home"
+          ><span class="mark" aria-hidden="true">W</span> WhatBin</a
+        >
+        <span class="location-note">Vietnam · local sorting guide</span>
+      </header>
 
-    <section class="intro" aria-labelledby="page-title">
-      <p class="eyebrow">A clearer next step for your waste</p>
-      <h1 id="page-title">Where does it go?</h1>
-      <p class="intro-copy">Check for a reviewed rule in your city, then verify any guidance against its linked official source.</p>
-    </section>
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow">A clearer next step for your waste</p>
+        <h1 id="page-title">Where does it go?</h1>
+        <p class="intro-copy">
+          Check for a reviewed rule in your city, then verify any guidance
+          against its linked official source.
+        </p>
+      </section>
 
-    <section class="lookup-card" aria-labelledby="lookup-title">
-      <div class="section-heading">
-        <span class="step-number" aria-hidden="true">01</span>
-        <div><h2 id="lookup-title">Describe your item</h2><p>Choose a city, then add a photo, a description, or both.</p></div>
-      </div>
-
-      <form id="recognize-form">
-        <div class="field-group">
-          <label for="jurisdiction">Your city</label>
-          <select id="jurisdiction" name="jurisdiction" required>
-            <option value="hanoi">Hanoi</option>
-            <option value="ho-chi-minh-city">Ho Chi Minh City</option>
-          </select>
+      <section class="lookup-card" aria-labelledby="lookup-title">
+        <div class="section-heading">
+          <span class="step-number" aria-hidden="true">01</span>
+          <div>
+            <h2 id="lookup-title">Describe your item</h2>
+            <p>Choose a city, then add a photo, a description, or both.</p>
+          </div>
         </div>
 
-        <div class="field-group">
-          <label for="description">What is the item?</label>
-          <textarea id="description" name="description" rows="3" maxlength="2000" placeholder="Describe the item and its condition"></textarea>
-          <span class="field-hint">Current guidance covers old mattresses; intact household AA/AAA batteries; standalone rechargeable lithium-ion batteries; fluorescent lamps or tubes, intact or broken; and household mercury thermometers, intact or broken.</span>
-        </div>
+        <form id="recognize-form">
+          <div class="field-group">
+            <label for="jurisdiction">Your city</label>
+            <select id="jurisdiction" name="jurisdiction" required>
+              <option value="hanoi">Hanoi</option>
+              <option value="ho-chi-minh-city">Ho Chi Minh City</option>
+            </select>
+          </div>
 
-        <div class="field-group photo-field">
-          <p class="photo-label" id="photo-label">Add a photo <span class="optional">(optional)</span></p>
-          <div class="photo-picker">
-            <div class="photo-picker-copy">
-              <strong>Show us the item</strong>
-              <span>Take a new photo or choose a saved photo or screenshot.</span>
-            </div>
-            <input id="image" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="photo-hint" hidden>
-            <input id="camera-image" type="file" accept="image/jpeg,image/png,image/webp" capture="environment" aria-describedby="photo-hint" hidden>
-            <div class="photo-actions">
-              <button class="button button-primary photo-action" id="take-photo-button" type="button">
-                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M4 7.5h3l1.5-2h7l1.5 2h3A1.5 1.5 0 0 1 21.5 9v9a1.5 1.5 0 0 1-1.5 1.5H4A1.5 1.5 0 0 1 2.5 18V9A1.5 1.5 0 0 1 4 7.5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.25" stroke="currentColor" stroke-width="1.7"/></svg>
-                Take a photo
-              </button>
-              <button class="button button-secondary photo-action" id="choose-photo-button" type="button">
-                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.7"/><circle cx="9" cy="10" r="1.5" stroke="currentColor" stroke-width="1.5"/><path d="m4 17 5-4 3 2 3-3 5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Choose photo
-              </button>
+          <div class="field-group">
+            <label for="description">What is the item?</label>
+            <textarea
+              id="description"
+              name="description"
+              rows="3"
+              maxlength="2000"
+              placeholder="Describe the item and its condition"
+            ></textarea>
+            <div class="examples">
+              <span class="examples-label" id="examples-label"
+                >Try a covered example</span
+              >
+              <div
+                class="example-list"
+                role="group"
+                aria-labelledby="examples-label"
+              >
+                <button
+                  class="example-chip"
+                  type="button"
+                  data-example="an old mattress"
+                  aria-controls="description"
+                >
+                  Old mattress
+                </button>
+                <button
+                  class="example-chip"
+                  type="button"
+                  data-example="an intact used household AA/AAA battery"
+                  aria-controls="description"
+                >
+                  Intact AA/AAA battery
+                </button>
+                <button
+                  class="example-chip"
+                  type="button"
+                  data-example="a standalone used rechargeable lithium-ion battery"
+                  aria-controls="description"
+                >
+                  Standalone Li-ion battery
+                </button>
+                <button
+                  class="example-chip"
+                  type="button"
+                  data-example="a broken household fluorescent tube"
+                  aria-controls="description"
+                >
+                  Broken fluorescent tube
+                </button>
+                <button
+                  class="example-chip"
+                  type="button"
+                  data-example="a broken household mercury thermometer"
+                  aria-controls="description"
+                >
+                  Broken mercury thermometer
+                </button>
+              </div>
             </div>
           </div>
-          <div id="image-preview" class="photo-preview" hidden>
-            <img id="image-preview-image" alt="">
-            <div class="photo-preview-copy"><strong>Photo ready</strong><span id="image-preview-name"></span></div>
-            <button class="button button-secondary" id="remove-image-button" type="button">Remove</button>
+
+          <div class="field-group photo-field">
+            <p class="photo-label" id="photo-label">
+              Add a photo <span class="optional">(optional)</span>
+            </p>
+            <div class="photo-picker">
+              <div class="photo-picker-copy">
+                <strong>Show us the item</strong>
+                <span
+                  >Take a new photo or choose a saved photo or screenshot.</span
+                >
+              </div>
+              <input
+                id="image"
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                aria-describedby="photo-hint"
+                hidden
+              />
+              <input
+                id="camera-image"
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                capture="environment"
+                aria-describedby="photo-hint"
+                hidden
+              />
+              <div class="photo-actions">
+                <button
+                  class="button button-primary photo-action"
+                  id="take-photo-button"
+                  type="button"
+                >
+                  <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M4 7.5h3l1.5-2h7l1.5 2h3A1.5 1.5 0 0 1 21.5 9v9a1.5 1.5 0 0 1-1.5 1.5H4A1.5 1.5 0 0 1 2.5 18V9A1.5 1.5 0 0 1 4 7.5Z"
+                      stroke="currentColor"
+                      stroke-width="1.7"
+                      stroke-linejoin="round"
+                    />
+                    <circle
+                      cx="12"
+                      cy="13"
+                      r="3.25"
+                      stroke="currentColor"
+                      stroke-width="1.7"
+                    />
+                  </svg>
+                  Take a photo
+                </button>
+                <button
+                  class="button button-secondary photo-action"
+                  id="choose-photo-button"
+                  type="button"
+                >
+                  <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+                    <rect
+                      x="3"
+                      y="4"
+                      width="18"
+                      height="16"
+                      rx="2"
+                      stroke="currentColor"
+                      stroke-width="1.7"
+                    />
+                    <circle
+                      cx="9"
+                      cy="10"
+                      r="1.5"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    />
+                    <path
+                      d="m4 17 5-4 3 2 3-3 5 5"
+                      stroke="currentColor"
+                      stroke-width="1.7"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  Choose photo
+                </button>
+              </div>
+            </div>
+            <div id="image-preview" class="photo-preview" hidden>
+              <img id="image-preview-image" alt="" />
+              <div class="photo-preview-copy">
+                <strong>Photo ready</strong
+                ><span id="image-preview-name"></span>
+              </div>
+              <button
+                class="button button-secondary"
+                id="remove-image-button"
+                type="button"
+              >
+                Remove
+              </button>
+            </div>
+            <span class="field-hint" id="photo-hint"
+              >Choose a screenshot from your photo library, too. Your image is
+              only sent when you identify the item.</span
+            >
           </div>
-          <span class="field-hint" id="photo-hint">Choose a screenshot from your photo library, too. Your image is only sent when you identify the item.</span>
-        </div>
 
-        <p class="privacy-note"><span class="privacy-icon" aria-hidden="true">↗</span> Your photo and/or description is sent to Google Gemini for item recognition. This app does not store it. You can verify any guidance using its linked official source.</p>
-        <button class="button button-primary" type="submit" id="recognize-button">Identify item <span aria-hidden="true">→</span></button>
-      </form>
+          <p class="privacy-note">
+            <span class="privacy-icon" aria-hidden="true">↗</span> Your
+            description and any photo are sent to Gemini or OpenRouter,
+            depending on server configuration, only when you identify the item.
+            WhatBin does not store them.
+          </p>
+          <button
+            class="button button-primary"
+            type="submit"
+            id="recognize-button"
+          >
+            Identify item <span aria-hidden="true">→</span>
+          </button>
+        </form>
 
-      <div id="recognition-feedback" class="feedback" role="status" aria-live="polite" hidden></div>
-      <section id="manual-panel" class="candidate-panel" aria-labelledby="manual-heading" hidden>
-        <h2 id="manual-heading">Choose a catalog item</h2>
-        <p class="candidate-intro">Choose only a close match. The next step checks for a reviewed rule in your city; if none exists, WhatBin will not provide a disposal route.</p>
-        <div class="field-group">
-          <label for="manual-item">Catalog item</label>
-          <select id="manual-item" disabled>
-            <option value="">Choose a catalog item</option>
-          </select>
-        </div>
-        <div class="candidate-actions">
-          <button class="button button-secondary" id="manual-choose-button" type="button" disabled>Use this item</button>
-        </div>
+        <div
+          id="recognition-feedback"
+          class="feedback"
+          role="status"
+          aria-live="polite"
+          hidden
+        ></div>
+        <section
+          id="manual-panel"
+          class="candidate-panel"
+          aria-labelledby="manual-heading"
+          hidden
+        >
+          <h2 id="manual-heading">Choose a catalog item</h2>
+          <p class="candidate-intro">
+            Choose only a close match. The next step checks for a reviewed rule
+            in your city; if none exists, WhatBin will not provide a disposal
+            route.
+          </p>
+          <div class="field-group">
+            <label for="manual-item">Catalog item</label>
+            <select id="manual-item" disabled>
+              <option value="">Choose a catalog item</option>
+            </select>
+          </div>
+          <div class="candidate-actions">
+            <button
+              class="button button-secondary"
+              id="manual-choose-button"
+              type="button"
+              disabled
+            >
+              Use this item
+            </button>
+          </div>
+        </section>
+        <section
+          id="candidate-panel"
+          class="candidate-panel"
+          aria-labelledby="candidate-heading"
+          hidden
+        >
+          <div class="step-heading">
+            <span class="step-number" aria-hidden="true">02</span>
+            <h2 id="candidate-heading">Confirm the item</h2>
+          </div>
+          <p class="candidate-intro">
+            Check this identification before looking up city guidance.
+          </p>
+          <div class="candidate-name" id="candidate-name"></div>
+          <div class="candidate-actions">
+            <button
+              class="button button-primary"
+              id="confirm-button"
+              type="button"
+            >
+              Yes, look this up <span aria-hidden="true">→</span>
+            </button>
+            <button
+              class="button button-secondary"
+              id="correct-button"
+              type="button"
+            >
+              Not quite — edit description
+            </button>
+          </div>
+        </section>
       </section>
-      <section id="candidate-panel" class="candidate-panel" aria-labelledby="candidate-heading" hidden>
-        <div class="step-heading"><span class="step-number" aria-hidden="true">02</span><h2 id="candidate-heading">Confirm the item</h2></div>
-        <p class="candidate-intro">Check this identification before looking up city guidance.</p>
-        <div class="candidate-name" id="candidate-name"></div>
-        <div class="candidate-actions">
-          <button class="button button-primary" id="confirm-button" type="button">Yes, look this up <span aria-hidden="true">→</span></button>
-          <button class="button button-secondary" id="correct-button" type="button">Not quite — edit description</button>
+
+      <section
+        id="result-panel"
+        class="result-card"
+        aria-labelledby="result-heading"
+        aria-live="polite"
+        hidden
+      >
+        <div class="result-topline">
+          <span class="step-number" aria-hidden="true">03</span
+          ><span id="result-status" class="status-pill"></span>
         </div>
+        <h2 id="result-heading">City guidance</h2>
+        <div id="result-content"></div>
+        <button
+          class="button button-secondary compare-button"
+          id="compare-cities-button"
+          type="button"
+          hidden
+        >
+          Compare both cities
+        </button>
+        <p
+          id="comparison-feedback"
+          class="feedback"
+          role="status"
+          aria-live="polite"
+          hidden
+        ></p>
+        <section
+          id="comparison-panel"
+          class="comparison-grid"
+          aria-label="Guidance for both cities"
+          hidden
+        ></section>
       </section>
-    </section>
 
-    <section id="result-panel" class="result-card" aria-labelledby="result-heading" aria-live="polite" hidden>
-      <div class="result-topline"><span class="step-number" aria-hidden="true">03</span><span id="result-status" class="status-pill"></span></div>
-      <h2 id="result-heading">City guidance</h2>
-      <div id="result-content"></div>
-    </section>
-
-    <footer><span>WhatBin</span><span>Check the linked source for the latest official guidance.</span></footer>
-  </main>
-</body>
+      <footer>
+        <span>WhatBin</span
+        ><span>Check the linked source for the latest official guidance.</span>
+      </footer>
+    </main>
+  </body>
 </html>
