@@ -10,7 +10,7 @@ const ROOT = resolve(fileURLToPath(new URL('./public/', import.meta.url)))
 const MAX_BODY = 9 * 1024 * 1024
 const SANITY_URL = 'https://xqeddep2.api.sanity.io/v2025-02-19/data/query/production'
 const SANITY_ACCESS_URL = 'https://api.sanity.io/v2025-07-11/access/project/xqeddep2/user-permissions/me'
-const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent'
+const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent'
 const OPENROUTER_COMPLETIONS_URL = 'https://openrouter.ai/api/v1/chat/completions'
 const OPENROUTER_DECISIONS_URL = 'https://openrouter.ai/api/alpha/decisions'
 const RECOGNITION_CATEGORIES = new Map([
@@ -177,20 +177,29 @@ async function recognize(input) {
   }
   const contents = [{ text: prompt }]
   if (image) contents.push({ inlineData: { mimeType: image.mimeType, data: image.base64 } })
-  const response = await fetch(GEMINI_URL, {
-    method: 'POST', headers: { 'content-type': 'application/json', 'x-goog-api-key': key }, signal: AbortSignal.timeout(20000),
-    body: JSON.stringify({
-      store: false,
-      contents: [{ parts: contents }], generationConfig: {
-        responseMimeType: 'application/json',
-        responseSchema: { type: 'OBJECT', properties: {
-          supported: { type: 'BOOLEAN' }, confidence: { type: 'NUMBER' },
-          canonicalItemId: { type: 'STRING', nullable: true }, itemName: { type: 'STRING', nullable: true },
-        }, required: ['supported', 'confidence', 'canonicalItemId', 'itemName'] },
-      },
-    }),
-  })
-  if (!response.ok) throw Object.assign(new Error('Recognition provider request failed.'), { status: 502 })
+  let response
+  for (let attempt = 0; attempt < 3; attempt++) {
+    response = await fetch(GEMINI_URL, {
+      method: 'POST', headers: { 'content-type': 'application/json', 'x-goog-api-key': key }, signal: AbortSignal.timeout(20000),
+      body: JSON.stringify({
+        store: false,
+        contents: [{ parts: contents }], generationConfig: {
+          responseMimeType: 'application/json',
+          responseSchema: { type: 'OBJECT', properties: {
+            supported: { type: 'BOOLEAN' }, confidence: { type: 'NUMBER' },
+            canonicalItemId: { type: 'STRING', nullable: true }, itemName: { type: 'STRING', nullable: true },
+          }, required: ['supported', 'confidence', 'canonicalItemId', 'itemName'] },
+        },
+      }),
+    })
+    if (response.ok || (response.status !== 503 && response.status !== 429)) break
+    await new Promise((r) => setTimeout(r, 600 * (attempt + 1)))
+  }
+  if (!response.ok) {
+    const errorBody = await response.text().catch(() => '')
+    console.error('Gemini recognition error:', response.status, errorBody)
+    throw Object.assign(new Error('Recognition provider request failed.'), { status: 502 })
+  }
   let envelope
   try { envelope = await response.json() } catch { throw Object.assign(new Error('Recognition provider returned invalid data.'), { status: 502 }) }
   const text = envelope?.candidates?.[0]?.content?.parts?.map((part) => part.text ?? '').join('')
