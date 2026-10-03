@@ -27,12 +27,26 @@ async function main() {
     throw new Error('No Sanity authentication token found in SANITY_API_TOKEN, SANITY_AUTH_TOKEN, or ~/.config/sanity/config.json')
   }
 
-  const filePath = fileURLToPath(new URL('../drafts/top-items-disposal-rules.json', import.meta.url))
-  const docs = JSON.parse(await readFile(filePath, 'utf8'))
+  const targetFiles = process.argv[2]
+    ? [process.argv[2]]
+    : [
+        fileURLToPath(new URL('../drafts/top-items-disposal-rules.json', import.meta.url)),
+        fileURLToPath(new URL('../drafts/all-remaining-disposal-rules.json', import.meta.url)),
+      ]
 
-  console.log(`Preparing to import and publish ${docs.length} disposal rules...`)
+  let allDocs = []
+  for (const f of targetFiles) {
+    try {
+      const docs = JSON.parse(await readFile(f, 'utf8'))
+      allDocs.push(...docs)
+    } catch (e) {
+      console.warn(`Could not read ${f}:`, e.message)
+    }
+  }
 
-  const mutations = docs.map((doc) => ({
+  console.log(`Preparing to import and publish ${allDocs.length} disposal rules...`)
+
+  const mutations = allDocs.map((doc) => ({
     createOrReplace: doc,
   }))
 

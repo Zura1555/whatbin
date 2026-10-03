@@ -570,5 +570,981 @@
       }
     ],
     "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 87/2025/QĐ-UBND",
+    "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+    "sourceCitation": "Article 5(1)(c)",
+    "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+    "citation": "Article 5(1)(c)",
+    "text": "Chất thải kim loại bao gồm: lon, hộp kim loại (nhôm, sắt, thiếc...) đựng thực phẩm, đồ uống và các vật dụng kim loại gia dụng khác.",
+    "requires": [
+      {
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 36/2024/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/36-2024-qd-ubnd/ngay/26-06-2024/noi-dung/46704",
+    "sourceCitation": "Article 4(1)",
+    "sourceVersion": "Decision 36/2024/QĐ-UBND, cited clauses retained after Decision 2736/QĐ-UBND (effective 2025-11-14)",
+    "citation": "Article 4(1)",
+    "text": "Chất thải có khả năng tái sử dụng, tái chế: kim loại (nhôm, sắt, đồng...), lon kim loại rỗng được làm sạch và thu gom riêng.",
+    "requires": [
+      {
+        "title": "Decision 2736/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/2736-qd-ubnd/ngay/14-11-2025/noi-dung/48890/48893",
+        "citation": "Article 1"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 87/2025/QĐ-UBND",
+    "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+    "sourceCitation": "Article 5(1)(d)",
+    "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+    "citation": "Article 5(1)(d)",
+    "text": "Chất thải thủy tinh bao gồm: chai, lọ, bình thủy tinh chứa đựng thực phẩm, đồ uống, mỹ phẩm và các sản phẩm thủy tinh gia dụng khác (không bao gồm bóng đèn huỳnh quang, gương, kính xây dựng).",
+    "requires": [
+      {
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 36/2024/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/36-2024-qd-ubnd/ngay/26-06-2024/noi-dung/46704",
+    "sourceCitation": "Article 4(1)",
+    "sourceVersion": "Decision 36/2024/QĐ-UBND, cited clauses retained after Decision 2736/QĐ-UBND (effective 2025-11-14)",
+    "citation": "Article 4(1)",
+    "text": "Chất thải thủy tinh bao gồm: các loại chai, lọ bằng thủy tinh được rửa sạch, không lẫn tạp chất nguy hại, giữ nguyên vẹn để bảo đảm an toàn khi thu gom.",
+    "requires": [
+      {
+        "title": "Decision 2736/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/2736-qd-ubnd/ngay/14-11-2025/noi-dung/48890/48893",
+        "citation": "Article 1"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 87/2025/QĐ-UBND",
+    "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+    "sourceCitation": "Article 5(1)(b)",
+    "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+    "citation": "Article 5(1)(b)",
+    "text": "Chất thải nhựa bao gồm: bao bì nhựa mềm, bao bì nhựa cứng (chai, lọ, cốc, hộp đựng đồ uống, đồ gia dụng, thực phẩm, mỹ phẩm...), sản phẩm nhựa gia dụng và các loại chất thải nhựa khác.",
+    "requires": [
+      {
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 36/2024/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/36-2024-qd-ubnd/ngay/26-06-2024/noi-dung/46704",
+    "sourceCitation": "Article 4(1)",
+    "sourceVersion": "Decision 36/2024/QĐ-UBND, cited clauses retained after Decision 2736/QĐ-UBND (effective 2025-11-14)",
+    "citation": "Article 4(1)",
+    "text": "Nhóm chất thải tái chế: bao bì màng nhựa dẻo sạch, bọc xốp bóng khí bảo vệ hàng hóa được thu gom khô ráo.",
+    "requires": [
+      {
+        "title": "Decision 2736/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/2736-qd-ubnd/ngay/14-11-2025/noi-dung/48890/48893",
+        "citation": "Article 1"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 87/2025/QĐ-UBND",
+    "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+    "sourceCitation": "Article 5(1)(đ)",
+    "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+    "citation": "Article 5(1)(đ)",
+    "text": "Chất thải dệt may bao gồm: quần áo, chăn màn, rèm cửa, vải vụn và các sản phẩm dệt may gia dụng khác còn khả năng tái sử dụng hoặc tái chế.",
+    "requires": [
+      {
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 36/2024/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/36-2024-qd-ubnd/ngay/26-06-2024/noi-dung/46704",
+    "sourceCitation": "Article 4(1)",
+    "sourceVersion": "Decision 36/2024/QĐ-UBND, cited clauses retained after Decision 2736/QĐ-UBND (effective 2025-11-14)",
+    "citation": "Article 4(1)",
+    "text": "Chất thải dệt may, quần áo cũ còn khả năng tái sử dụng được phân loại riêng để chuyển giao cho các tổ chức từ thiện hoặc đơn vị tái chế sợi.",
+    "requires": [
+      {
+        "title": "Decision 2736/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/2736-qd-ubnd/ngay/14-11-2025/noi-dung/48890/48893",
+        "citation": "Article 1"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 87/2025/QĐ-UBND",
+    "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+    "sourceCitation": "Article 5(1)(g)",
+    "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+    "citation": "Article 5(1)(g)",
+    "text": "Thiết bị điện, điện tử gia dụng thải bỏ bao gồm: quạt điện, nồi cơm điện, bàn là, máy sấy tóc, máy vi tính, tivi và các thiết bị gia dụng dùng điện khác.",
+    "requires": [
+      {
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 36/2024/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/36-2024-qd-ubnd/ngay/26-06-2024/noi-dung/46704",
+    "sourceCitation": "Article 4(1)",
+    "sourceVersion": "Decision 36/2024/QĐ-UBND, cited clauses retained after Decision 2736/QĐ-UBND (effective 2025-11-14)",
+    "citation": "Article 4(1)",
+    "text": "Thiết bị điện, điện tử gia dụng hỏng (quạt điện, thiết bị điện nhỏ) được phân loại riêng chuyển giao tái chế hoặc các cơ sở thu mua phế liệu.",
+    "requires": [
+      {
+        "title": "Decision 2736/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/2736-qd-ubnd/ngay/14-11-2025/noi-dung/48890/48893",
+        "citation": "Article 1"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 36/2024/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/36-2024-qd-ubnd/ngay/26-06-2024/noi-dung/46704",
+    "sourceCitation": "Article 4(1)",
+    "sourceVersion": "Decision 36/2024/QĐ-UBND, cited clauses retained after Decision 2736/QĐ-UBND (effective 2025-11-14)",
+    "citation": "Article 4(1)",
+    "text": "Thiết bị điện tử (máy vi tính, laptop thải) chuyển giao cho các điểm thu hồi của nhà sản xuất hoặc chương trình thu hồi rác điện tử.",
+    "requires": [
+      {
+        "title": "Decision 2736/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/2736-qd-ubnd/ngay/14-11-2025/noi-dung/48890/48893",
+        "citation": "Article 1"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 36/2024/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/36-2024-qd-ubnd/ngay/26-06-2024/noi-dung/46704",
+    "sourceCitation": "Article 4(1)",
+    "sourceVersion": "Decision 36/2024/QĐ-UBND, cited clauses retained after Decision 2736/QĐ-UBND (effective 2025-11-14)",
+    "citation": "Article 4(1)",
+    "text": "Thiết bị điện, điện tử gia dụng hỏng (lò vi sóng, đồ gia dụng điện) được phân loại riêng chuyển giao tái chế.",
+    "requires": [
+      {
+        "title": "Decision 2736/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/2736-qd-ubnd/ngay/14-11-2025/noi-dung/48890/48893",
+        "citation": "Article 1"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 36/2024/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/36-2024-qd-ubnd/ngay/26-06-2024/noi-dung/46704",
+    "sourceCitation": "Article 4(1)",
+    "sourceVersion": "Decision 36/2024/QĐ-UBND, cited clauses retained after Decision 2736/QĐ-UBND (effective 2025-11-14)",
+    "citation": "Article 4(1)",
+    "text": "Dây sạc, phụ kiện điện tử thải bỏ thuộc nhóm rác điện tử gia dụng, thu gom riêng tái chế kim loại.",
+    "requires": [
+      {
+        "title": "Decision 2736/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/2736-qd-ubnd/ngay/14-11-2025/noi-dung/48890/48893",
+        "citation": "Article 1"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 36/2024/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/36-2024-qd-ubnd/ngay/26-06-2024/noi-dung/46704",
+    "sourceCitation": "Article 4(1)",
+    "sourceVersion": "Decision 36/2024/QĐ-UBND, cited clauses retained after Decision 2736/QĐ-UBND (effective 2025-11-14)",
+    "citation": "Article 4(1)",
+    "text": "Điện thoại di động cũ thải bỏ: chuyển giao đến các điểm thu hồi thiết bị điện tử của nhà sản xuất hoặc điểm thu gom theo quy định.",
+    "requires": [
+      {
+        "title": "Decision 2736/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/2736-qd-ubnd/ngay/14-11-2025/noi-dung/48890/48893",
+        "citation": "Article 1"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 87/2025/QĐ-UBND",
+    "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+    "sourceCitation": "Article 5(2)",
+    "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+    "citation": "Article 5(2)",
+    "text": "Nhóm chất thải thực phẩm bao gồm: thức ăn thừa, thực phẩm hết hạn; rau, củ, quả và phần thải bỏ sau khi sơ chế, chế biến; xác động vật nhỏ, thủy hải sản phát sinh từ hoạt động sinh hoạt.",
+    "requires": [
+      {
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 36/2024/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/36-2024-qd-ubnd/ngay/26-06-2024/noi-dung/46704",
+    "sourceCitation": "Article 4(2)",
+    "sourceVersion": "Decision 36/2024/QĐ-UBND, cited clauses retained after Decision 2736/QĐ-UBND (effective 2025-11-14)",
+    "citation": "Article 4(2)",
+    "text": "Chất thải thực phẩm: thức ăn thừa, rau, củ, quả thải bỏ từ quá trình sơ chế thực phẩm của hộ gia đình.",
+    "requires": [
+      {
+        "title": "Decision 2736/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/2736-qd-ubnd/ngay/14-11-2025/noi-dung/48890/48893",
+        "citation": "Article 1"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 87/2025/QĐ-UBND",
+    "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+    "sourceCitation": "Article 5(2)",
+    "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+    "citation": "Article 5(2)",
+    "text": "Nhóm chất thải thực phẩm bao gồm: thức ăn thừa, thực phẩm hết hạn; rau, củ, quả và phần thải bỏ sau khi sơ chế, chế biến; lá cây, hoa rụng từ vườn nhà hoặc cây cảnh sinh hoạt.",
+    "requires": [
+      {
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 36/2024/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/36-2024-qd-ubnd/ngay/26-06-2024/noi-dung/46704",
+    "sourceCitation": "Article 4(2)",
+    "sourceVersion": "Decision 36/2024/QĐ-UBND, cited clauses retained after Decision 2736/QĐ-UBND (effective 2025-11-14)",
+    "citation": "Article 4(2)",
+    "text": "Chất thải thực phẩm và chất thải hữu cơ dễ phân hủy: lá cây, hoa, cỏ từ hoạt động chăm sóc cây cảnh trong khuôn viên gia đình.",
+    "requires": [
+      {
+        "title": "Decision 2736/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/2736-qd-ubnd/ngay/14-11-2025/noi-dung/48890/48893",
+        "citation": "Article 1"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 36/2024/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/36-2024-qd-ubnd/ngay/26-06-2024/noi-dung/46704",
+    "sourceCitation": "Article 4(2)",
+    "sourceVersion": "Decision 36/2024/QĐ-UBND, cited clauses retained after Decision 2736/QĐ-UBND (effective 2025-11-14)",
+    "citation": "Article 4(2)",
+    "text": "Chất thải thực phẩm hữu cơ: bã cà phê, bã trà sau khi pha chế được gom chung vào nhóm chất thải thực phẩm.",
+    "requires": [
+      {
+        "title": "Decision 2736/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/2736-qd-ubnd/ngay/14-11-2025/noi-dung/48890/48893",
+        "citation": "Article 1"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 87/2025/QĐ-UBND",
+    "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+    "sourceCitation": "Article 7(2)(c)",
+    "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+    "citation": "Article 7(2)(c)",
+    "text": "Nhóm chất thải cồng kềnh: Khi có phát sinh phải liên hệ với tổ chức, cá nhân có chức năng thu gom, vận chuyển, xử lý chất thải rắn để thỏa thuận chuyển giao... hoặc tự vận chuyển đến điểm thu gom tập trung do Uỷ ban nhân dân cấp xã quy định với thời gian nhất định và không phải chi trả chi phí.",
+    "requires": [
+      {
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 36/2024/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/36-2024-qd-ubnd/ngay/26-06-2024/noi-dung/46704",
+    "sourceCitation": "Article 5(2)",
+    "sourceVersion": "Decision 36/2024/QĐ-UBND, cited clauses retained after Decision 2736/QĐ-UBND (effective 2025-11-14)",
+    "citation": "Article 5(2)",
+    "text": "Chủ nguồn thải, hộ gia đình, cá nhân có trách nhiệm tháo dỡ, thu gọn, giảm kích thước, thể tích chất thải bỏ đến mức có thể lưu chứa được trong phương tiện thu gom rác trước khi vận chuyển...",
+    "requires": [
+      {
+        "title": "Decision 2736/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/2736-qd-ubnd/ngay/14-11-2025/noi-dung/48890/48893",
+        "citation": "Article 1"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 87/2025/QĐ-UBND",
+    "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+    "sourceCitation": "Article 7(2)(c)",
+    "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+    "citation": "Article 7(2)(c)",
+    "text": "Nhóm chất thải cồng kềnh: Khi có phát sinh phải liên hệ với tổ chức, cá nhân có chức năng thu gom, vận chuyển, xử lý chất thải rắn để thỏa thuận chuyển giao... hoặc tự vận chuyển đến điểm thu gom tập trung do Uỷ ban nhân dân cấp xã quy định...",
+    "requires": [
+      {
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 36/2024/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/36-2024-qd-ubnd/ngay/26-06-2024/noi-dung/46704",
+    "sourceCitation": "Article 5(2)",
+    "sourceVersion": "Decision 36/2024/QĐ-UBND, cited clauses retained after Decision 2736/QĐ-UBND (effective 2025-11-14)",
+    "citation": "Article 5(2)",
+    "text": "Chủ nguồn thải, hộ gia đình, cá nhân có trách nhiệm tháo dỡ, thu gọn, giảm kích thước... Trường hợp không thể tự tháo rã tại nơi phát sinh thì thanh toán chi phí dịch vụ tháo dỡ theo thỏa thuận.",
+    "requires": [
+      {
+        "title": "Decision 2736/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/2736-qd-ubnd/ngay/14-11-2025/noi-dung/48890/48893",
+        "citation": "Article 1"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 87/2025/QĐ-UBND",
+    "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+    "sourceCitation": "Article 7(2)(c)",
+    "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+    "citation": "Article 7(2)(c)",
+    "text": "Nhóm chất thải cồng kềnh: Khi có phát sinh phải liên hệ với tổ chức, cá nhân có chức năng thu gom, vận chuyển, xử lý chất thải rắn để thỏa thuận chuyển giao...",
+    "requires": [
+      {
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 36/2024/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/36-2024-qd-ubnd/ngay/26-06-2024/noi-dung/46704",
+    "sourceCitation": "Article 5(2)",
+    "sourceVersion": "Decision 36/2024/QĐ-UBND, cited clauses retained after Decision 2736/QĐ-UBND (effective 2025-11-14)",
+    "citation": "Article 5(2)",
+    "text": "Chất thải cồng kềnh và cao su kích thước lớn: phối hợp đơn vị thu gom hoặc chuyển giao các cơ sở thu hồi lốp xe theo quy định.",
+    "requires": [
+      {
+        "title": "Decision 2736/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/2736-qd-ubnd/ngay/14-11-2025/noi-dung/48890/48893",
+        "citation": "Article 1"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 36/2024/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/36-2024-qd-ubnd/ngay/26-06-2024/noi-dung/46704",
+    "sourceCitation": "Article 5(2)",
+    "sourceVersion": "Decision 36/2024/QĐ-UBND, cited clauses retained after Decision 2736/QĐ-UBND (effective 2025-11-14)",
+    "citation": "Article 5(2)",
+    "text": "Chất thải rắn phát sinh từ hoạt động cải tạo, sửa chữa công trình xây dựng của hộ gia đình phải được thu gom riêng và chuyển giao cho đơn vị có chức năng thu gom chất thải xây dựng.",
+    "requires": [
+      {
+        "title": "Decision 2736/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/2736-qd-ubnd/ngay/14-11-2025/noi-dung/48890/48893",
+        "citation": "Article 1"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 36/2024/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/36-2024-qd-ubnd/ngay/26-06-2024/noi-dung/46704",
+    "sourceCitation": "Article 5(2)",
+    "sourceVersion": "Decision 36/2024/QĐ-UBND, cited clauses retained after Decision 2736/QĐ-UBND (effective 2025-11-14)",
+    "citation": "Article 5(2)",
+    "text": "Chất thải cồng kềnh từ thiết bị vệ sinh tháo dỡ: thu gom và chuyển giao theo quy định về chất thải xây dựng, cồng kềnh.",
+    "requires": [
+      {
+        "title": "Decision 2736/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/2736-qd-ubnd/ngay/14-11-2025/noi-dung/48890/48893",
+        "citation": "Article 1"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 87/2025/QĐ-UBND",
+    "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+    "sourceCitation": "Article 5(3)(b)",
+    "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+    "citation": "Article 5(3)(b)",
+    "text": "Chất thải nguy hại trong chất thải rắn sinh hoạt bao gồm: bao bì thuốc bảo vệ thực vật, pin, ắc quy thải, bóng đèn huỳnh quang, nhiệt kế thủy ngân, thuốc tây hết hạn sử dụng và các loại hóa chất gia dụng độc hại khác.",
+    "requires": [
+      {
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 58/2025/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/15-04-2025/noi-dung/47889",
+    "sourceCitation": "Article 5(1)(c)",
+    "sourceVersion": "Decision 58/2025/QĐ-UBND (effective 2025-04-25)",
+    "citation": "Article 5(1)(c)",
+    "text": "Chất thải nguy hại hộ gia đình: thuốc tây hết hạn sử dụng, dược phẩm tồn đọng phải được lưu giữ riêng và chuyển giao đến điểm thu gom chất thải nguy hại.",
+    "requires": [
+      {
+        "title": "HCMC official Gazette record for Decision 58/2025/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/15-04-2025/47889",
+        "citation": "Instrument identity, issue/effective dates, and current status"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 87/2025/QĐ-UBND",
+    "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+    "sourceCitation": "Article 5(3)(b)",
+    "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+    "citation": "Article 5(3)(b)",
+    "text": "Chất thải nguy hại trong chất thải rắn sinh hoạt bao gồm: bao bì thuốc bảo vệ thực vật, pin, ắc quy thải, bóng đèn huỳnh quang, nhiệt kế thủy ngân, bình xịt hóa chất có áp suất, hóa chất gia dụng độc hại khác.",
+    "requires": [
+      {
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 58/2025/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/15-04-2025/noi-dung/47889",
+    "sourceCitation": "Article 5(1)(c)",
+    "sourceVersion": "Decision 58/2025/QĐ-UBND (effective 2025-04-25)",
+    "citation": "Article 5(1)(c)",
+    "text": "Chất thải nguy hại hộ gia đình: bình xịt chứa khí nén, hóa chất dễ cháy nổ phải lưu giữ an toàn, chuyển giao đơn vị xử lý có thẩm quyền.",
+    "requires": [
+      {
+        "title": "HCMC official Gazette record for Decision 58/2025/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/15-04-2025/47889",
+        "citation": "Instrument identity, issue/effective dates, and current status"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 58/2025/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/15-04-2025/noi-dung/47889",
+    "sourceCitation": "Article 5(1)(c)",
+    "sourceVersion": "Decision 58/2025/QĐ-UBND (effective 2025-04-25)",
+    "citation": "Article 5(1)(c)",
+    "text": "Bao bì thuốc bảo vệ thực vật, hóa chất diệt côn trùng dùng trong sinh hoạt: thu gom riêng vào thùng rác nguy hại, không bỏ lẫn rác sinh hoạt.",
+    "requires": [
+      {
+        "title": "HCMC official Gazette record for Decision 58/2025/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/15-04-2025/47889",
+        "citation": "Instrument identity, issue/effective dates, and current status"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 87/2025/QĐ-UBND",
+    "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+    "sourceCitation": "Article 5(3)(b)",
+    "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+    "citation": "Article 5(3)(b)",
+    "text": "Chất thải nguy hại trong chất thải rắn sinh hoạt bao gồm: dầu nhớt động cơ thải, bao bì thuốc bảo vệ thực vật, pin, ắc quy thải, bóng đèn huỳnh quang, hóa chất gia dụng độc hại khác.",
+    "requires": [
+      {
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 58/2025/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/15-04-2025/noi-dung/47889",
+    "sourceCitation": "Article 5(1)(c)",
+    "sourceVersion": "Decision 58/2025/QĐ-UBND (effective 2025-04-25)",
+    "citation": "Article 5(1)(c)",
+    "text": "Dầu mỡ động cơ thải bỏ từ xe máy sinh hoạt: lưu chứa trong can/bình kín, chuyển giao cho các trạm bảo dưỡng hoặc điểm thu gom chất thải nguy hại.",
+    "requires": [
+      {
+        "title": "HCMC official Gazette record for Decision 58/2025/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/15-04-2025/47889",
+        "citation": "Instrument identity, issue/effective dates, and current status"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 58/2025/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/15-04-2025/noi-dung/47889",
+    "sourceCitation": "Article 5(1)(c)",
+    "sourceVersion": "Decision 58/2025/QĐ-UBND (effective 2025-04-25)",
+    "citation": "Article 5(1)(c)",
+    "text": "Các loại pin, ắc quy thải: Giữ nguyên hình dạng, không tháo dỡ, chuyển giao đến các điểm thu gom CTNH do UBND cấp huyện quy định.",
+    "requires": [
+      {
+        "title": "HCMC official Gazette record for Decision 58/2025/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/15-04-2025/47889",
+        "citation": "Instrument identity, issue/effective dates, and current status"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 87/2025/QĐ-UBND",
+    "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+    "sourceCitation": "Article 5(3)(b)",
+    "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+    "citation": "Article 5(3)(b)",
+    "text": "Chất thải nguy hại trong chất thải rắn sinh hoạt bao gồm: kim tiêm, vật sắc nhọn y tế gia đình, thuốc tây hết hạn, bóng đèn huỳnh quang, nhiệt kế thủy ngân.",
+    "requires": [
+      {
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 58/2025/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/15-04-2025/noi-dung/47889",
+    "sourceCitation": "Article 5(1)(c)",
+    "sourceVersion": "Decision 58/2025/QĐ-UBND (effective 2025-04-25)",
+    "citation": "Article 5(1)(c)",
+    "text": "Kim tiêm, vật sắc nhọn y tế gia đình: chứa trong hộp/bình nhựa cứng chống đâm thủng, bàn giao trạm y tế hoặc điểm thu gom nguy hại.",
+    "requires": [
+      {
+        "title": "HCMC official Gazette record for Decision 58/2025/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/15-04-2025/47889",
+        "citation": "Instrument identity, issue/effective dates, and current status"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 87/2025/QĐ-UBND",
+    "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+    "sourceCitation": "Article 5(3)(b)",
+    "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+    "citation": "Article 5(3)(b)",
+    "text": "Chất thải nguy hại trong chất thải rắn sinh hoạt bao gồm: bao bì dung môi, sơn, hóa chất mỹ phẩm độc hại, pin, ắc quy thải, bóng đèn huỳnh quang.",
+    "requires": [
+      {
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 58/2025/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/15-04-2025/noi-dung/47889",
+    "sourceCitation": "Article 5(1)(c)",
+    "sourceVersion": "Decision 58/2025/QĐ-UBND (effective 2025-04-25)",
+    "citation": "Article 5(1)(c)",
+    "text": "Chất thải nguy hại hộ gia đình: lọ sơn móng tay, dung môi tẩy sơn chứa hợp chất bay hơi độc hại được gom vào nhóm chất thải nguy hại.",
+    "requires": [
+      {
+        "title": "HCMC official Gazette record for Decision 58/2025/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/15-04-2025/47889",
+        "citation": "Instrument identity, issue/effective dates, and current status"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 87/2025/QĐ-UBND",
+    "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+    "sourceCitation": "Article 5(3)(b)",
+    "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+    "citation": "Article 5(3)(b)",
+    "text": "Chất thải nguy hại trong chất thải rắn sinh hoạt bao gồm: vỏ lon sơn dở dang, dung môi, hóa chất gia dụng độc hại khác.",
+    "requires": [
+      {
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 58/2025/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/15-04-2025/noi-dung/47889",
+    "sourceCitation": "Article 5(1)(c)",
+    "sourceVersion": "Decision 58/2025/QĐ-UBND (effective 2025-04-25)",
+    "citation": "Article 5(1)(c)",
+    "text": "Sơn thải, vỏ thùng sơn có cặn hóa chất: phân loại là chất thải nguy hại hộ gia đình, bàn giao điểm tiếp nhận quy định.",
+    "requires": [
+      {
+        "title": "HCMC official Gazette record for Decision 58/2025/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/15-04-2025/47889",
+        "citation": "Instrument identity, issue/effective dates, and current status"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 87/2025/QĐ-UBND",
+    "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+    "sourceCitation": "Article 5(3)(c)",
+    "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+    "citation": "Article 5(3)(c)",
+    "text": "Chất thải rắn sinh hoạt khác bao gồm: các loại chất thải rắn sinh hoạt không thuộc nhóm có khả năng tái sử dụng, tái chế, nhóm chất thải thực phẩm và chất thải nguy hại (bao gồm cả các loại vỏ quả hạt cứng khó phân hủy sinh học như vỏ dừa, vỏ sầu riêng, xương động vật kích thước lớn...).",
+    "requires": [
+      {
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 36/2024/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/36-2024-qd-ubnd/ngay/26-06-2024/noi-dung/46704",
+    "sourceCitation": "Article 4(3)",
+    "sourceVersion": "Decision 36/2024/QĐ-UBND, cited clauses retained after Decision 2736/QĐ-UBND (effective 2025-11-14)",
+    "citation": "Article 4(3)",
+    "text": "Chất thải rắn sinh hoạt khác: xương động vật kích thước lớn không thể ủ phân compost cùng rác thực phẩm mềm.",
+    "requires": [
+      {
+        "title": "Decision 2736/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/2736-qd-ubnd/ngay/14-11-2025/noi-dung/48890/48893",
+        "citation": "Article 1"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 87/2025/QĐ-UBND",
+    "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+    "sourceCitation": "Article 5(3)(c)",
+    "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+    "citation": "Article 5(3)(c)",
+    "text": "Chất thải rắn sinh hoạt khác bao gồm: tã lót, bỉm, băng vệ sinh, giấy ăn đã qua sử dụng và các chất thải vệ sinh cá nhân khác.",
+    "requires": [
+      {
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 36/2024/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/36-2024-qd-ubnd/ngay/26-06-2024/noi-dung/46704",
+    "sourceCitation": "Article 4(3)",
+    "sourceVersion": "Decision 36/2024/QĐ-UBND, cited clauses retained after Decision 2736/QĐ-UBND (effective 2025-11-14)",
+    "citation": "Article 4(3)",
+    "text": "Chất thải rắn sinh hoạt khác: tã lót, bỉm trẻ em, băng vệ sinh và rác vệ sinh cá nhân không tái chế.",
+    "requires": [
+      {
+        "title": "Decision 2736/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/2736-qd-ubnd/ngay/14-11-2025/noi-dung/48890/48893",
+        "citation": "Article 1"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 87/2025/QĐ-UBND",
+    "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+    "sourceCitation": "Article 5(3)(c)",
+    "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+    "citation": "Article 5(3)(c)",
+    "text": "Chất thải rắn sinh hoạt khác bao gồm: đồ gốm sứ vỡ, mảnh sành, thủy tinh vỡ không thể tái chế và các chất thải khó phân hủy khác.",
+    "requires": [
+      {
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 36/2024/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/36-2024-qd-ubnd/ngay/26-06-2024/noi-dung/46704",
+    "sourceCitation": "Article 4(3)",
+    "sourceVersion": "Decision 36/2024/QĐ-UBND, cited clauses retained after Decision 2736/QĐ-UBND (effective 2025-11-14)",
+    "citation": "Article 4(3)",
+    "text": "Chất thải rắn sinh hoạt khác: mảnh sành sứ, gốm vỡ được bọc gói cẩn thận tránh gây rách túi rác và thương tích cho công nhân thu gom.",
+    "requires": [
+      {
+        "title": "Decision 2736/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/2736-qd-ubnd/ngay/14-11-2025/noi-dung/48890/48893",
+        "citation": "Article 1"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 87/2025/QĐ-UBND",
+    "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+    "sourceCitation": "Article 5(3)(c)",
+    "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+    "citation": "Article 5(3)(c)",
+    "text": "Chất thải rắn sinh hoạt khác bao gồm: bao bì nhiều lớp, màng ghép kim loại - nhựa khó tái chế trong sinh hoạt thông thường.",
+    "requires": [
+      {
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 36/2024/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/36-2024-qd-ubnd/ngay/26-06-2024/noi-dung/46704",
+    "sourceCitation": "Article 4(3)",
+    "sourceVersion": "Decision 36/2024/QĐ-UBND, cited clauses retained after Decision 2736/QĐ-UBND (effective 2025-11-14)",
+    "citation": "Article 4(3)",
+    "text": "Chất thải rắn sinh hoạt khác: bao bì nhựa ghép nhôm, vỏ bánh kẹo nhiều lớp thuộc nhóm rác sinh hoạt còn lại.",
+    "requires": [
+      {
+        "title": "Decision 2736/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/2736-qd-ubnd/ngay/14-11-2025/noi-dung/48890/48893",
+        "citation": "Article 1"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 87/2025/QĐ-UBND",
+    "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+    "sourceCitation": "Article 5(3)(c)",
+    "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+    "citation": "Article 5(3)(c)",
+    "text": "Chất thải rắn sinh hoạt khác bao gồm: các loại chất thải rắn sinh hoạt không thuộc nhóm có khả năng tái sử dụng, tái chế, nhóm chất thải thực phẩm và chất thải nguy hại...",
+    "requires": [
+      {
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 36/2024/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/36-2024-qd-ubnd/ngay/26-06-2024/noi-dung/46704",
+    "sourceCitation": "Article 4(3)",
+    "sourceVersion": "Decision 36/2024/QĐ-UBND, cited clauses retained after Decision 2736/QĐ-UBND (effective 2025-11-14)",
+    "citation": "Article 4(3)",
+    "text": "Chất thải rắn sinh hoạt khác: mũ bảo hiểm hư hỏng không thể tái chế cơ học, thu gom cùng rác còn lại.",
+    "requires": [
+      {
+        "title": "Decision 2736/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/2736-qd-ubnd/ngay/14-11-2025/noi-dung/48890/48893",
+        "citation": "Article 1"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 87/2025/QĐ-UBND",
+    "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+    "sourceCitation": "Article 5(3)(c)",
+    "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+    "citation": "Article 5(3)(c)",
+    "text": "Chất thải rắn sinh hoạt khác bao gồm: hộp xốp đựng thức ăn bẩn, các loại vật liệu xốp dính dầu mỡ không thể tái chế.",
+    "requires": [
+      {
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 36/2024/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/36-2024-qd-ubnd/ngay/26-06-2024/noi-dung/46704",
+    "sourceCitation": "Article 4(3)",
+    "sourceVersion": "Decision 36/2024/QĐ-UBND, cited clauses retained after Decision 2736/QĐ-UBND (effective 2025-11-14)",
+    "citation": "Article 4(3)",
+    "text": "Chất thải rắn sinh hoạt khác: hộp xốp dính dầu mỡ thực phẩm bỏ vào túi rác còn lại.",
+    "requires": [
+      {
+        "title": "Decision 2736/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/2736-qd-ubnd/ngay/14-11-2025/noi-dung/48890/48893",
+        "citation": "Article 1"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 87/2025/QĐ-UBND",
+    "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+    "sourceCitation": "Article 5(3)(c)",
+    "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+    "citation": "Article 5(3)(c)",
+    "text": "Chất thải rắn sinh hoạt khác bao gồm: túi ni lông mỏng dùng một lần bị bẩn, nhiễm tạp chất hữu cơ.",
+    "requires": [
+      {
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 36/2024/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/36-2024-qd-ubnd/ngay/26-06-2024/noi-dung/46704",
+    "sourceCitation": "Article 4(3)",
+    "sourceVersion": "Decision 36/2024/QĐ-UBND, cited clauses retained after Decision 2736/QĐ-UBND (effective 2025-11-14)",
+    "citation": "Article 4(3)",
+    "text": "Chất thải rắn sinh hoạt khác: túi ni lông dùng một lần nhiễm bẩn thực phẩm, rác khó tái chế.",
+    "requires": [
+      {
+        "title": "Decision 2736/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/2736-qd-ubnd/ngay/14-11-2025/noi-dung/48890/48893",
+        "citation": "Article 1"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 87/2025/QĐ-UBND",
+    "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+    "sourceCitation": "Article 5(3)(c)",
+    "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+    "citation": "Article 5(3)(c)",
+    "text": "Chất thải rắn sinh hoạt khác bao gồm: giày dép cũ hỏng, vật dụng bằng da nhân tạo, cao su tổng hợp không thể tái sử dụng.",
+    "requires": [
+      {
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 36/2024/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/36-2024-qd-ubnd/ngay/26-06-2024/noi-dung/46704",
+    "sourceCitation": "Article 4(3)",
+    "sourceVersion": "Decision 36/2024/QĐ-UBND, cited clauses retained after Decision 2736/QĐ-UBND (effective 2025-11-14)",
+    "citation": "Article 4(3)",
+    "text": "Chất thải rắn sinh hoạt khác: giày dép cũ nát, hư hỏng không thể phục hồi sử dụng.",
+    "requires": [
+      {
+        "title": "Decision 2736/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/2736-qd-ubnd/ngay/14-11-2025/noi-dung/48890/48893",
+        "citation": "Article 1"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 87/2025/QĐ-UBND",
+    "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+    "sourceCitation": "Article 5(3)(c)",
+    "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+    "citation": "Article 5(3)(c)",
+    "text": "Chất thải rắn sinh hoạt khác bao gồm: khẩu trang y tế dùng một lần phát sinh từ hộ gia đình không có yếu tố dịch tễ lây nhiễm cao.",
+    "requires": [
+      {
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 36/2024/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/36-2024-qd-ubnd/ngay/26-06-2024/noi-dung/46704",
+    "sourceCitation": "Article 4(3)",
+    "sourceVersion": "Decision 36/2024/QĐ-UBND, cited clauses retained after Decision 2736/QĐ-UBND (effective 2025-11-14)",
+    "citation": "Article 4(3)",
+    "text": "Chất thải rắn sinh hoạt khác: khẩu trang y tế sinh hoạt thông thường, bỏ vào túi rác sinh hoạt còn lại buộc kín.",
+    "requires": [
+      {
+        "title": "Decision 2736/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/2736-qd-ubnd/ngay/14-11-2025/noi-dung/48890/48893",
+        "citation": "Article 1"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 87/2025/QĐ-UBND",
+    "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+    "sourceCitation": "Article 5(3)(c)",
+    "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+    "citation": "Article 5(3)(c)",
+    "text": "Chất thải rắn sinh hoạt khác bao gồm: tàn nhang, tro đốt vàng mã đã nguội hoàn toàn.",
+    "requires": [
+      {
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date"
+      }
+    ],
+    "claimType": "disposal"
+  },
+  {
+    "sourceTitle": "Decision 36/2024/QĐ-UBND",
+    "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/36-2024-qd-ubnd/ngay/26-06-2024/noi-dung/46704",
+    "sourceCitation": "Article 4(3)",
+    "sourceVersion": "Decision 36/2024/QĐ-UBND, cited clauses retained after Decision 2736/QĐ-UBND (effective 2025-11-14)",
+    "citation": "Article 4(3)",
+    "text": "Chất thải rắn sinh hoạt khác: tro vàng mã, tàn hương đã để nguội hoàn toàn, đóng gói kỹ trước khi chuyển giao.",
+    "requires": [
+      {
+        "title": "Decision 2736/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/2736-qd-ubnd/ngay/14-11-2025/noi-dung/48890/48893",
+        "citation": "Article 1"
+      }
+    ],
+    "claimType": "disposal"
   }
 ]
