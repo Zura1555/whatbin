@@ -124,6 +124,7 @@ test('recognize accepts exact phone, battery, and power-bank pairs without confl
 
   const originalFetch = globalThis.fetch
   const originalApiKey = process.env.GEMINI_API_KEY
+  const originalOpenRouterKey = process.env.OPENROUTER_API_KEY
   const batteryCandidate = {
     supported: true, confidence: 0.8,
     canonicalItemId: 'used-lithium-ion-battery', itemName: 'Used rechargeable lithium-ion battery',
@@ -139,6 +140,7 @@ test('recognize accepts exact phone, battery, and power-bank pairs without confl
   let mockedCandidate = batteryCandidate
   let description = 'discarded rechargeable lithium-ion battery pack'
   let prompt
+  delete process.env.OPENROUTER_API_KEY
   process.env.GEMINI_API_KEY = 'test-key'
   globalThis.fetch = async (input, init) => {
     if (String(input).includes('generativelanguage.googleapis.com')) {
@@ -198,11 +200,88 @@ test('recognize accepts exact phone, battery, and power-bank pairs without confl
     assert.equal((await recognize()).candidate, null)
   } finally {
     globalThis.fetch = originalFetch
+    if (originalOpenRouterKey === undefined) delete process.env.OPENROUTER_API_KEY
+    else process.env.OPENROUTER_API_KEY = originalOpenRouterKey
     if (originalApiKey === undefined) delete process.env.GEMINI_API_KEY
     else process.env.GEMINI_API_KEY = originalApiKey
     await new Promise((resolve, reject) => {
       server.close((error) => error ? reject(error) : resolve())
     })
+  }
+})
+test('recognition uses OpenRouter Jev for text and configurable chat models for images and other models', async () => {
+  const server = createServer()
+  server.listen(0, '127.0.0.1')
+  await new Promise((resolve) => server.once('listening', resolve))
+
+  const originalFetch = globalThis.fetch
+  const envNames = ['GEMINI_API_KEY', 'OPENROUTER_API_KEY', 'OPENROUTER_CLASSIFICATION_MODEL', 'OPENROUTER_VISION_MODEL']
+  const originalEnv = Object.fromEntries(envNames.map((name) => [name, process.env[name]]))
+  process.env.OPENROUTER_API_KEY = 'openrouter-test-key'
+  process.env.OPENROUTER_CLASSIFICATION_MODEL = 'typesafe/jev-1.13'
+  process.env.OPENROUTER_VISION_MODEL = 'google/gemini-test-vision'
+  delete process.env.GEMINI_API_KEY
+  let jevRequest
+  let completionRequest
+  let answer = {type: 'choice', choice: 'used-mobile-phone', confidence: 0.9, probabilities: {'used-mobile-phone': 0.9}}
+  let mockedCandidate = {supported: true, confidence: 0.9, canonicalItemId: 'used-mobile-phone', itemName: 'Used mobile phone'}
+  globalThis.fetch = async (input, init) => {
+    const url = String(input)
+    if (url.startsWith('http://127.0.0.1:')) return originalFetch(input, init)
+    const request = {url, headers: init.headers, body: JSON.parse(init.body)}
+    if (url.endsWith('/api/alpha/decisions')) {
+      jevRequest = request
+      return new Response(JSON.stringify({answers: {item: answer}}), {status: 200})
+    }
+    if (url.endsWith('/api/v1/chat/completions')) {
+      completionRequest = request
+      return new Response(JSON.stringify({choices: [{message: {content: JSON.stringify(mockedCandidate)}}]}), {status: 200})
+    }
+    throw new Error(`Unexpected external request: ${url}`)
+  }
+
+  try {
+    const origin = `http://127.0.0.1:${server.address().port}`
+    const recognize = async (body) => {
+      const response = await originalFetch(`${origin}/api/recognize`, {
+        method: 'POST', headers: {'content-type': 'application/json'}, body: JSON.stringify(body),
+      })
+      assert.equal(response.status, 200)
+      return response.json()
+    }
+
+    assert.deepEqual((await recognize({description: 'discarded whole mobile phone'})).candidate, {
+      canonicalItemId: 'used-mobile-phone', itemName: 'Used mobile phone',
+    })
+    assert.equal(jevRequest.url, 'https://openrouter.ai/api/alpha/decisions')
+    assert.equal(jevRequest.headers.authorization, 'Bearer openrouter-test-key')
+    assert.equal(jevRequest.body.model, 'typesafe/jev-1.13')
+    assert.equal(jevRequest.body.state.description, 'discarded whole mobile phone')
+    assert.ok(jevRequest.body.questions.item.criteria.unsupported)
+
+    answer = {...answer, confidence: 0.79}
+    assert.equal((await recognize({description: 'possibly a mobile phone'})).candidate, null)
+
+    process.env.OPENROUTER_CLASSIFICATION_MODEL = 'openai/custom-classifier'
+    mockedCandidate = {supported: true, confidence: 0.9, canonicalItemId: 'used-power-bank', itemName: 'Used power bank'}
+    assert.deepEqual((await recognize({description: 'complete discarded power bank'})).candidate, {
+      canonicalItemId: 'used-power-bank', itemName: 'Used power bank',
+    })
+    assert.equal(completionRequest.body.model, 'openai/custom-classifier')
+
+    mockedCandidate = {supported: true, confidence: 0.9, canonicalItemId: 'used-mercury-thermometer', itemName: 'Used mercury thermometer'}
+    assert.deepEqual((await recognize({image: {mimeType: 'image/jpeg', base64: 'AA=='}})).candidate, {
+      canonicalItemId: 'used-mercury-thermometer', itemName: 'Used mercury thermometer',
+    })
+    assert.equal(completionRequest.body.model, 'google/gemini-test-vision')
+    assert.equal(completionRequest.body.messages[0].content[1].image_url.url, 'data:image/jpeg;base64,AA==')
+  } finally {
+    globalThis.fetch = originalFetch
+    for (const name of envNames) {
+      if (originalEnv[name] === undefined) delete process.env[name]
+      else process.env[name] = originalEnv[name]
+    }
+    await new Promise((resolve, reject) => server.close((error) => error ? reject(error) : resolve()))
   }
 })
 test('research-source enforces Studio origin and bearer authorization', async () => {
@@ -510,7 +589,7 @@ test('explain route fails closed before data access with missing or unsafe confi
   server.listen(0, '127.0.0.1')
   await new Promise((resolve) => server.once('listening', resolve))
   const originalFetch = globalThis.fetch
-  const envNames = ['GEMINI_API_KEY', 'SANITY_CONTEXT_MCP_URL', 'SANITY_API_READ_TOKEN', 'SANITY_ORGANIZATION_TOKEN']
+  const envNames = ['GEMINI_API_KEY', 'OPENROUTER_API_KEY', 'SANITY_CONTEXT_MCP_URL', 'SANITY_API_READ_TOKEN', 'SANITY_ORGANIZATION_TOKEN']
   const originalEnv = Object.fromEntries(envNames.map((name) => [name, process.env[name]]))
   for (const name of envNames) delete process.env[name]
   let externalCalls = 0

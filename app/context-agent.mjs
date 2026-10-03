@@ -1,4 +1,4 @@
-import {createGoogle} from '@ai-sdk/google'
+import {createOpenRouter} from '@openrouter/ai-sdk-provider'
 import {createMCPClient} from '@ai-sdk/mcp'
 import {stepCountIs, streamText} from 'ai'
 
@@ -33,8 +33,9 @@ function contextConfig() {
 
 export function requireContextAgentConfiguration() {
   const apiKey = process.env.GEMINI_API_KEY
-  if (!apiKey) throw Object.assign(new Error('The WhatBin explainer is not configured.'), {status: 503})
-  return {apiKey, ...contextConfig()}
+  const openRouterApiKey = process.env.OPENROUTER_API_KEY
+  if (!apiKey && !openRouterApiKey) throw Object.assign(new Error('The WhatBin explainer is not configured.'), {status: 503})
+  return {apiKey, openRouterApiKey, ...contextConfig()}
 }
 
 export function validConversationHistory(history) {
@@ -47,8 +48,10 @@ export function validConversationHistory(history) {
 }
 
 export async function startExplanationStream({question, history, outcomes, abortSignal}) {
-  const {apiKey, url, token} = requireContextAgentConfiguration()
-  const google = createGoogle({apiKey})
+  const {apiKey, openRouterApiKey, url, token} = requireContextAgentConfiguration()
+  const model = openRouterApiKey
+    ? createOpenRouter({apiKey: openRouterApiKey})(process.env.OPENROUTER_EXPLANATION_MODEL || 'google/gemini-2.5-flash')
+    : createGoogle({apiKey})(MODEL)
   const mcpClient = await createMCPClient({
     transport: {
       type: 'http',
@@ -67,14 +70,14 @@ export async function startExplanationStream({question, history, outcomes, abort
 
     return {
       result: streamText({
-        model: google(MODEL),
+        model,
         system: SYSTEM_INSTRUCTION,
         prompt: JSON.stringify({question, history, outcomes}),
         tools,
         stopWhen: stepCountIs(10),
         maxOutputTokens: 700,
         temperature: 0.2,
-        providerOptions: {google: {thinkingConfig: {thinkingLevel: 'minimal'}}},
+        ...(!openRouterApiKey && {providerOptions: {google: {thinkingConfig: {thinkingLevel: 'minimal'}}}}),
         abortSignal,
         prepareStep: ({steps}) => {
           const calls = new Set(steps.flatMap((step) => (step.toolCalls ?? []).map(({toolName}) => toolName)))

@@ -11,6 +11,16 @@ const MAX_BODY = 9 * 1024 * 1024
 const SANITY_URL = 'https://xqeddep2.api.sanity.io/v2025-02-19/data/query/production'
 const SANITY_ACCESS_URL = 'https://api.sanity.io/v2025-07-11/access/project/xqeddep2/user-permissions/me'
 const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent'
+const OPENROUTER_COMPLETIONS_URL = 'https://openrouter.ai/api/v1/chat/completions'
+const OPENROUTER_DECISIONS_URL = 'https://openrouter.ai/api/alpha/decisions'
+const RECOGNITION_CATEGORIES = new Map([
+  ['old-mattress', {name: 'Old mattress', criteria: 'An old or used household mattress being discarded.'}],
+  ['used-household-battery', {name: 'Used household battery', criteria: 'A clearly identified discarded, intact household-size AA or AAA cell.'}],
+  ['used-lithium-ion-battery', {name: 'Used rechargeable lithium-ion battery', criteria: 'A discarded rechargeable lithium-ion cell or standalone battery pack that is not installed in a device and is not a complete power bank.'}],
+  ['used-mobile-phone', {name: 'Used mobile phone', criteria: 'A discarded whole mobile phone as one household electronic item, not an accessory or separate battery.'}],
+  ['used-power-bank', {name: 'Used power bank', criteria: 'A complete discarded power bank as a whole item, not a standalone battery.'}],
+  ['used-mercury-thermometer', {name: 'Used mercury thermometer', criteria: 'A clearly identified discarded household mercury thermometer, not a digital or other non-mercury thermometer.'}],
+])
 const ITEM_NAMES = new Map([
   ['old-mattress', 'Old mattress'],
   ['used-household-battery', 'Used household battery'],
@@ -68,11 +78,22 @@ function validImage(image) {
 }
 
 async function recognize(input) {
+  const openRouterKey = process.env.OPENROUTER_API_KEY
   const key = process.env.GEMINI_API_KEY
-  if (!key) throw Object.assign(new Error('Recognition is unavailable: GEMINI_API_KEY is not configured.'), { status: 503 })
+  if (!openRouterKey && !key) throw Object.assign(new Error('Recognition is unavailable: configure GEMINI_API_KEY or OPENROUTER_API_KEY.'), { status: 503 })
   const image = input.image
   const description = validText(input.description, 4000) ? input.description.trim() : null
   const prompt = `Identify a household item${image && description ? ` using the attached image and this description: ${description}` : image ? ' from the attached image' : ` from this description: ${description}`}. The only supported items are canonicalItemId "old-mattress", itemName "Old mattress" (an old or used household mattress being discarded); canonicalItemId "used-household-battery", itemName "Used household battery" (a clearly identified discarded, intact household-size AA or AAA cell); canonicalItemId "used-lithium-ion-battery", itemName "Used rechargeable lithium-ion battery" (a clearly identified discarded rechargeable lithium-ion cell or battery pack that is not installed in a device; do not use this category for batteries still installed in devices, whole devices including power banks, other battery chemistries, chargers, or uncertain items); canonicalItemId "used-power-bank", itemName "Used power bank" (a clearly identified complete discarded portable power bank as a whole item; never identify a whole power bank as a standalone battery); canonicalItemId "used-mobile-phone", itemName "Used mobile phone" (a clearly identified discarded whole mobile phone as one household electronic item; do not use for phone accessories, standalone batteries, batteries installed in a device as separate items, or complete power banks); canonicalItemId "used-fluorescent-lamp", itemName "Used fluorescent lamp" (a clearly identified discarded fluorescent tube or compact fluorescent bulb, whether intact or broken); canonicalItemId "used-mercury-thermometer", itemName "Used mercury thermometer" (a clearly identified discarded mercury thermometer). Do not infer from an uncertain image or description. Return JSON with supported, confidence from 0 to 1, canonicalItemId, and exact itemName. If no supported item is clearly identified, set supported false, confidence below 0.8, canonicalItemId null, and itemName null.`
+  if (openRouterKey) {
+    const classificationModel = process.env.OPENROUTER_CLASSIFICATION_MODEL || 'typesafe/jev-1.13'
+    const model = image
+      ? process.env.OPENROUTER_VISION_MODEL || 'google/gemini-2.5-flash'
+      : classificationModel
+    const result = !image && /^(?:~)?typesafe\/jev-(?:\d|latest)/.test(classificationModel)
+      ? await classifyWithJev(openRouterKey, classificationModel, description)
+      : await classifyWithOpenRouter(openRouterKey, model, prompt, image)
+    return recognitionResponse(result)
+  }
   const contents = [{ text: prompt }]
   if (image) contents.push({ inlineData: { mimeType: image.mimeType, data: image.base64 } })
   const response = await fetch(GEMINI_URL, {
@@ -94,13 +115,91 @@ async function recognize(input) {
   const text = envelope?.candidates?.[0]?.content?.parts?.map((part) => part.text ?? '').join('')
   let result
   try { result = JSON.parse(text) } catch { throw Object.assign(new Error('Recognition provider returned invalid data.'), { status: 502 }) }
-  const validCandidate = result?.supported === true && typeof result.confidence === 'number' && result.confidence >= 0.8 && result.confidence <= 1 &&
-    ((result.canonicalItemId === 'old-mattress' && result.itemName === 'Old mattress') ||
-      (result.canonicalItemId === 'used-household-battery' && result.itemName === 'Used household battery') ||
-      (result.canonicalItemId === 'used-lithium-ion-battery' && result.itemName === 'Used rechargeable lithium-ion battery') ||
-      (result.canonicalItemId === 'used-power-bank' && result.itemName === 'Used power bank') ||
-      (result.canonicalItemId === 'used-mobile-phone' && result.itemName === 'Used mobile phone') ||
-      (result.canonicalItemId === 'used-mercury-thermometer' && result.itemName === 'Used mercury thermometer'))
+  return recognitionResponse(result)
+}
+
+async function postOpenRouter(url, apiKey, body) {
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', authorization: `Bearer ${apiKey}` },
+    signal: AbortSignal.timeout(20000),
+    body: JSON.stringify(body),
+  })
+  if (!response.ok) throw Object.assign(new Error('Recognition provider request failed.'), { status: 502 })
+  try { return await response.json() } catch {
+    throw Object.assign(new Error('Recognition provider returned invalid data.'), { status: 502 })
+  }
+}
+
+async function classifyWithJev(apiKey, model, description) {
+  const criteria = Object.fromEntries([...RECOGNITION_CATEGORIES].map(([id, item]) => [id, item.criteria]))
+  criteria.unsupported = 'Any other item, an item that is unclear or uncertain, or an item that does not meet one supported category exactly.'
+  const envelope = await postOpenRouter(OPENROUTER_DECISIONS_URL, apiKey, {
+    model,
+    state: { description },
+    questions: {
+      item: {
+        type: 'choice',
+        instructions: 'Which single supported discarded household item is clearly identified by the description? Choose unsupported for ambiguity, uncertainty, accessories, or anything outside the listed categories.',
+        criteria,
+      },
+    },
+  })
+  const answer = envelope?.answers?.item
+  if (answer?.type !== 'choice' || typeof answer.choice !== 'string' ||
+    typeof answer.confidence !== 'number' || answer.confidence < 0 || answer.confidence > 1) {
+    throw Object.assign(new Error('Recognition provider returned invalid data.'), { status: 502 })
+  }
+  const item = RECOGNITION_CATEGORIES.get(answer.choice)
+  return {
+    supported: Boolean(item) && answer.confidence >= 0.8,
+    confidence: answer.confidence,
+    canonicalItemId: answer.choice,
+    itemName: item?.name ?? null,
+  }
+}
+
+async function classifyWithOpenRouter(apiKey, model, prompt, image) {
+  const content = [{ type: 'text', text: prompt }]
+  if (image) content.push({ type: 'image_url', image_url: { url: `data:${image.mimeType};base64,${image.base64}` } })
+  const envelope = await postOpenRouter(OPENROUTER_COMPLETIONS_URL, apiKey, {
+    model,
+    messages: [{ role: 'user', content }],
+    temperature: 0,
+    max_tokens: 300,
+    response_format: {
+      type: 'json_schema',
+      json_schema: {
+        name: 'item_recognition',
+        strict: true,
+        schema: {
+          type: 'object',
+          properties: {
+            supported: { type: 'boolean' },
+            confidence: { type: 'number' },
+            canonicalItemId: { type: ['string', 'null'] },
+            itemName: { type: ['string', 'null'] },
+          },
+          required: ['supported', 'confidence', 'canonicalItemId', 'itemName'],
+          additionalProperties: false,
+        },
+      },
+    },
+  })
+  const output = envelope?.choices?.[0]?.message?.content
+  try {
+    const result = JSON.parse(output)
+    if (!result || typeof result !== 'object' || Array.isArray(result)) throw new Error()
+    return result
+  } catch {
+    throw Object.assign(new Error('Recognition provider returned invalid data.'), { status: 502 })
+  }
+}
+
+function recognitionResponse(result) {
+  const item = RECOGNITION_CATEGORIES.get(result?.canonicalItemId)
+  const validCandidate = result?.supported === true && typeof result.confidence === 'number' &&
+    result.confidence >= 0.8 && result.confidence <= 1 && item?.name === result.itemName
   return validCandidate
     ? { candidate: { canonicalItemId: result.canonicalItemId, itemName: result.itemName.trim() } }
     : { candidate: null, message: 'The item could not be identified with enough certainty. Try a clearer photo or description.' }
