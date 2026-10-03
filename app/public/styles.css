@@ -100,9 +100,46 @@ button:disabled {
  font-size: 16px;
  font-weight: 700;
 }
+.masthead-meta {
+ display: flex;
+ align-items: center;
+ gap: 14px;
+}
 .location-note {
  color: var(--muted);
  font-size: 13px;
+}
+.lang-switch {
+ display: inline-flex;
+ align-items: center;
+ padding: 2px;
+ border: 1px solid #d5dfd6;
+ border-radius: 999px;
+ background: #ffffff;
+ box-shadow: 0 1px 2px rgb(38 62 48 / 6%);
+}
+.lang-btn {
+ height: 26px;
+ padding: 0 10px;
+ border: 1px solid transparent;
+ border-radius: 999px;
+ color: var(--muted);
+ background: transparent;
+ font-size: 12px;
+ font-weight: 500;
+ line-height: 24px;
+ cursor: pointer;
+ transition: all 140ms ease;
+}
+.lang-btn:hover:not(.active) {
+ color: var(--green-dark);
+ background: #f0f5f1;
+}
+.lang-btn.active {
+ color: #ffffff;
+ background: var(--green);
+ font-weight: 600;
+ box-shadow: 0 2px 5px rgb(39 98 71 / 25%);
 }
 .intro {
  grid-column: 1;
@@ -299,6 +336,68 @@ textarea::placeholder {
  color: var(--muted);
  font-size: 13px;
  line-height: 1.45;
+}
+.stream-catalog {
+ margin-top: 14px;
+}
+.stream-catalog-header {
+ margin-bottom: 8px;
+}
+.stream-tabs {
+ display: flex;
+ gap: 6px;
+ overflow-x: auto;
+ padding: 2px 2px 6px;
+ -webkit-overflow-scrolling: touch;
+ scrollbar-width: thin;
+ scrollbar-color: #cbd8ce transparent;
+}
+.stream-tabs::-webkit-scrollbar {
+ height: 4px;
+}
+.stream-tabs::-webkit-scrollbar-thumb {
+ background: #cbd8ce;
+ border-radius: 4px;
+}
+.stream-tab {
+ display: inline-flex;
+ align-items: center;
+ gap: 6px;
+ height: 32px;
+ min-height: 32px;
+ padding: 0 12px;
+ border: 1px solid #d6e2d7;
+ border-radius: 999px;
+ color: var(--muted);
+ background: #f8faf7;
+ font-size: 13px;
+ font-weight: 500;
+ white-space: nowrap;
+ cursor: pointer;
+ transition:
+  background-color 140ms ease,
+  border-color 140ms ease,
+  color 140ms ease,
+  transform 120ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.stream-tab:hover {
+ border-color: #b8cbbd;
+ color: var(--green-dark);
+ background: #edf5ef;
+}
+.stream-tab.active {
+ border-color: var(--green);
+ background: var(--soft-green);
+ color: var(--green-dark);
+ font-weight: 600;
+ box-shadow: 0 1px 4px rgb(39 98 71 / 14%);
+}
+.stream-icon {
+ font-size: 14px;
+ line-height: 1;
+}
+.stream-chips {
+ margin-top: 10px;
 }
 .examples {
  margin-top: 13px;
@@ -913,10 +1012,30 @@ footer span:first-child {
  }
  .masthead {
   position: static;
-  height: 62px;
+  height: auto;
+  min-height: 62px;
+  padding: 10px 0;
+  flex-wrap: wrap;
+  gap: 8px;
+ }
+ .masthead-meta {
+  width: 100%;
+  justify-content: space-between;
+  gap: 8px;
  }
  .location-note {
-  font-size: 13px;
+  font-size: 12px;
+ }
+ .lang-btn {
+  height: 24px;
+  padding: 0 8px;
+  font-size: 11px;
+ }
+ .stream-tab {
+  height: 30px;
+  min-height: 30px;
+  padding: 0 10px;
+  font-size: 12px;
  }
  .intro {
   padding: 0;

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="vi">
   <head>
     <meta charset="utf-8" />
     <meta
@@ -17,199 +17,142 @@
   <body>
     <main class="page-shell">
       <header class="masthead">
-        <a class="wordmark" href="/" aria-label="WhatBin home"
-          ><span class="mark" aria-hidden="true">W</span> WhatBin</a
-        >
-        <span class="location-note">Vietnam · local sorting guide</span>
+        <a class="wordmark" href="/" aria-label="WhatBin home">
+          <span class="mark" aria-hidden="true">W</span> WhatBin
+        </a>
+        <div class="masthead-meta">
+          <span class="location-note" data-i18n="mastheadNote">Việt Nam · Cẩm nang phân loại rác tại nguồn</span>
+          <div class="lang-switch" role="radiogroup" aria-label="Language selection">
+            <button type="button" class="lang-btn active" data-lang="vi" role="radio" aria-checked="true">Tiếng Việt</button>
+            <button type="button" class="lang-btn" data-lang="en" role="radio" aria-checked="false">English</button>
+          </div>
+        </div>
       </header>
 
       <section class="intro" aria-labelledby="page-title">
-        <p class="eyebrow">A clearer next step for your waste</p>
-        <h1 id="page-title">Where does it go?</h1>
-        <p class="intro-copy">
-          Check for a reviewed rule in your city, then verify any guidance
-          against its linked official source.
+        <p class="eyebrow" data-i18n="introEyebrow">Phân loại rác tại nguồn</p>
+        <h1 id="page-title" data-i18n="introTitle">Bỏ vào thùng nào?</h1>
+        <p class="intro-copy" data-i18n="introCopy">
+          Tra cứu quy định phân loại rác theo từng đô thị và đối chiếu trực tiếp với căn cứ pháp lý chính thức.
         </p>
       </section>
 
       <section class="lookup-card" aria-labelledby="lookup-title">
         <div class="section-heading">
-          <span class="step-number" aria-hidden="true">01</span>
+          <span class="step-number" aria-hidden="true" data-i18n="step1Number">01</span>
           <div>
-            <h2 id="lookup-title">Describe your item</h2>
-            <p>Choose a city, then add a photo, a description, or both.</p>
+            <h2 id="lookup-title" data-i18n="step1Title">Chụp ảnh hoặc mô tả đồ cần bỏ</h2>
+            <p data-i18n="step1Copy">Chọn thành phố, sau đó chụp ảnh, tải ảnh hoặc nhập mô tả vật dụng.</p>
           </div>
         </div>
 
         <form id="recognize-form">
           <div class="field-group">
-            <label for="jurisdiction">Your city</label>
+            <label for="jurisdiction" data-i18n="cityLabel">Thành phố của bạn</label>
             <select id="jurisdiction" name="jurisdiction" required>
-              <option value="hanoi">Hanoi</option>
-              <option value="ho-chi-minh-city">Ho Chi Minh City</option>
+              <option value="hanoi" data-i18n="cityHanoi">Hà Nội</option>
+              <option value="ho-chi-minh-city" data-i18n="cityHcmc">TP. Hồ Chí Minh</option>
             </select>
           </div>
 
           <div class="field-group">
-            <label for="description">What is the item?</label>
+            <label for="description" data-i18n="itemLabel">Vật dụng bạn muốn bỏ là gì?</label>
             <textarea
               id="description"
               name="description"
               rows="3"
               maxlength="2000"
-              placeholder="Describe the item and its condition"
+              placeholder="Mô tả vật dụng hoặc tình trạng (ví dụ: chai nhựa rỗng, bóng đèn huỳnh quang, đệm mút cũ...)"
+              data-i18n-placeholder="itemPlaceholder"
             ></textarea>
-            <div class="examples">
-              <span class="examples-label" id="examples-label"
-                >Try a covered example</span
-              >
+            
+            <div class="stream-catalog" aria-labelledby="stream-catalog-label">
+              <div class="stream-catalog-header">
+                <span class="examples-label" id="stream-catalog-label" data-i18n="streamCatalogLabel">
+                  Danh mục 5 nhóm rác &amp; tra cứu nhanh
+                </span>
+              </div>
+              <div class="stream-tabs" role="tablist" aria-label="Waste stream categories">
+                <button
+                  type="button"
+                  class="stream-tab active"
+                  role="tab"
+                  id="tab-recyclables"
+                  aria-selected="true"
+                  aria-controls="stream-chips"
+                  data-stream="recyclables"
+                >
+                  <span class="stream-icon" aria-hidden="true">♻️</span>
+                  <span class="stream-title" data-i18n="streamRecyclable">Tái chế</span>
+                </button>
+                <button
+                  type="button"
+                  class="stream-tab"
+                  role="tab"
+                  id="tab-food"
+                  aria-selected="false"
+                  aria-controls="stream-chips"
+                  data-stream="food"
+                >
+                  <span class="stream-icon" aria-hidden="true">🍎</span>
+                  <span class="stream-title" data-i18n="streamFood">Thực phẩm</span>
+                </button>
+                <button
+                  type="button"
+                  class="stream-tab"
+                  role="tab"
+                  id="tab-hazardous"
+                  aria-selected="false"
+                  aria-controls="stream-chips"
+                  data-stream="hazardous"
+                >
+                  <span class="stream-icon" aria-hidden="true">⚠️</span>
+                  <span class="stream-title" data-i18n="streamHazardous">Nguy hại</span>
+                </button>
+                <button
+                  type="button"
+                  class="stream-tab"
+                  role="tab"
+                  id="tab-bulky"
+                  aria-selected="false"
+                  aria-controls="stream-chips"
+                  data-stream="bulky"
+                >
+                  <span class="stream-icon" aria-hidden="true">🛋️</span>
+                  <span class="stream-title" data-i18n="streamBulky">Cồng kềnh</span>
+                </button>
+                <button
+                  type="button"
+                  class="stream-tab"
+                  role="tab"
+                  id="tab-other"
+                  aria-selected="false"
+                  aria-controls="stream-chips"
+                  data-stream="other"
+                >
+                  <span class="stream-icon" aria-hidden="true">🗑️</span>
+                  <span class="stream-title" data-i18n="streamOther">Rác khác</span>
+                </button>
+              </div>
               <div
-                class="example-list"
+                class="stream-chips example-list"
+                id="stream-chips"
                 role="group"
-                aria-labelledby="examples-label"
+                aria-labelledby="stream-catalog-label"
               >
-                <button
-                  class="example-chip"
-                  type="button"
-                  data-example="an old mattress"
-                  aria-controls="description"
-                >
-                  Old mattress
-                </button>
-                <button
-                  class="example-chip"
-                  type="button"
-                  data-example="an intact used household AA/AAA battery"
-                  aria-controls="description"
-                >
-                  Intact AA/AAA battery
-                </button>
-                <button
-                  class="example-chip"
-                  type="button"
-                  data-example="a standalone used rechargeable lithium-ion battery"
-                  aria-controls="description"
-                >
-                  Standalone Li-ion battery
-                </button>
-                <button
-                  class="example-chip"
-                  type="button"
-                  data-example="a broken household fluorescent tube"
-                  aria-controls="description"
-                >
-                  Broken fluorescent tube
-                </button>
-                <button
-                  class="example-chip"
-                  type="button"
-                  data-example="a broken household mercury thermometer"
-                  aria-controls="description"
-                >
-                  Broken mercury thermometer
-                </button>
-                <button
-                  class="example-chip"
-                  type="button"
-                  data-example="a discarded coconut shell"
-                  aria-controls="description"
-                >
-                  Coconut shell
-                </button>
-                <button
-                  class="example-chip"
-                  type="button"
-                  data-example="a clear PET plastic water bottle"
-                  aria-controls="description"
-                >
-                  PET plastic bottle
-                </button>
-                <button
-                  class="example-chip"
-                  type="button"
-                  data-example="used cooking oil from frying"
-                  aria-controls="description"
-                >
-                  Used cooking oil
-                </button>
-                <button
-                  class="example-chip"
-                  type="button"
-                  data-example="expired prescription medicine pills"
-                  aria-controls="description"
-                >
-                  Expired medicine
-                </button>
-                <button
-                  class="example-chip"
-                  type="button"
-                  data-example="a corrugated cardboard shipping box"
-                  aria-controls="description"
-                >
-                  Cardboard box
-                </button>
-                <button
-                  class="example-chip"
-                  type="button"
-                  data-example="broken ceramic bowl shards"
-                  aria-controls="description"
-                >
-                  Broken ceramic dish
-                </button>
-                <button
-                  class="example-chip"
-                  type="button"
-                  data-example="spent motorbike motor oil"
-                  aria-controls="description"
-                >
-                  Motorbike motor oil
-                </button>
-                <button
-                  class="example-chip"
-                  type="button"
-                  data-example="an empty Tetra Pak milk carton"
-                  aria-controls="description"
-                >
-                  Tetra Pak milk carton
-                </button>
-                <button
-                  class="example-chip"
-                  type="button"
-                  data-example="used diabetic insulin pen needles"
-                  aria-controls="description"
-                >
-                  Medical sharps
-                </button>
-                <button
-                  class="example-chip"
-                  type="button"
-                  data-example="spent coffee grounds from a phin filter"
-                  aria-controls="description"
-                >
-                  Coffee grounds
-                </button>
-                <button
-                  class="example-chip"
-                  type="button"
-                  data-example="burnt ancestral altar incense ash"
-                  aria-controls="description"
-                >
-                  Incense ash
-                </button>
+                <!-- Populated dynamically with canonical items as quick-tap chips -->
               </div>
             </div>
           </div>
 
           <div class="field-group photo-field">
             <p class="photo-label" id="photo-label">
-              Add a photo <span class="optional">(optional)</span>
+              <span data-i18n="photoLabel">Chụp ảnh hoặc chọn ảnh</span> <span class="optional" data-i18n="photoOptional">(không bắt buộc)</span>
             </p>
             <div class="photo-picker">
               <div class="photo-picker-copy">
-                <strong>Show us the item</strong>
-                <span
-                  >Take a new photo or choose a saved photo or screenshot.</span
-                >
+                <strong data-i18n="photoPickerTitle">Hình ảnh vật dụng</strong>
+                <span data-i18n="photoPickerCopy">Chụp ảnh trực tiếp hoặc chọn ảnh/ảnh chụp màn hình từ thư viện.</span>
               </div>
               <input
                 id="image"
@@ -247,7 +190,7 @@
                       stroke-width="1.7"
                     />
                   </svg>
-                  Take a photo
+                  <span data-i18n="takePhoto">Chụp ảnh</span>
                 </button>
                 <button
                   class="button button-secondary photo-action"
@@ -279,42 +222,39 @@
                       stroke-linejoin="round"
                     />
                   </svg>
-                  Choose photo
+                  <span data-i18n="choosePhoto">Tải ảnh lên</span>
                 </button>
               </div>
             </div>
             <div id="image-preview" class="photo-preview" hidden>
               <img id="image-preview-image" alt="" />
               <div class="photo-preview-copy">
-                <strong>Photo ready</strong
-                ><span id="image-preview-name"></span>
+                <strong data-i18n="photoReady">Ảnh đã sẵn sàng</strong><span id="image-preview-name"></span>
               </div>
               <button
                 class="button button-secondary"
                 id="remove-image-button"
                 type="button"
+                data-i18n="removePhoto"
               >
-                Remove
+                Gỡ ảnh
               </button>
             </div>
-            <span class="field-hint" id="photo-hint"
-              >Choose a screenshot from your photo library, too. Your image is
-              only sent when you identify the item.</span
-            >
+            <span class="field-hint" id="photo-hint" data-i18n="photoHint">
+              Có thể chọn ảnh chụp màn hình từ thư viện. Ảnh chỉ được gửi đi khi bạn bấm nhận diện.
+            </span>
           </div>
 
           <p class="privacy-note">
-            <span class="privacy-icon" aria-hidden="true">↗</span> Your
-            description and any photo are sent to Gemini or OpenRouter,
-            depending on server configuration, only when you identify the item.
-            WhatBin does not store them.
+            <span class="privacy-icon" aria-hidden="true">↗</span>
+            <span data-i18n="privacyNote">Mô tả và hình ảnh chỉ được gửi đến mô hình AI khi bạn nhấn nhận diện để xác định nhóm rác. WhatBin không lưu trữ hình ảnh hay dữ liệu cá nhân của bạn.</span>
           </p>
           <button
             class="button button-primary"
             type="submit"
             id="recognize-button"
           >
-            Identify item <span aria-hidden="true">→</span>
+            <span data-i18n="recognizeBtn">Nhận diện &amp; Tra cứu</span> <span aria-hidden="true">→</span>
           </button>
         </form>
 
@@ -331,16 +271,14 @@
           aria-labelledby="manual-heading"
           hidden
         >
-          <h2 id="manual-heading">Choose a catalog item</h2>
-          <p class="candidate-intro">
-            Choose only a close match. The next step checks for a reviewed rule
-            in your city; if none exists, WhatBin will not provide a disposal
-            route.
+          <h2 id="manual-heading" data-i18n="manualHeading">Chọn từ danh mục chuẩn</h2>
+          <p class="candidate-intro" data-i18n="manualIntro">
+            Chọn vật dụng gần đúng nhất. Bước tiếp theo kiểm tra quy định ban hành tại thành phố của bạn; nếu chưa có quy định, WhatBin sẽ không tự suy đoán.
           </p>
           <div class="field-group">
-            <label for="manual-item">Catalog item</label>
+            <label for="manual-item" data-i18n="manualSelectLabel">Vật dụng danh mục</label>
             <select id="manual-item" disabled>
-              <option value="">Choose a catalog item</option>
+              <option value="" data-i18n="manualSelectPlaceholder">Chọn một vật dụng chuẩn</option>
             </select>
           </div>
           <div class="candidate-actions">
@@ -349,8 +287,9 @@
               id="manual-choose-button"
               type="button"
               disabled
+              data-i18n="manualUseBtn"
             >
-              Use this item
+              Sử dụng mục này
             </button>
           </div>
         </section>
@@ -361,11 +300,11 @@
           hidden
         >
           <div class="step-heading">
-            <span class="step-number" aria-hidden="true">02</span>
-            <h2 id="candidate-heading">Confirm the item</h2>
+            <span class="step-number" aria-hidden="true" data-i18n="step2Number">02</span>
+            <h2 id="candidate-heading" data-i18n="step2Title">Xác nhận vật dụng</h2>
           </div>
-          <p class="candidate-intro">
-            Check this identification before looking up city guidance.
+          <p class="candidate-intro" data-i18n="step2Intro">
+            Kiểm tra kết quả nhận diện trước khi tra cứu hướng dẫn phân loại.
           </p>
           <div class="candidate-name" id="candidate-name"></div>
           <div class="candidate-actions">
@@ -374,14 +313,15 @@
               id="confirm-button"
               type="button"
             >
-              Yes, look this up <span aria-hidden="true">→</span>
+              <span data-i18n="confirmBtn">Xác nhận &amp; Xem hướng dẫn</span> <span aria-hidden="true">→</span>
             </button>
             <button
               class="button button-secondary"
               id="correct-button"
               type="button"
+              data-i18n="correctBtn"
             >
-              Not quite — edit description
+              Chưa đúng — sửa lại mô tả
             </button>
           </div>
         </section>
@@ -395,18 +335,19 @@
         hidden
       >
         <div class="result-topline">
-          <span class="step-number" aria-hidden="true">03</span
-          ><span id="result-status" class="status-pill"></span>
+          <span class="step-number" aria-hidden="true" data-i18n="step3Number">03</span>
+          <span id="result-status" class="status-pill"></span>
         </div>
-        <h2 id="result-heading">City guidance</h2>
+        <h2 id="result-heading" data-i18n="step3Title">Kết quả phân loại</h2>
         <div id="result-content"></div>
         <button
           class="button button-secondary compare-button"
           id="compare-cities-button"
           type="button"
           hidden
+          data-i18n="compareCitiesBtn"
         >
-          Compare both cities
+          So sánh Hà Nội &amp; TP. Hồ Chí Minh
         </button>
         <p
           id="comparison-feedback"
@@ -424,8 +365,8 @@
       </section>
 
       <footer>
-        <span>WhatBin</span
-        ><span>Check the linked source for the latest official guidance.</span>
+        <span>WhatBin</span>
+        <span data-i18n="footerText">Luôn đối chiếu văn bản quy phạm pháp luật được liên kết để cập nhật hướng dẫn mới nhất.</span>
       </footer>
     </main>
   </body>

@@ -328,6 +328,94 @@ test('recognition uses OpenRouter Jev for text and configurable chat models for 
     await new Promise((resolve, reject) => server.close((error) => error ? reject(error) : resolve()))
   }
 })
+test('recognize handles base64 image requests with Gemini and enforces validation', async () => {
+  const server = createServer()
+  server.listen(0, '127.0.0.1')
+  await new Promise((resolve) => server.once('listening', resolve))
+
+  const originalFetch = globalThis.fetch
+  const originalApiKey = process.env.GEMINI_API_KEY
+  const originalOpenRouterKey = process.env.OPENROUTER_API_KEY
+  delete process.env.OPENROUTER_API_KEY
+  process.env.GEMINI_API_KEY = 'test-gemini-key'
+
+  let geminiPayload
+  const sampleCandidate = {
+    supported: true,
+    confidence: 0.95,
+    canonicalItemId: 'pet-plastic-bottle',
+    itemName: 'PET plastic beverage bottle',
+  }
+
+  globalThis.fetch = async (input, init) => {
+    const url = String(input)
+    if (url.startsWith('http://127.0.0.1:')) return originalFetch(input, init)
+    if (url.includes('generativelanguage.googleapis.com')) {
+      geminiPayload = JSON.parse(init.body)
+      return new Response(JSON.stringify({
+        candidates: [{ content: { parts: [{ text: JSON.stringify(sampleCandidate) }] } }],
+      }), { status: 200, headers: { 'content-type': 'application/json' } })
+    }
+    throw new Error(`Unexpected external request: ${url}`)
+  }
+
+  try {
+    const origin = `http://127.0.0.1:${server.address().port}`
+    const postRecognize = async (body) => {
+      const response = await originalFetch(`${origin}/api/recognize`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(body),
+      })
+      return { status: response.status, data: await response.json() }
+    }
+
+    const validBase64 = Buffer.from('test-image-binary-data').toString('base64')
+    const imgOnly = await postRecognize({
+      image: { mimeType: 'image/jpeg', base64: validBase64 },
+    })
+    assert.equal(imgOnly.status, 200)
+    assert.deepEqual(imgOnly.data.candidate, {
+      canonicalItemId: 'pet-plastic-bottle',
+      itemName: 'PET plastic beverage bottle',
+    })
+    assert.equal(geminiPayload.contents[0].parts.length, 2)
+    assert.equal(geminiPayload.contents[0].parts[1].inlineData.mimeType, 'image/jpeg')
+    assert.equal(geminiPayload.contents[0].parts[1].inlineData.data, validBase64)
+
+    const imgAndDesc = await postRecognize({
+      image: { mimeType: 'image/png', base64: validBase64 },
+      description: 'clear water bottle',
+    })
+    assert.equal(imgAndDesc.status, 200)
+    assert.deepEqual(imgAndDesc.data.candidate, {
+      canonicalItemId: 'pet-plastic-bottle',
+      itemName: 'PET plastic beverage bottle',
+    })
+    assert.match(geminiPayload.contents[0].parts[0].text, /attached image and this description: clear water bottle/)
+
+    const badMime = await postRecognize({
+      image: { mimeType: 'image/gif', base64: validBase64 },
+    })
+    assert.equal(badMime.status, 400)
+    assert.equal(badMime.data.error, 'Provide a valid description, supported image, or both.')
+
+    const badBase64 = await postRecognize({
+      image: { mimeType: 'image/jpeg', base64: 'not-valid-base64!!@#' },
+    })
+    assert.equal(badBase64.status, 400)
+
+    const emptyObj = await postRecognize({})
+    assert.equal(emptyObj.status, 400)
+  } finally {
+    globalThis.fetch = originalFetch
+    if (originalOpenRouterKey === undefined) delete process.env.OPENROUTER_API_KEY
+    else process.env.OPENROUTER_API_KEY = originalOpenRouterKey
+    if (originalApiKey === undefined) delete process.env.GEMINI_API_KEY
+    else process.env.GEMINI_API_KEY = originalApiKey
+    await new Promise((resolve, reject) => server.close((error) => error ? reject(error) : resolve()))
+  }
+})
 test('research-source enforces Studio origin and bearer authorization', async () => {
   const server = createServer()
   server.listen(0, '127.0.0.1')
