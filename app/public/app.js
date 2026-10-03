@@ -678,7 +678,7 @@ const TRANSLATIONS = {
     filterAll: 'Tất cả',
     printGuideTitle: 'CẨM NANG PHÂN LOẠI RÁC TẠI NGUỒN GIA ĐÌNH',
     printGuideSubtitle: 'Áp dụng theo Quyết định 87/2024/QĐ-UBND (Hà Nội) & Quyết định 36/2025/QĐ-UBND, 58/2025/QĐ-UBND (TP.HCM)',
-    printDecreeHeading: '⚖️ NGHỊ ĐỊNH 45/2022/NĐ-CP (ĐIỀU 26):',
+    printDecreeHeading: 'NGHỊ ĐỊNH 45/2022/NĐ-CP (ĐIỀU 26):',
     printDecreeNotice: 'Phạt tiền từ 500.000 đến 1.000.000 đồng đối với hộ gia đình, cá nhân không thực hiện phân loại chất thải rắn sinh hoạt tại nguồn hoặc không dùng đúng loại bao bì/thùng chứa theo quy định.',
     printFoodTitle: 'CHẤT THẢI THỰC PHẨM',
     printFoodBadge: 'Túi xanh lá / Thùng rác hữu cơ',
@@ -805,7 +805,7 @@ const TRANSLATIONS = {
     filterAll: 'All',
     printGuideTitle: 'HOUSEHOLD WASTE SORTING WALL GUIDE',
     printGuideSubtitle: 'Standards under Decision 87/2024 (Hanoi) & Decision 36/2025, 58/2025 (HCMC)',
-    printDecreeHeading: '⚖️ DECREE 45/2022/NĐ-CP (ARTICLE 26):',
+    printDecreeHeading: 'DECREE 45/2022/NĐ-CP (ARTICLE 26):',
     printDecreeNotice: 'Fine of 500,000 to 1,000,000 VND for households and individuals who fail to classify domestic solid waste at source or fail to use prescribed containers/bags.',
     printFoodTitle: 'FOOD WASTE',
     printFoodBadge: 'Green bag / Organic bin',
@@ -856,37 +856,52 @@ const CATEGORY_LOCALIZATIONS = {
   },
 };
 
+const HEROICONS = {
+  food: '<svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582" /></svg>',
+  recyclables: '<svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0 3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3" /></svg>',
+  other: '<svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" /></svg>',
+  hazardous: '<svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" /></svg>',
+  bulky: '<svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25M16.5 18.75h-2.25m0-11.25V18.75m0-11.25h-9a2.25 2.25 0 0 0-2.25 2.25v7.5" /></svg>',
+  scale: '<svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0 0 12 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52 2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 0 1-2.031.352 5.988 5.988 0 0 1-2.031-.352c-.483-.174-.711-.703-.59-1.202L18.75 4.971Zm-16.5.52c.99-.203 1.99-.377 3-.52m0 0 2.62 10.726c.122.499-.106 1.028-.589 1.202a5.989 5.989 0 0 1-2.031.352 5.989 5.989 0 0 1-2.031-.352c-.483-.174-.711-.703-.59-1.202L5.25 4.971Z" /></svg>',
+  mapPin: '<svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" /></svg>',
+  checkCircle: '<svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>',
+  xCircle: '<svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>',
+  trophy: '<svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 0 1 3 3h-15a3 3 0 0 1 3-3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-.871a8.263 8.263 0 0 0-3.008 0h-.871c-.621 0-1.125.504-1.125 1.125V18.75m9 0h-9m9-11.25V5.25a2.25 2.25 0 0 0-2.25-2.25h-4.5A2.25 2.25 0 0 0 4.5 5.25v2.25m12 0A4.5 4.5 0 0 1 12 12a4.5 4.5 0 0 1-4.5-4.5m12 0H18m-13.5 0H6" /></svg>',
+  sparkles: '<svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" /></svg>',
+  academicCap: '<svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-5.25 6.557q.217.375.467.732m4.783-7.289a55.437 55.437 0 0 1 5.25 2.882V15m-5.25-2.882q-.314.159-.625.32" /></svg>',
+};
+
 const BAG_BADGE_INFO = {
   food: {
-    icon: '🟢',
+    icon: HEROICONS.food,
     badgeClass: 'bag-badge-food',
     titleKey: 'bagBadgeFood',
     subVi: 'Quy chuẩn QĐ 87/2024 (Hà Nội) & QĐ 36/2025 (TP.HCM)',
     subEn: 'Standard under Dec. 87 (Hanoi) & Dec. 36/58 (HCMC)',
   },
   recyclables: {
-    icon: '⚪',
+    icon: HEROICONS.recyclables,
     badgeClass: 'bag-badge-recyclables',
     titleKey: 'bagBadgeRecyclables',
     subVi: 'Túi trong suốt thấy rõ phế liệu hoặc thùng tái chế màu xanh dương',
     subEn: 'Transparent bags showing recyclable materials or blue bin',
   },
   other: {
-    icon: '⚫',
+    icon: HEROICONS.other,
     badgeClass: 'bag-badge-other',
     titleKey: 'bagBadgeOther',
     subVi: 'Túi rác xám hoặc sẫm màu chứa chất thải còn lại',
     subEn: 'Opaque dark bag for general domestic residual waste',
   },
   hazardous: {
-    icon: '🔴',
+    icon: HEROICONS.hazardous,
     badgeClass: 'bag-badge-hazardous',
     titleKey: 'bagBadgeHazardous',
     subVi: 'Phân loại riêng trong bao bì có cảnh báo, không để lẫn rác sinh hoạt',
     subEn: 'Segregate in labeled container, never mix with common garbage',
   },
   bulky: {
-    icon: '🟤',
+    icon: HEROICONS.bulky,
     badgeClass: 'bag-badge-bulky',
     titleKey: 'bagBadgeBulky',
     subVi: 'Tập kết tại trạm cấp xã/phường hoặc hẹn xe chuyên dùng thu gom',
@@ -2322,7 +2337,7 @@ function renderBagBadgeAndNotice(container, category, canonicalItemId) {
   const icon = document.createElement('span');
   icon.className = 'bag-badge-icon';
   icon.setAttribute('aria-hidden', 'true');
-  icon.textContent = info.icon;
+  icon.innerHTML = info.icon;
 
   const content = document.createElement('div');
   content.className = 'bag-badge-content';
@@ -2350,7 +2365,7 @@ function renderBagBadgeAndNotice(container, category, canonicalItemId) {
   const compIcon = document.createElement('span');
   compIcon.className = 'compliance-icon';
   compIcon.setAttribute('aria-hidden', 'true');
-  compIcon.textContent = '⚖️';
+  compIcon.innerHTML = HEROICONS.scale;
 
   const compContent = document.createElement('div');
   compContent.className = 'compliance-content';
@@ -2561,9 +2576,11 @@ function handleAnswerSelected(selectedIdx, buttons, question) {
 
   const fbTitle = document.createElement('div');
   fbTitle.className = 'quiz-feedback-title';
-  fbTitle.textContent = isCorrect
-    ? (currentLang === 'vi' ? '✔ Chính xác!' : '✔ Correct!')
-    : (currentLang === 'vi' ? '✖ Chưa chính xác!' : '✖ Incorrect!');
+  const fbIcon = isCorrect ? HEROICONS.checkCircle : HEROICONS.xCircle;
+  const fbText = isCorrect
+    ? (currentLang === 'vi' ? 'Chính xác!' : 'Correct!')
+    : (currentLang === 'vi' ? 'Chưa chính xác!' : 'Incorrect!');
+  fbTitle.innerHTML = `${fbIcon} <span>${fbText}</span>`;
 
   const fbCopy = document.createElement('p');
   fbCopy.className = 'quiz-feedback-copy';
@@ -2594,7 +2611,7 @@ function renderQuizScoreScreen() {
 
   const trophy = document.createElement('div');
   trophy.className = 'quiz-trophy';
-  trophy.textContent = quizScore === 5 ? '🏆' : quizScore >= 3 ? '🎉' : '📚';
+  trophy.innerHTML = quizScore === 5 ? HEROICONS.trophy : quizScore >= 3 ? HEROICONS.sparkles : HEROICONS.academicCap;
 
   const scoreNum = document.createElement('h3');
   scoreNum.className = 'quiz-score-number';
@@ -2707,7 +2724,7 @@ function renderDropoffList() {
 
     const address = document.createElement('p');
     address.className = 'dropoff-address';
-    address.innerHTML = `<span>📍</span> <span>${currentLang === 'vi' ? hub.addressVi : hub.addressEn}</span>`;
+    address.innerHTML = `<span class="hub-pin">${HEROICONS.mapPin}</span> <span>${currentLang === 'vi' ? hub.addressVi : hub.addressEn}</span>`;
 
     const notes = document.createElement('p');
     notes.className = 'dropoff-notes';

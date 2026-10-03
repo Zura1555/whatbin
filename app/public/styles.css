@@ -1165,9 +1165,112 @@ footer span:first-child {
 .quick-nav-btn:active {
   transform: translateY(0);
 }
-.btn-icon {
-  font-size: 15px;
+/* Heroicons Styling */
+.hi-icon {
+  width: 1.15em;
+  height: 1.15em;
+  display: inline-block;
+  vertical-align: -0.16em;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  fill: none;
+  flex-shrink: 0;
 }
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--green-dark);
+}
+.btn-icon .hi-icon {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+.stream-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 1;
+}
+.stream-icon .hi-icon {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+.modal-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--green);
+}
+.modal-icon .hi-icon {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+.bag-badge-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.bag-badge-icon .hi-icon {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+.print-stream-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.print-stream-icon .hi-icon {
+  width: 1.45rem;
+  height: 1.45rem;
+}
+.modal-close-btn .hi-icon {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+.hi-inline-scale {
+  width: 1.1em;
+  height: 1.1em;
+  display: inline-block;
+  vertical-align: -0.15em;
+  margin-right: 4px;
+}
+.compliance-icon .hi-icon {
+  width: 1.35rem;
+  height: 1.35rem;
+  color: #c2410c;
+}
+.hub-pin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--green);
+  flex-shrink: 0;
+}
+.hub-pin .hi-icon {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+.photo-clear-btn .hi-icon {
+  width: 12px;
+  height: 12px;
+  stroke-width: 2.2;
+}
+.quiz-trophy .hi-icon {
+  width: 58px;
+  height: 58px;
+  color: #f59e0b;
+}
+.quiz-feedback-title .hi-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--green);
+}
+.quiz-feedback.is-wrong .quiz-feedback-title .hi-icon {
+  color: #ef4444;
+}
+
 
 /* Voice Search Button & Wrapper */
 .textarea-label-row {
