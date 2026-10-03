@@ -32,6 +32,7 @@
         </div>
       </header>
 
+      <div id="flow-home" class="flow-home">
       <section class="intro" aria-labelledby="page-title">
         <p class="eyebrow" data-i18n="introEyebrow">Phân loại rác tại nguồn</p>
         <h1 id="page-title" data-i18n="introTitle">Bỏ vào thùng nào?</h1>
@@ -60,8 +61,32 @@
           <span data-i18n="quickNavPrint">In cẩm nang treo tường</span>
         </button>
       </nav>
+      </div>
 
-      <section class="lookup-card" aria-labelledby="lookup-title">
+      <nav
+        id="flow-progress"
+        class="flow-progress"
+        aria-label="Lookup progress"
+        data-i18n-aria-label="flowProgressLabel"
+        hidden
+      >
+        <ol class="flow-progress-list">
+          <li class="flow-progress-step" data-flow-step="lookup">
+            <span class="flow-progress-dot" aria-hidden="true"></span>
+            <span class="flow-progress-label" data-i18n="flowStepLookup">Mô tả</span>
+          </li>
+          <li class="flow-progress-step" data-flow-step="confirm">
+            <span class="flow-progress-dot" aria-hidden="true"></span>
+            <span class="flow-progress-label" data-i18n="flowStepConfirm">Xác nhận</span>
+          </li>
+          <li class="flow-progress-step" data-flow-step="result">
+            <span class="flow-progress-dot" aria-hidden="true"></span>
+            <span class="flow-progress-label" data-i18n="flowStepResult">Kết quả</span>
+          </li>
+        </ol>
+      </nav>
+
+      <section id="lookup-screen" class="lookup-card flow-screen" aria-labelledby="lookup-title">
         <div class="section-heading">
           <span class="step-number" aria-hidden="true" data-i18n="step1Number">01</span>
           <div>
@@ -397,9 +422,29 @@
           aria-live="polite"
           hidden
         ></div>
+      </section>
+
+      <section
+        id="confirm-screen"
+        class="confirm-card flow-screen"
+        aria-labelledby="confirm-screen-title"
+        hidden
+      >
+        <button type="button" class="flow-back-btn" id="confirm-back-button">
+          <span aria-hidden="true">←</span>
+          <span data-i18n="flowBackToLookup">Quay lại mô tả</span>
+        </button>
+        <h2 id="confirm-screen-title" class="visually-hidden" data-i18n="step2Title">Xác nhận vật dụng</h2>
+        <div
+          id="confirm-feedback"
+          class="feedback"
+          role="status"
+          aria-live="polite"
+          hidden
+        ></div>
         <section
           id="manual-panel"
-          class="candidate-panel"
+          class="candidate-panel candidate-panel-standalone"
           aria-labelledby="manual-heading"
           hidden
         >
@@ -427,7 +472,7 @@
         </section>
         <section
           id="candidate-panel"
-          class="candidate-panel"
+          class="candidate-panel candidate-panel-standalone"
           aria-labelledby="candidate-heading"
           hidden
         >
@@ -461,11 +506,15 @@
 
       <section
         id="result-panel"
-        class="result-card"
+        class="result-card flow-screen"
         aria-labelledby="result-heading"
         aria-live="polite"
         hidden
       >
+        <button type="button" class="flow-back-btn" id="result-back-button">
+          <span aria-hidden="true">←</span>
+          <span data-i18n="flowBackToConfirm">Quay lại xác nhận</span>
+        </button>
         <div class="result-topline">
           <span class="step-number" aria-hidden="true" data-i18n="step3Number">03</span>
           <span id="result-status" class="status-pill"></span>
@@ -494,6 +543,14 @@
           aria-label="Guidance for both cities"
           hidden
         ></section>
+        <button
+          class="button button-secondary flow-new-lookup-btn"
+          id="new-lookup-button"
+          type="button"
+          data-i18n="flowNewLookup"
+        >
+          Tra cứu vật dụng khác
+        </button>
       </section>
 
       <!-- Printable Household Sorting Cheat-Sheet (Optimized for wall/fridge reference) -->

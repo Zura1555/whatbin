@@ -718,6 +718,13 @@ const TRANSLATIONS = {
     correctBtn: 'Chưa đúng — sửa lại mô tả',
     step3Number: '03',
     step3Title: 'Kết quả phân loại',
+    flowProgressLabel: 'Tiến trình tra cứu',
+    flowStepLookup: 'Mô tả',
+    flowStepConfirm: 'Xác nhận',
+    flowStepResult: 'Kết quả',
+    flowBackToLookup: 'Quay lại mô tả',
+    flowBackToConfirm: 'Quay lại xác nhận',
+    flowNewLookup: 'Tra cứu vật dụng khác',
     statusMatched: 'QUY ĐỊNH CHÍNH THỨC',
     statusUnknown: 'CHƯA CÓ QUY ĐỊNH',
     statusConflict: 'CÓ Ý KIẾN TRÁI CHIỀU',
@@ -848,6 +855,13 @@ const TRANSLATIONS = {
     correctBtn: 'Not quite — edit description',
     step3Number: '03',
     step3Title: 'City guidance',
+    flowProgressLabel: 'Lookup progress',
+    flowStepLookup: 'Describe',
+    flowStepConfirm: 'Confirm',
+    flowStepResult: 'Result',
+    flowBackToLookup: 'Back to description',
+    flowBackToConfirm: 'Back to confirmation',
+    flowNewLookup: 'Look up another item',
     statusMatched: 'MATCHED',
     statusUnknown: 'UNKNOWN',
     statusConflict: 'CONFLICT',
@@ -1234,7 +1248,15 @@ const removeImageButton = document.querySelector('#remove-image-button');
 const retakeImageButton = document.querySelector('#retake-image-button');
 const voiceSearchBtn = document.querySelector('#voice-search-btn');
 const voiceStatus = document.querySelector('#voice-status');
+const flowHome = document.querySelector('#flow-home');
+const flowProgress = document.querySelector('#flow-progress');
+const lookupScreen = document.querySelector('#lookup-screen');
+const confirmScreen = document.querySelector('#confirm-screen');
 const recognitionFeedback = document.querySelector('#recognition-feedback');
+const confirmFeedback = document.querySelector('#confirm-feedback');
+const confirmBackButton = document.querySelector('#confirm-back-button');
+const resultBackButton = document.querySelector('#result-back-button');
+const newLookupButton = document.querySelector('#new-lookup-button');
 const candidatePanel = document.querySelector('#candidate-panel');
 const candidateName = document.querySelector('#candidate-name');
 const confirmButton = document.querySelector('#confirm-button');
@@ -1300,6 +1322,9 @@ let quizUserAnswers = [];
 // Drop-off State
 let dropoffActiveCity = 'all';
 let dropoffActiveStream = 'all';
+
+/** @type {'lookup' | 'confirm' | 'result'} */
+let flowStep = 'lookup';
 
 // Voice Search State
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -1526,6 +1551,47 @@ function setupModeSwitcher() {
   }
 }
 
+function scrollFlowTarget(element) {
+  if (!element) return;
+  element.scrollIntoView({
+    behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+    block: 'start',
+  });
+}
+
+function updateFlowProgress(step) {
+  if (!flowProgress) return;
+  const showProgress = step !== 'lookup';
+  flowProgress.hidden = !showProgress;
+  for (const item of flowProgress.querySelectorAll('.flow-progress-step')) {
+    const itemStep = item.dataset.flowStep;
+    const isActive = itemStep === step;
+    const isComplete =
+      (step === 'confirm' && itemStep === 'lookup') ||
+      (step === 'result' && (itemStep === 'lookup' || itemStep === 'confirm'));
+    item.classList.toggle('is-active', isActive);
+    item.classList.toggle('is-complete', isComplete);
+  }
+}
+
+function setFlowStep(step) {
+  if (step !== 'lookup' && step !== 'confirm' && step !== 'result') return;
+  flowStep = step;
+  if (flowHome) flowHome.hidden = step !== 'lookup';
+  if (lookupScreen) lookupScreen.hidden = step !== 'lookup';
+  if (confirmScreen) confirmScreen.hidden = step !== 'confirm';
+  if (resultPanel) resultPanel.hidden = step !== 'result';
+  updateFlowProgress(step);
+
+  if (step === 'lookup') scrollFlowTarget(flowHome || lookupScreen);
+  else if (step === 'confirm') scrollFlowTarget(confirmScreen);
+  else scrollFlowTarget(resultPanel);
+}
+
+function activeFeedbackEl() {
+  return flowStep === 'confirm' ? confirmFeedback : recognitionFeedback;
+}
+
 function clearResults() {
   candidate = null;
   currentResolvedData = null;
@@ -1545,14 +1611,26 @@ function clearResults() {
   candidateName.textContent = '';
   recognitionFeedback.textContent = '';
   recognitionFeedback.hidden = true;
+  if (confirmFeedback) {
+    confirmFeedback.textContent = '';
+    confirmFeedback.hidden = true;
+  }
   explanationHistory = [];
   explanationVersion++;
+  setFlowStep('lookup');
 }
 
 function showFeedback(message, isError = false) {
-  recognitionFeedback.textContent = message;
-  recognitionFeedback.classList.toggle('feedback-error', isError);
-  recognitionFeedback.hidden = false;
+  const inactive = activeFeedbackEl() === confirmFeedback ? recognitionFeedback : confirmFeedback;
+  if (inactive) {
+    inactive.textContent = '';
+    inactive.hidden = true;
+  }
+  const target = activeFeedbackEl();
+  if (!target) return;
+  target.textContent = message;
+  target.classList.toggle('feedback-error', isError);
+  target.hidden = false;
 }
 
 async function offerManualSelection(message, version) {
@@ -1586,6 +1664,7 @@ async function offerManualSelection(message, version) {
     manualPanel.hidden = false;
     manualItemSelect.disabled = false;
     manualChooseButton.disabled = false;
+    setFlowStep('confirm');
     showFeedback(message, true);
     manualItemSelect.focus();
   } catch {
@@ -1606,6 +1685,9 @@ function setCandidate(item) {
   manualPanel.hidden = true;
   candidateName.textContent = itemDisplayName(candidate.canonicalItemId, candidate.itemName);
   candidatePanel.hidden = false;
+  recognitionFeedback.textContent = '';
+  recognitionFeedback.hidden = true;
+  setFlowStep('confirm');
   confirmButton.focus();
 }
 
@@ -1911,7 +1993,6 @@ citySelect.addEventListener('change', () => {
   recognizeButton.disabled = false;
   confirmButton.disabled = false;
   correctButton.disabled = false;
-  resultPanel.hidden = true;
   resultStatus.textContent = '';
   resultContent.replaceChildren();
   compareCitiesButton.hidden = true;
@@ -1922,8 +2003,13 @@ citySelect.addEventListener('change', () => {
   comparisonPanel.replaceChildren();
   recognitionFeedback.textContent = '';
   recognitionFeedback.hidden = true;
+  if (confirmFeedback) {
+    confirmFeedback.textContent = '';
+    confirmFeedback.hidden = true;
+  }
   if (candidate) {
     candidatePanel.hidden = false;
+    setFlowStep('confirm');
     showFeedback(
       currentLang === 'vi'
         ? `Xác nhận vật dụng để xem quy định của ${cityName(citySelect.value)}.`
@@ -1933,8 +2019,10 @@ citySelect.addEventListener('change', () => {
     candidatePanel.hidden = true;
     candidateName.textContent = '';
     manualItemSelect.replaceChildren();
+    setFlowStep('lookup');
   } else {
     candidatePanel.hidden = true;
+    setFlowStep('confirm');
   }
 });
 
@@ -1942,6 +2030,43 @@ correctButton.addEventListener('click', () => {
   requestVersion++;
   clearResults();
   setInputMode('text');
+  descriptionInput.focus();
+});
+
+confirmBackButton?.addEventListener('click', () => {
+  requestVersion++;
+  clearResults();
+  descriptionInput.focus();
+});
+
+resultBackButton?.addEventListener('click', () => {
+  comparisonVersion++;
+  explanationVersion++;
+  explanationHistory = [];
+  compareCitiesButton.hidden = true;
+  compareCitiesButton.disabled = false;
+  comparisonFeedback.hidden = true;
+  comparisonFeedback.textContent = '';
+  comparisonPanel.hidden = true;
+  comparisonPanel.replaceChildren();
+  currentResolvedData = null;
+  if (candidate) {
+    setFlowStep('confirm');
+    candidatePanel.hidden = false;
+    confirmButton.focus();
+  } else {
+    clearResults();
+  }
+});
+
+newLookupButton?.addEventListener('click', () => {
+  requestVersion++;
+  clearResults();
+  descriptionInput.value = '';
+  clearImagePreview();
+  imageInput.value = '';
+  if (cameraInput) cameraInput.value = '';
+  setInputMode('catalog');
   descriptionInput.focus();
 });
 
@@ -2390,7 +2515,6 @@ confirmButton.addEventListener('click', async () => {
   comparisonPanel.replaceChildren();
   confirmButton.disabled = true;
   correctButton.disabled = true;
-  resultPanel.hidden = true;
   showFeedback(
     currentLang === 'vi'
       ? `Đang tra cứu quy định hiện hành của ${cityName(city)}…`
@@ -2403,13 +2527,10 @@ confirmButton.addEventListener('click', async () => {
       confirmed: true,
     });
     if (version !== requestVersion || city !== citySelect.value) return;
-    recognitionFeedback.hidden = true;
+    if (confirmFeedback) confirmFeedback.hidden = true;
     renderResolution(data, city, confirmedItem.canonicalItemId);
     compareCitiesButton.hidden = false;
-    resultPanel.scrollIntoView({
-      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
-      block: 'start',
-    });
+    setFlowStep('result');
   } catch (error) {
     if (version === requestVersion) {
       showFeedback(
@@ -2988,3 +3109,4 @@ setupModeSwitcher();
 setupVoiceSearch();
 setupDropoffFilters();
 setLanguage(currentLang);
+setFlowStep('lookup');
