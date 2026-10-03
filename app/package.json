@@ -6,6 +6,7 @@
     "node": ">=22"
   },
   "scripts": {
+    "postinstall": "node scripts/vendor-lism-css.mjs",
     "start": "node --env-file=.env server.mjs",
     "test": "node --test server.test.mjs source-research.test.mjs"
   },
@@ -14,6 +15,10 @@
     "@ai-sdk/mcp": "^2.0.60",
     "@google/genai": "^2.24.0",
     "@openrouter/ai-sdk-provider": "^3.1.0",
-    "ai": "^7.0.116"
+    "ai": "^7.0.116",
+    "lism-css": "1.0.1"
+  },
+  "devDependencies": {
+    "@lism-css/mcp": "1.0.1"
   }
 }

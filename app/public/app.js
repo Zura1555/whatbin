@@ -1452,7 +1452,7 @@ function renderStreamChips(stream) {
       const desc = currentLang === 'vi' ? meta.descVi : meta.descEn;
       streamBanner.innerHTML = `
         <span class="stream-banner-icon" aria-hidden="true">${meta.icon}</span>
-        <div class="stream-banner-content">
+        <div class="stream-banner-content l--stack -g:2">
           <strong class="stream-banner-title">${title}</strong>
           <span class="stream-banner-desc">${desc}</span>
         </div>
@@ -2189,7 +2189,7 @@ function renderSources(references, contentNode = resultContent) {
     return;
   }
   const list = document.createElement('ul');
-  list.className = 'source-list';
+  list.className = 'source-list l--stack -g:12';
   for (const reference of references) {
     const item = document.createElement('li');
     if (typeof reference === 'string') {
@@ -2428,13 +2428,13 @@ function renderExplainer(city, canonicalItemId) {
   addText(section, 'p', t('explainerCopy'), 'muted-copy');
 
   const thread = document.createElement('div');
-  thread.className = 'explainer-thread';
+  thread.className = 'explainer-thread l--stack -g:12';
   thread.setAttribute('role', 'log');
   thread.setAttribute('aria-live', 'polite');
   thread.setAttribute('aria-relevant', 'additions');
 
   const expForm = document.createElement('form');
-  expForm.className = 'explainer-form';
+  expForm.className = 'explainer-form l--stack -g:12';
   const label = addText(expForm, 'label', t('explainerQuestionLabel'));
   const question = document.createElement('textarea');
   question.id = 'explainer-question';
@@ -2593,7 +2593,7 @@ compareCitiesButton.addEventListener('click', async () => {
 
   const cards = cities.map((city) => {
     const card = document.createElement('article');
-    card.className = 'comparison-card';
+    card.className = 'comparison-card l--stack -g:12';
     addText(card, 'h3', cityName(city));
     const content = document.createElement('div');
     const status = addText(card, 'span', 'LOADING', 'status-pill status-unavailable');
@@ -2676,7 +2676,7 @@ function renderBagBadgeAndNotice(container, category, canonicalItemId) {
   const info = BAG_BADGE_INFO[streamKey] || BAG_BADGE_INFO.other;
 
   const badge = document.createElement('div');
-  badge.className = `official-bag-badge ${info.badgeClass}`;
+  badge.className = `official-bag-badge l--flex -ai:start -g:12 ${info.badgeClass}`;
 
   const icon = document.createElement('span');
   icon.className = 'bag-badge-icon';
@@ -2684,7 +2684,7 @@ function renderBagBadgeAndNotice(container, category, canonicalItemId) {
   icon.innerHTML = info.icon;
 
   const content = document.createElement('div');
-  content.className = 'bag-badge-content';
+  content.className = 'bag-badge-content l--stack -g:4';
 
   const label = document.createElement('span');
   label.className = 'bag-badge-label';
@@ -2703,7 +2703,7 @@ function renderBagBadgeAndNotice(container, category, canonicalItemId) {
   container.append(badge);
 
   const compliance = document.createElement('aside');
-  compliance.className = 'compliance-notice';
+  compliance.className = 'compliance-notice l--flex -ai:start -g:12';
   compliance.setAttribute('aria-label', t('decreeNoticeHeading'));
 
   const compIcon = document.createElement('span');
@@ -2712,7 +2712,7 @@ function renderBagBadgeAndNotice(container, category, canonicalItemId) {
   compIcon.innerHTML = HEROICONS.scale;
 
   const compContent = document.createElement('div');
-  compContent.className = 'compliance-content';
+  compContent.className = 'compliance-content l--stack -g:8';
 
   const compTitle = document.createElement('strong');
   compTitle.className = 'compliance-title';
@@ -2873,7 +2873,7 @@ function renderQuizQuestion() {
   qText.textContent = currentLang === 'vi' ? q.questionVi : q.questionEn;
 
   const optionsContainer = document.createElement('div');
-  optionsContainer.className = 'quiz-options';
+  optionsContainer.className = 'quiz-options l--grid -g:12';
   const letters = ['A', 'B', 'C', 'D'];
   const options = currentLang === 'vi' ? q.optionsVi : q.optionsEn;
 
@@ -2921,7 +2921,7 @@ function handleAnswerSelected(selectedIdx, buttons, question) {
   feedback.className = `quiz-feedback enter-transition ${isCorrect ? '' : 'is-wrong'}`;
 
   const fbTitle = document.createElement('div');
-  fbTitle.className = 'quiz-feedback-title';
+  fbTitle.className = 'quiz-feedback-title l--flex -ai:center -g:8';
   const fbIcon = isCorrect ? HEROICONS.checkCircle : HEROICONS.xCircle;
   const fbText = isCorrect
     ? (currentLang === 'vi' ? 'Chính xác!' : 'Correct!')
@@ -2935,7 +2935,7 @@ function handleAnswerSelected(selectedIdx, buttons, question) {
   feedback.append(fbTitle, fbCopy);
 
   const navActions = document.createElement('div');
-  navActions.className = 'quiz-nav-actions';
+  navActions.className = 'quiz-nav-actions l--flex -jc:end -g:12';
   const nextBtn = document.createElement('button');
   nextBtn.type = 'button';
   nextBtn.className = 'button button-primary';
@@ -2981,7 +2981,7 @@ function renderQuizScoreScreen() {
     : 'Under Decree 45/2022/NĐ-CP, source-segregation of domestic waste is legally binding for households in Hanoi and Ho Chi Minh City.';
 
   const actions = document.createElement('div');
-  actions.className = 'quiz-score-actions';
+  actions.className = 'quiz-score-actions l--flex -jc:center -g:12';
 
   const shareBtn = document.createElement('button');
   shareBtn.type = 'button';
@@ -3054,10 +3054,10 @@ function renderDropoffList() {
 
   for (const hub of filtered) {
     const card = document.createElement('article');
-    card.className = 'dropoff-card';
+    card.className = 'dropoff-card l--grid -g:12';
 
     const header = document.createElement('div');
-    header.className = 'dropoff-card-header';
+    header.className = 'dropoff-card-header l--flex -ai:start -jc:between -g:12';
 
     const title = document.createElement('h3');
     title.className = 'dropoff-card-title';
@@ -3070,7 +3070,7 @@ function renderDropoffList() {
     header.append(title, badge);
 
     const address = document.createElement('p');
-    address.className = 'dropoff-address';
+    address.className = 'dropoff-address l--flex -ai:start -g:8';
     address.innerHTML = `<span class="hub-pin">${HEROICONS.mapPin}</span> <span>${currentLang === 'vi' ? hub.addressVi : hub.addressEn}</span>`;
 
     const notes = document.createElement('p');

@@ -75,10 +75,13 @@ test('static server serves the public app and blocks path traversal', async () =
     assert.equal(home.status, 200)
     assert.match(await home.text(), /<title>WhatBin — Check where it goes<\/title>/)
 
-    for (const asset of ['/app.js', '/styles.css']) {
+    for (const asset of ['/app.js', '/styles.css', '/vendor/lism-css/main.css']) {
       const response = await fetch(`${origin}${asset}`)
       assert.equal(response.status, 200, `${asset} should be served`)
     }
+
+    const homeHtml = await (await fetch(`${origin}/`)).text()
+    assert.match(homeHtml, /\/vendor\/lism-css\/main\.css/)
 
     const traversal = await fetch(`${origin}/%2e%2e%2fserver.mjs`)
     assert.equal(traversal.status, 403)
