@@ -6,8 +6,11 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <meta name="theme-color" content="#f5f7f2" />
+    <meta name="theme-color" content="#16a34a" />
     <title>WhatBin — Check where it goes</title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="apple-touch-icon" href="/icon-192.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
@@ -37,6 +40,21 @@
         </p>
       </section>
 
+      <nav class="quick-nav" aria-label="Feature shortcuts">
+        <button type="button" class="quick-nav-btn" id="open-quiz-btn">
+          <span class="btn-icon" aria-hidden="true">💡</span>
+          <span data-i18n="quickNavQuiz">Trắc nghiệm phân loại</span>
+        </button>
+        <button type="button" class="quick-nav-btn" id="open-dropoff-btn">
+          <span class="btn-icon" aria-hidden="true">📍</span>
+          <span data-i18n="quickNavDropoff">Điểm thu gom &amp; EPR</span>
+        </button>
+        <button type="button" class="quick-nav-btn" id="print-guide-btn">
+          <span class="btn-icon" aria-hidden="true">🖨️</span>
+          <span data-i18n="quickNavPrint">In cẩm nang treo tường</span>
+        </button>
+      </nav>
+
       <section class="lookup-card" aria-labelledby="lookup-title">
         <div class="section-heading">
           <span class="step-number" aria-hidden="true" data-i18n="step1Number">01</span>
@@ -56,15 +74,35 @@
           </div>
 
           <div class="field-group">
-            <label for="description" data-i18n="itemLabel">Vật dụng bạn muốn bỏ là gì?</label>
-            <textarea
-              id="description"
-              name="description"
-              rows="3"
-              maxlength="2000"
-              placeholder="Mô tả vật dụng hoặc tình trạng (ví dụ: chai nhựa rỗng, bóng đèn huỳnh quang, đệm mút cũ...)"
-              data-i18n-placeholder="itemPlaceholder"
-            ></textarea>
+            <div class="textarea-label-row">
+              <label for="description" data-i18n="itemLabel">Vật dụng bạn muốn bỏ là gì?</label>
+            </div>
+            <div class="textarea-wrapper">
+              <textarea
+                id="description"
+                name="description"
+                rows="3"
+                maxlength="2000"
+                placeholder="Mô tả vật dụng hoặc tình trạng (ví dụ: chai nhựa rỗng, bóng đèn huỳnh quang, đệm mút cũ...)"
+                data-i18n-placeholder="itemPlaceholder"
+              ></textarea>
+              <button
+                type="button"
+                id="voice-search-btn"
+                class="voice-search-btn"
+                title="Tìm kiếm bằng giọng nói"
+                aria-label="Tìm kiếm bằng giọng nói"
+                data-i18n-title="voiceSearchTitle"
+                data-i18n-aria-label="voiceSearchTitle"
+              >
+                <svg class="mic-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3M8 22h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="mic-wave" aria-hidden="true"></span>
+              </button>
+            </div>
+            <div id="voice-status" class="voice-status" hidden aria-live="polite"></div>
             
             <div class="stream-catalog" aria-labelledby="stream-catalog-label">
               <div class="stream-catalog-header">
@@ -227,18 +265,33 @@
               </div>
             </div>
             <div id="image-preview" class="photo-preview" hidden>
-              <img id="image-preview-image" alt="" />
-              <div class="photo-preview-copy">
-                <strong data-i18n="photoReady">Ảnh đã sẵn sàng</strong><span id="image-preview-name"></span>
+              <div class="photo-preview-thumb-wrap">
+                <img id="image-preview-image" alt="" />
+                <button
+                  class="photo-clear-btn"
+                  id="remove-image-button"
+                  type="button"
+                  title="Gỡ ảnh này"
+                  aria-label="Gỡ ảnh này"
+                  data-i18n-title="removePhoto"
+                  data-i18n-aria-label="removePhoto"
+                >✕</button>
               </div>
-              <button
-                class="button button-secondary"
-                id="remove-image-button"
-                type="button"
-                data-i18n="removePhoto"
-              >
-                Gỡ ảnh
-              </button>
+              <div class="photo-preview-copy">
+                <strong data-i18n="photoReady">Ảnh đã sẵn sàng</strong>
+                <span id="image-preview-name"></span>
+                <span id="image-preview-meta" class="photo-preview-meta"></span>
+              </div>
+              <div class="photo-preview-actions">
+                <button
+                  class="button button-secondary photo-retake-btn"
+                  id="retake-image-button"
+                  type="button"
+                  data-i18n="retakePhoto"
+                >
+                  Đổi ảnh
+                </button>
+              </div>
             </div>
             <span class="field-hint" id="photo-hint" data-i18n="photoHint">
               Có thể chọn ảnh chụp màn hình từ thư viện. Ảnh chỉ được gửi đi khi bạn bấm nhận diện.
@@ -364,9 +417,216 @@
         ></section>
       </section>
 
+      <!-- Printable Household Sorting Cheat-Sheet (Optimized for wall/fridge reference) -->
+      <section id="printable-guide" class="printable-guide" aria-label="Bảng tóm tắt phân loại rác tại nguồn">
+        <div class="print-header">
+          <div class="print-brand">
+            <span class="mark" aria-hidden="true">W</span>
+            <span class="print-brand-name">WhatBin</span>
+          </div>
+          <div class="print-titles">
+            <h1 class="print-title" data-i18n="printGuideTitle">CẨM NANG PHÂN LOẠI RÁC TẠI NGUỒN GIA ĐÌNH</h1>
+            <p class="print-subtitle" data-i18n="printGuideSubtitle">Áp dụng theo Quyết định 87/2024/QĐ-UBND (Hà Nội) &amp; Quyết định 36/2025/QĐ-UBND, 58/2025/QĐ-UBND (TP.HCM)</p>
+          </div>
+        </div>
+
+        <div class="print-compliance-banner">
+          <strong data-i18n="printDecreeHeading">⚖️ NGHỊ ĐỊNH 45/2022/NĐ-CP (ĐIỀU 26):</strong>
+          <span data-i18n="printDecreeNotice">Phạt tiền từ 500.000 đến 1.000.000 đồng đối với hộ gia đình, cá nhân không thực hiện phân loại chất thải rắn sinh hoạt tại nguồn hoặc không dùng đúng loại bao bì/thùng chứa theo quy định.</span>
+        </div>
+
+        <div class="print-streams-grid">
+          <!-- Stream 1: Thực phẩm -->
+          <article class="print-stream-card print-stream-food">
+            <div class="print-stream-header">
+              <span class="print-stream-icon" aria-hidden="true">🟢</span>
+              <div class="print-stream-title-wrap">
+                <h2 data-i18n="printFoodTitle">CHẤT THẢI THỰC PHẨM</h2>
+                <span class="print-badge" data-i18n="printFoodBadge">Túi xanh lá / Thùng rác hữu cơ</span>
+              </div>
+            </div>
+            <div class="print-stream-body">
+              <div class="print-dos">
+                <span class="dos-label" data-i18n="printDoLabel">✔ ĐƯỢC BỎ:</span>
+                <p data-i18n="printFoodDos">Cơm thừa, rau củ quả gọt vỏ, bã trà, bã cà phê, thức ăn nấu chín thừa, hoa lá quét dọn vườn nhỏ.</p>
+              </div>
+              <div class="print-donts">
+                <span class="donts-label" data-i18n="printDontLabel">✖ KHÔNG BỎ:</span>
+                <p data-i18n="printFoodDonts">Vỏ dừa, vỏ sầu riêng, xương động vật lớn, túi ni lông, vỏ sò ốc cứng, tã lót.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Stream 2: Tái chế -->
+          <article class="print-stream-card print-stream-recyclables">
+            <div class="print-stream-header">
+              <span class="print-stream-icon" aria-hidden="true">⚪</span>
+              <div class="print-stream-title-wrap">
+                <h2 data-i18n="printRecycleTitle">TÁI SỬ DỤNG &amp; TÁI CHẾ</h2>
+                <span class="print-badge" data-i18n="printRecycleBadge">Túi trong suốt / Thùng màu xanh dương</span>
+              </div>
+            </div>
+            <div class="print-stream-body">
+              <div class="print-dos">
+                <span class="dos-label" data-i18n="printDoLabel">✔ ĐƯỢC BỎ:</span>
+                <p data-i18n="printRecycleDos">Chai nhựa PET, lon nhôm, vỏ hộp sữa Tetra Pak, bìa carton, chai lọ thủy tinh sạch, giấy báo, thiết bị điện tử hỏng.</p>
+              </div>
+              <div class="print-donts">
+                <span class="donts-label" data-i18n="printNoteLabel">⚡ HƯỚNG DẪN:</span>
+                <p data-i18n="printRecycleDonts">Tráng sạch cặn thức ăn, để ráo, ép dẹp hoặc gấp gọn để tiết kiệm diện tích. Bán phế liệu hoặc đưa vào nhóm thu gom tái chế.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Stream 3: Sinh hoạt khác -->
+          <article class="print-stream-card print-stream-other">
+            <div class="print-stream-header">
+              <span class="print-stream-icon" aria-hidden="true">⚫</span>
+              <div class="print-stream-title-wrap">
+                <h2 data-i18n="printOtherTitle">RÁC SINH HOẠT KHÁC</h2>
+                <span class="print-badge" data-i18n="printOtherBadge">Túi xám hoặc sẫm màu</span>
+              </div>
+            </div>
+            <div class="print-stream-body">
+              <div class="print-dos">
+                <span class="dos-label" data-i18n="printDoLabel">✔ ĐƯỢC BỎ:</span>
+                <p data-i18n="printOtherDos">Hộp xốp dính dầu mỡ, túi ni lông bẩn, tã bỉm, băng vệ sinh, khẩu trang dùng 1 lần, gốm sứ vỡ, tàn hương, vỏ dừa/sầu riêng.</p>
+              </div>
+              <div class="print-donts">
+                <span class="donts-label" data-i18n="printNoteLabel">⚡ HƯỚNG DẪN:</span>
+                <p data-i18n="printOtherDonts">Buộc chặt miệng túi trước khi chuyển giao. Thu gom vào giờ quy định của công nhân vệ sinh đô thị.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Stream 4: Nguy hại -->
+          <article class="print-stream-card print-stream-hazardous">
+            <div class="print-stream-header">
+              <span class="print-stream-icon" aria-hidden="true">🔴</span>
+              <div class="print-stream-title-wrap">
+                <h2 data-i18n="printHazardTitle">CHẤT THẢI NGUY HẠI</h2>
+                <span class="print-badge" data-i18n="printHazardBadge">Hộp / Túi riêng có dán nhãn nguy hại</span>
+              </div>
+            </div>
+            <div class="print-stream-body">
+              <div class="print-dos">
+                <span class="dos-label" data-i18n="printDoLabel">✔ ĐƯỢC BỎ:</span>
+                <p data-i18n="printHazardDos">Pin tiểu AA/AAA, pin lithium, ắc quy xe máy, sạc dự phòng, bóng đèn huỳnh quang, nhiệt kế thủy ngân, bao bì thuốc sâu, nhớt thải.</p>
+              </div>
+              <div class="print-donts">
+                <span class="donts-label" data-i18n="printDontLabel">✖ LƯU Ý AN TOÀN:</span>
+                <p data-i18n="printHazardDonts">Dán băng dính vào 2 cực pin, bọc báo chống vỡ bóng đèn, không đổ nhớt ra cống. Đưa tới thùng thu gom CTNH cấp phường/xã.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Stream 5: Cồng kềnh -->
+          <article class="print-stream-card print-stream-bulky">
+            <div class="print-stream-header">
+              <span class="print-stream-icon" aria-hidden="true">🟤</span>
+              <div class="print-stream-title-wrap">
+                <h2 data-i18n="printBulkyTitle">CHẤT THẢI CỒNG KỀNH</h2>
+                <span class="print-badge" data-i18n="printBulkyBadge">Điểm tập kết cồng kềnh / Xe chuyên dụng</span>
+              </div>
+            </div>
+            <div class="print-stream-body">
+              <div class="print-dos">
+                <span class="dos-label" data-i18n="printDoLabel">✔ ĐƯỢC BỎ:</span>
+                <p data-i18n="printBulkyDos">Nệm cũ, ghế sofa, bàn ghế gỗ, tủ giường, cành cây to chặt hạ, xà bần sửa nhà nhỏ.</p>
+              </div>
+              <div class="print-donts">
+                <span class="donts-label" data-i18n="printDontLabel">✖ LƯU Ý THU GOM:</span>
+                <p data-i18n="printBulkyDonts">Tuyệt đối không tự ý vứt ra lòng lề đường. Đăng ký với UBND xã/phường hoặc đặt lịch đơn vị vệ sinh môi trường thu gom chuyên dụng.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="print-footer">
+          <div class="print-footer-info">
+            <strong>WhatBin — Tra cứu phân loại rác tại nguồn</strong>
+            <span>Hà Nội &amp; TP. Hồ Chí Minh · Chung tay vì đô thị Xanh - Sạch - Văn minh</span>
+          </div>
+          <div class="print-footer-url">whatbin.vn</div>
+        </div>
+      </section>
+
+      <!-- Quiz Modal -->
+      <div id="quiz-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="quiz-modal-title" hidden>
+        <div class="modal-backdrop" id="quiz-backdrop"></div>
+        <div class="modal-dialog">
+          <div class="modal-header">
+            <div class="modal-title-wrap">
+              <span class="modal-icon" aria-hidden="true">💡</span>
+              <h2 id="quiz-modal-title" data-i18n="quizModalTitle">Trắc nghiệm phân loại rác</h2>
+            </div>
+            <button type="button" class="modal-close-btn" id="quiz-close-btn" aria-label="Đóng modal">✕</button>
+          </div>
+          <div class="modal-body" id="quiz-body">
+            <!-- Dynamic Quiz Content -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Drop-off Hubs Modal -->
+      <div id="dropoff-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="dropoff-modal-title" hidden>
+        <div class="modal-backdrop" id="dropoff-backdrop"></div>
+        <div class="modal-dialog modal-dialog-lg">
+          <div class="modal-header">
+            <div class="modal-title-wrap">
+              <span class="modal-icon" aria-hidden="true">📍</span>
+              <h2 id="dropoff-modal-title" data-i18n="dropoffModalTitle">Điểm thu gom tập trung &amp; Thu hồi EPR</h2>
+            </div>
+            <button type="button" class="modal-close-btn" id="dropoff-close-btn" aria-label="Đóng modal">✕</button>
+          </div>
+          <div class="modal-body">
+            <p class="dropoff-intro" data-i18n="dropoffIntro">
+              Mạng lưới điểm tập kết rác cồng kềnh, điểm tiếp nhận chất thải nguy hại hộ gia đình và các trạm thu hồi pin, rác điện tử miễn phí tại Hà Nội &amp; TP.HCM.
+            </p>
+            <div class="dropoff-filters">
+              <div class="filter-group">
+                <span class="filter-label" data-i18n="filterCityLabel">Thành phố:</span>
+                <div class="filter-chips" id="dropoff-city-filters">
+                  <button type="button" class="filter-chip active" data-city="all" data-i18n="filterAll">Tất cả</button>
+                  <button type="button" class="filter-chip" data-city="hanoi" data-i18n="cityHanoi">Hà Nội</button>
+                  <button type="button" class="filter-chip" data-city="ho-chi-minh-city" data-i18n="cityHcmc">TP. Hồ Chí Minh</button>
+                </div>
+              </div>
+              <div class="filter-group">
+                <span class="filter-label" data-i18n="filterStreamLabel">Nhóm rác:</span>
+                <div class="filter-chips" id="dropoff-stream-filters">
+                  <button type="button" class="filter-chip active" data-stream="all" data-i18n="filterAll">Tất cả</button>
+                  <button type="button" class="filter-chip" data-stream="hazardous" data-i18n="streamHazardous">Nguy hại &amp; Pin</button>
+                  <button type="button" class="filter-chip" data-stream="recyclables" data-i18n="streamRecyclable">Điện tử (EPR)</button>
+                  <button type="button" class="filter-chip" data-stream="bulky" data-i18n="streamBulky">Cồng kềnh</button>
+                </div>
+              </div>
+            </div>
+            <div id="dropoff-list" class="dropoff-list" role="list">
+              <!-- Rendered dynamically by app.js -->
+            </div>
+          </div>
+        </div>
+      </div>
+
       <footer>
-        <span>WhatBin</span>
-        <span data-i18n="footerText">Luôn đối chiếu văn bản quy phạm pháp luật được liên kết để cập nhật hướng dẫn mới nhất.</span>
+        <div class="footer-links">
+          <button type="button" class="footer-link-btn" id="footer-print-btn">
+            <span aria-hidden="true">🖨️</span> <span data-i18n="quickNavPrint">In cẩm nang</span>
+          </button>
+          <span class="footer-sep" aria-hidden="true">·</span>
+          <button type="button" class="footer-link-btn" id="footer-dropoff-btn">
+            <span aria-hidden="true">📍</span> <span data-i18n="quickNavDropoff">Điểm thu gom &amp; EPR</span>
+          </button>
+          <span class="footer-sep" aria-hidden="true">·</span>
+          <button type="button" class="footer-link-btn" id="footer-quiz-btn">
+            <span aria-hidden="true">💡</span> <span data-i18n="quickNavQuiz">Trắc nghiệm phân loại</span>
+          </button>
+        </div>
+        <div class="footer-meta">
+          <span>WhatBin</span>
+          <span data-i18n="footerText">Luôn đối chiếu văn bản quy phạm pháp luật được liên kết để cập nhật hướng dẫn mới nhất.</span>
+        </div>
       </footer>
     </main>
   </body>

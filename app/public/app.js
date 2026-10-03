@@ -643,6 +643,66 @@ const TRANSLATIONS = {
     explainerSubmit: 'Gửi câu hỏi',
     explainerLoading: 'Đang đối chiếu cơ sở dữ liệu pháp lý…',
     footerText: 'Luôn đối chiếu văn bản quy phạm pháp luật được liên kết để cập nhật hướng dẫn mới nhất.',
+    quickNavQuiz: 'Trắc nghiệm phân loại',
+    quickNavDropoff: 'Điểm thu gom & EPR',
+    quickNavPrint: 'In cẩm nang',
+    voiceSearchTitle: 'Tìm kiếm bằng giọng nói',
+    voiceListening: 'Đang lắng nghe… Hãy nói tên hoặc mô tả vật dụng.',
+    voiceSuccess: 'Đã nhận diện giọng nói. Bấm Nhận diện để tra cứu.',
+    voiceNotSupported: 'Trình duyệt chưa hỗ trợ nhận diện giọng nói Web Speech.',
+    voicePermissionDenied: 'Chưa được cấp quyền sử dụng microphone.',
+    voiceNoSpeech: 'Không nghe thấy giọng nói. Vui lòng thử lại.',
+    retakePhoto: 'Chọn ảnh khác',
+    bagStandardLabel: 'Quy cách bao bì / túi rác chuẩn',
+    bagBadgeFood: 'Túi xanh lá / Thùng rác hữu cơ',
+    bagBadgeRecyclables: 'Túi trong suốt / Thùng tái chế (xanh dương)',
+    bagBadgeOther: 'Túi xám hoặc sẫm màu / Rác sinh hoạt khác',
+    bagBadgeHazardous: 'Hộp / Túi riêng có dán nhãn nguy hại',
+    bagBadgeBulky: 'Điểm tập kết cồng kềnh / Xe chuyên dụng',
+    decreeNoticeHeading: 'Nghị định 45/2022/NĐ-CP (Điều 26)',
+    decreeNoticeText: 'Phạt tiền từ 500.000 – 1.000.000 đồng đối với hộ gia đình, cá nhân không thực hiện phân loại chất thải rắn sinh hoạt tại nguồn hoặc không dùng đúng loại bao bì/thùng chứa theo quy định.',
+    quizModalTitle: 'Trắc nghiệm phân loại rác tại nguồn',
+    quizQuestionCounter: 'Câu hỏi {current} / {total}',
+    quizNextBtn: 'Câu tiếp theo →',
+    quizFinishBtn: 'Xem kết quả tổng kết →',
+    quizRetakeBtn: 'Làm lại trắc nghiệm',
+    quizShareBtn: 'Sao chép kết quả',
+    quizCopied: 'Đã sao chép kết quả vào bộ nhớ tạm!',
+    quizScoreMaster: 'Xuất sắc! 5/5 Chuyên gia phân loại rác!',
+    quizScoreGood: 'Rất tốt! Bạn nắm khá vững quy định phân loại rác!',
+    quizScorePractice: 'Cần cố gắng thêm! Hãy tra cứu WhatBin để phân loại chuẩn nhé.',
+    dropoffModalTitle: 'Điểm thu gom tập trung & Thu hồi EPR',
+    dropoffIntro: 'Mạng lưới điểm tập kết rác cồng kềnh, điểm tiếp nhận chất thải nguy hại hộ gia đình và trạm thu hồi pin, rác điện tử miễn phí tại Hà Nội & TP.HCM.',
+    filterCityLabel: 'Thành phố:',
+    filterStreamLabel: 'Nhóm rác:',
+    filterAll: 'Tất cả',
+    printGuideTitle: 'CẨM NANG PHÂN LOẠI RÁC TẠI NGUỒN GIA ĐÌNH',
+    printGuideSubtitle: 'Áp dụng theo Quyết định 87/2024/QĐ-UBND (Hà Nội) & Quyết định 36/2025/QĐ-UBND, 58/2025/QĐ-UBND (TP.HCM)',
+    printDecreeHeading: '⚖️ NGHỊ ĐỊNH 45/2022/NĐ-CP (ĐIỀU 26):',
+    printDecreeNotice: 'Phạt tiền từ 500.000 đến 1.000.000 đồng đối với hộ gia đình, cá nhân không thực hiện phân loại chất thải rắn sinh hoạt tại nguồn hoặc không dùng đúng loại bao bì/thùng chứa theo quy định.',
+    printFoodTitle: 'CHẤT THẢI THỰC PHẨM',
+    printFoodBadge: 'Túi xanh lá / Thùng rác hữu cơ',
+    printFoodDos: 'Cơm thừa, rau củ quả gọt vỏ, bã trà, bã cà phê, thức ăn nấu chín thừa, hoa lá quét dọn vườn nhỏ.',
+    printFoodDonts: 'Vỏ dừa, vỏ sầu riêng, xương động vật lớn, túi ni lông, vỏ sò ốc cứng, tã lót.',
+    printRecycleTitle: 'TÁI SỬ DỤNG & TÁI CHẾ',
+    printRecycleBadge: 'Túi trong suốt / Thùng màu xanh dương',
+    printRecycleDos: 'Chai nhựa PET, lon nhôm, vỏ hộp sữa Tetra Pak, bìa carton, chai lọ thủy tinh sạch, giấy báo, thiết bị điện tử hỏng.',
+    printRecycleDonts: 'Tráng sạch cặn thức ăn, để ráo, ép dẹp hoặc gấp gọn để tiết kiệm diện tích. Bán phế liệu hoặc đưa vào nhóm thu gom tái chế.',
+    printOtherTitle: 'RÁC SINH HOẠT KHÁC',
+    printOtherBadge: 'Túi xám hoặc sẫm màu',
+    printOtherDos: 'Hộp xốp dính dầu mỡ, túi ni lông bẩn, tã bỉm, băng vệ sinh, khẩu trang dùng 1 lần, gốm sứ vỡ, tàn hương, vỏ dừa/sầu riêng.',
+    printOtherDonts: 'Buộc chặt miệng túi trước khi chuyển giao. Thu gom vào giờ quy định của công nhân vệ sinh đô thị.',
+    printHazardTitle: 'CHẤT THẢI NGUY HẠI',
+    printHazardBadge: 'Hộp / Túi riêng có dán nhãn nguy hại',
+    printHazardDos: 'Pin tiểu AA/AAA, pin lithium, ắc quy xe máy, sạc dự phòng, bóng đèn huỳnh quang, nhiệt kế thủy ngân, bao bì thuốc sâu, nhớt thải.',
+    printHazardDonts: 'Dán băng dính vào 2 cực pin, bọc báo chống vỡ bóng đèn, không đổ nhớt ra cống. Đưa tới thùng thu gom CTNH cấp phường/xã.',
+    printBulkyTitle: 'CHẤT THẢI CỒNG KỀNH',
+    printBulkyBadge: 'Điểm tập kết cồng kềnh / Xe chuyên dụng',
+    printBulkyDos: 'Nệm cũ, ghế sofa, bàn ghế gỗ, tủ giường, cành cây to chặt hạ, xà bần sửa nhà nhỏ.',
+    printBulkyDonts: 'Tuyệt đối không tự ý vứt ra lòng lề đường. Đăng ký với UBND xã/phường hoặc đặt lịch đơn vị vệ sinh môi trường thu gom chuyên dụng.',
+    printDoLabel: '✔ ĐƯỢC BỎ:',
+    printDontLabel: '✖ KHÔNG BỎ / LƯU Ý:',
+    printNoteLabel: '⚡ HƯỚNG DẪN:',
   },
   en: {
     pageTitle: 'WhatBin — Check where it goes',
@@ -710,6 +770,66 @@ const TRANSLATIONS = {
     explainerSubmit: 'Ask WhatBin',
     explainerLoading: 'Checking the published sources…',
     footerText: 'Check the linked source for the latest official guidance.',
+    quickNavQuiz: 'Sorting Quiz',
+    quickNavDropoff: 'Drop-off Hubs & EPR',
+    quickNavPrint: 'Print Wall Guide',
+    voiceSearchTitle: 'Voice search',
+    voiceListening: 'Listening… Speak the item name or description.',
+    voiceSuccess: 'Voice recognized. Tap Identify to look up.',
+    voiceNotSupported: 'Speech recognition is not supported in this browser.',
+    voicePermissionDenied: 'Microphone permission denied.',
+    voiceNoSpeech: 'No speech heard. Please try again.',
+    retakePhoto: 'Change photo',
+    bagStandardLabel: 'Official Bag / Bin Standard',
+    bagBadgeFood: 'Green Bag / Organic Bin',
+    bagBadgeRecyclables: 'Transparent Bag / Blue Recycling Bin',
+    bagBadgeOther: 'Gray/Dark Bag / General Residual Waste',
+    bagBadgeHazardous: 'Separate Labeled Hazard Container',
+    bagBadgeBulky: 'Bulky Waste Collection Point / Truck',
+    decreeNoticeHeading: 'Decree 45/2022/NĐ-CP (Article 26)',
+    decreeNoticeText: 'Fine of 500,000 – 1,000,000 VND for failure to segregate household solid waste at source or failing to use prescribed standard bags/bins.',
+    quizModalTitle: 'Household Waste Sorting Quiz',
+    quizQuestionCounter: 'Question {current} of {total}',
+    quizNextBtn: 'Next question →',
+    quizFinishBtn: 'View final score →',
+    quizRetakeBtn: 'Retake quiz',
+    quizShareBtn: 'Copy score result',
+    quizCopied: 'Score result copied to clipboard!',
+    quizScoreMaster: 'Outstanding! 5/5 Waste Sorting Master!',
+    quizScoreGood: 'Great job! You know the sorting rules well!',
+    quizScorePractice: 'Keep practicing! Use WhatBin to avoid sorting penalties.',
+    dropoffModalTitle: 'Drop-off Points & EPR Directory',
+    dropoffIntro: 'Directory of bulky waste drop-off hubs, municipal hazardous collection points, and free e-waste/battery take-back sites in Hanoi & HCMC.',
+    filterCityLabel: 'City:',
+    filterStreamLabel: 'Waste stream:',
+    filterAll: 'All',
+    printGuideTitle: 'HOUSEHOLD WASTE SORTING WALL GUIDE',
+    printGuideSubtitle: 'Standards under Decision 87/2024 (Hanoi) & Decision 36/2025, 58/2025 (HCMC)',
+    printDecreeHeading: '⚖️ DECREE 45/2022/NĐ-CP (ARTICLE 26):',
+    printDecreeNotice: 'Fine of 500,000 to 1,000,000 VND for households and individuals who fail to classify domestic solid waste at source or fail to use prescribed containers/bags.',
+    printFoodTitle: 'FOOD WASTE',
+    printFoodBadge: 'Green bag / Organic bin',
+    printFoodDos: 'Leftover cooked food, fruit and vegetable scraps, tea leaves, coffee grounds, small garden clippings.',
+    printFoodDonts: 'Coconut shells, durian rinds, large animal bones, plastic bags, hard shells, diapers.',
+    printRecycleTitle: 'REUSABLE & RECYCLABLE',
+    printRecycleBadge: 'Transparent bag / Blue recycling bin',
+    printRecycleDos: 'PET plastic bottles, aluminum cans, Tetra Pak cartons, cardboard boxes, clean glass jars, newspapers, old electronics.',
+    printRecycleDonts: 'Rinse clean, drain, flatten to save volume. Sell to scrap buyers or hand over to recycling collection.',
+    printOtherTitle: 'OTHER DOMESTIC SOLID WASTE',
+    printOtherBadge: 'Gray or dark-colored bag',
+    printOtherDos: 'Greasy foam takeout boxes, soiled plastic bags, disposable diapers, medical masks, broken ceramic, ash, durian husks.',
+    printOtherDonts: 'Tie bag tightly before transferring to municipal collection trucks at designated hours.',
+    printHazardTitle: 'HOUSEHOLD HAZARDOUS WASTE',
+    printHazardBadge: 'Dedicated container labeled HAZARDOUS',
+    printHazardDos: 'Spent AA/AAA batteries, lithium cells, motorbike accumulators, power banks, fluorescent tubes, mercury thermometers, pesticide cans, used motor oil.',
+    printHazardDonts: 'Tape battery terminals, wrap fragile tubes, never dump oil into sinks. Hand over to ward hazardous hubs.',
+    printBulkyTitle: 'BULKY DOMESTIC WASTE',
+    printBulkyBadge: 'Bulky collection hub / Specialized vehicle',
+    printBulkyDos: 'Old mattresses, sofas, wooden tables/chairs, bed frames, large pruned branches, small renovation rubble.',
+    printBulkyDonts: 'Never discard on sidewalks. Schedule collection with ward authorities or licensed waste contractors.',
+    printDoLabel: '✔ ACCEPTED:',
+    printDontLabel: '✖ DO NOT INCLUDE:',
+    printNoteLabel: '⚡ INSTRUCTION:',
   },
 };
 
@@ -736,6 +856,215 @@ const CATEGORY_LOCALIZATIONS = {
   },
 };
 
+const BAG_BADGE_INFO = {
+  food: {
+    icon: '🟢',
+    badgeClass: 'bag-badge-food',
+    titleKey: 'bagBadgeFood',
+    subVi: 'Quy chuẩn QĐ 87/2024 (Hà Nội) & QĐ 36/2025 (TP.HCM)',
+    subEn: 'Standard under Dec. 87 (Hanoi) & Dec. 36/58 (HCMC)',
+  },
+  recyclables: {
+    icon: '⚪',
+    badgeClass: 'bag-badge-recyclables',
+    titleKey: 'bagBadgeRecyclables',
+    subVi: 'Túi trong suốt thấy rõ phế liệu hoặc thùng tái chế màu xanh dương',
+    subEn: 'Transparent bags showing recyclable materials or blue bin',
+  },
+  other: {
+    icon: '⚫',
+    badgeClass: 'bag-badge-other',
+    titleKey: 'bagBadgeOther',
+    subVi: 'Túi rác xám hoặc sẫm màu chứa chất thải còn lại',
+    subEn: 'Opaque dark bag for general domestic residual waste',
+  },
+  hazardous: {
+    icon: '🔴',
+    badgeClass: 'bag-badge-hazardous',
+    titleKey: 'bagBadgeHazardous',
+    subVi: 'Phân loại riêng trong bao bì có cảnh báo, không để lẫn rác sinh hoạt',
+    subEn: 'Segregate in labeled container, never mix with common garbage',
+  },
+  bulky: {
+    icon: '🟤',
+    badgeClass: 'bag-badge-bulky',
+    titleKey: 'bagBadgeBulky',
+    subVi: 'Tập kết tại trạm cấp xã/phường hoặc hẹn xe chuyên dùng thu gom',
+    subEn: 'Deliver to commune drop-off hub or schedule specialized collection',
+  },
+};
+
+const QUIZ_QUESTIONS = [
+  {
+    id: 1,
+    questionVi: 'Vỏ dừa hoặc vỏ sầu riêng sau khi ăn xong nên bỏ vào đâu?',
+    questionEn: 'Where should discarded coconut shells or durian husks go?',
+    optionsVi: [
+      'Chất thải thực phẩm (đem đi ủ phân compost)',
+      'Chất thải sinh hoạt khác (không thể phân hủy trong máy ủ compost)',
+      'Chất thải tái chế',
+      'Chất thải nguy hại',
+    ],
+    optionsEn: [
+      'Food waste (composting)',
+      'Other domestic waste (cannot decompose in municipal composting machines)',
+      'Recyclables',
+      'Household hazardous waste',
+    ],
+    correctIndex: 1,
+    feedbackVi: 'Chính xác! Theo Quyết định 87/2024/QĐ-UBND (Hà Nội) và Quyết định 36/2025/QĐ-UBND (TP.HCM), vỏ dừa khô và vỏ sầu riêng có cấu trúc xơ gỗ cứng khó phân hủy sinh học, làm kẹt hoặc hư hỏng thiết bị nghiền và công nghệ ủ compost vi sinh, nên được xếp vào nhóm "Chất thải rắn sinh hoạt khác" (rác khác).',
+    feedbackEn: 'Correct! Under Hanoi Decision 87 and HCMC Decision 36/58, hard woody rinds like coconut shells and durian husks cannot biodegrade in municipal compost digesters and clog grinding machinery; they belong in "Other domestic solid waste".',
+  },
+  {
+    id: 2,
+    questionVi: 'Hộp xốp đựng thức ăn dính nhiều dầu mỡ xử lý thế nào?',
+    questionEn: 'How should takeout polystyrene foam boxes soiled with grease be handled?',
+    optionsVi: [
+      'Bỏ vào thùng rác tái chế cùng chai nhựa',
+      'Bỏ vào nhóm rác sinh hoạt khác (dầu mỡ làm bẩn dây chuyền tái chế)',
+      'Bỏ vào rác thực phẩm',
+      'Bỏ vào rác nguy hại',
+    ],
+    optionsEn: [
+      'Place in recycling bin with plastic bottles',
+      'Dispose of as other domestic waste (grease contaminates recycling streams)',
+      'Put in food waste bin',
+      'Put in hazardous waste',
+    ],
+    correctIndex: 1,
+    feedbackVi: 'Chính xác! Hộp xốp (nhựa EPS) dính dầu mỡ thực phẩm rất khó làm sạch triệt để. Dầu mỡ bám dính làm biến chất nguyên liệu và dây chuyền tái chế từ chối tiếp nhận. Căn cứ Quyết định 87 & Quyết định 36/58, hộp xốp dính dầu mỡ phải bỏ vào nhóm "Rác sinh hoạt khác".',
+    feedbackEn: 'Correct! Food-soiled expanded polystyrene foam is difficult to clean economically. Grease contaminates the recycling process, so municipal regulations (Dec. 87 & Dec. 36/58) classify it as "Other domestic solid waste".',
+  },
+  {
+    id: 3,
+    questionVi: 'Vỏ hộp sữa giấy nhiều lớp (Tetra Pak) nên xử lý thế nào trước khi bỏ?',
+    questionEn: 'How should multi-layer Tetra Pak beverage cartons be handled before disposal?',
+    optionsVi: [
+      'Mở 4 góc tai hộp, tráng sạch, ép dẹp và gom vào nhóm tái chế',
+      'Bỏ ngay vào rác thực phẩm vì làm từ bột giấy hữu cơ',
+      'Vứt vào rác sinh hoạt khác mà không cần rửa',
+      'Bỏ vào thùng rác nguy hại',
+    ],
+    optionsEn: [
+      'Unfold 4 flaps, rinse clean, flatten, and put in recyclables',
+      'Toss into food waste because it is made of paperboard',
+      'Discard with general trash without cleaning',
+      'Place in hazardous waste',
+    ],
+    correctIndex: 0,
+    feedbackVi: 'Chính xác! Vỏ hộp sữa giấy nhiều lớp gồm giấy chất lượng cao, màng nhôm và nhựa. Người dân cần mở 4 góc tai, súc sạch sữa thừa để tránh lên men chua bốc mùi, ép dẹp và bàn giao cho nhóm "Tái sử dụng, tái chế" hoặc các điểm thu hồi vỏ hộp sữa tại siêu thị, trường học.',
+    feedbackEn: 'Correct! Multi-layer aseptic cartons contain premium pulp, aluminum, and polymers. Unfolding the 4 corners, rinsing out residual milk, and flattening enables clean recovery at specialized paper mills.',
+  },
+  {
+    id: 4,
+    questionVi: 'Dầu ăn thừa sau khi chiên rán có được đổ trực tiếp xuống bồn rửa bát không?',
+    questionEn: 'Can leftover used cooking oil be poured down the kitchen sink?',
+    optionsVi: [
+      'Được, chỉ cần xả nhiều nước nóng và nước rửa chén',
+      'Tuyệt đối không; dầu mỡ đông đặc gây tắc cống và ô nhiễm nước, phải thu gom riêng',
+      'Đổ trực tiếp vào chậu hoa cây cảnh',
+      'Đổ vào thùng rác thực phẩm dạng lỏng',
+    ],
+    optionsEn: [
+      'Yes, as long as flushed with dish soap and boiling water',
+      'Never; solidified grease creates fatbergs, clogs sewers, and must be collected separately',
+      'Pour directly into houseplants',
+      'Pour into liquid food waste bin',
+    ],
+    correctIndex: 1,
+    feedbackVi: 'Chính xác! Dầu mỡ thừa khi chảy vào cống thoát nước gặp nhiệt độ thấp sẽ đông cứng tạo thành các khối mỡ khổng lồ (fatberg) làm vỡ cống ngầm đô thị và gây tê liệt vi sinh xử lý nước thải. Hộ gia đình nên để nguội, đổ vào chai đậy kín để giao cho đơn vị tái chế dầu/biodiesel (Quyết định 87 Điều 7 & Quyết định 36).',
+    feedbackEn: 'Correct! Cooking grease congeals inside sewer pipes into solid fatbergs, causing severe blockages and municipal sewage overflow. Households should bottle cool spent oil and transfer it to designated oil recyclers (Dec. 87 Art. 7 & Dec. 36).',
+  },
+  {
+    id: 5,
+    questionVi: 'Pin tiểu AA/AAA và sạc dự phòng cũ hỏng xử lý thế nào?',
+    questionEn: 'How should spent AA/AAA batteries and broken power banks be disposed of?',
+    optionsVi: [
+      'Bỏ chung vào túi rác sinh hoạt hàng ngày',
+      'Đốt cùng rác vườn',
+      'Là rác nguy hại; dán băng dính cách điện 2 cực và mang đến điểm thu gom nguy hại/EPR',
+      'Bỏ vào thùng rác tái chế nhựa',
+    ],
+    optionsEn: [
+      'Throw into daily domestic garbage',
+      'Burn together with garden waste',
+      'They are hazardous waste; tape both terminals and take to designated hazardous/EPR drop-off points',
+      'Toss into plastic recycling bin',
+    ],
+    correctIndex: 2,
+    feedbackVi: 'Chính xác! Pin tiểu chứa chì, cadmium, thủy ngân; pin lithium trong sạc dự phòng dễ phát nổ khi bị máy ép rác nghiền. Theo Nghị định 45/2022/NĐ-CP, Quyết định 87 (Hà Nội) và Quyết định 58/2025 (TP.HCM), pin phải thu gom riêng, dán băng dính cách điện 2 cực và đưa tới điểm thu hồi CTNH cấp phường/xã.',
+    feedbackEn: 'Correct! Batteries contain hazardous heavy metals and volatile lithium cells that catch fire under trash truck compaction. Under Decree 45 and Hanoi Dec. 87 / HCMC Dec. 58/2025, tape terminals and deliver them to ward hazardous/EPR collection hubs.',
+  },
+];
+
+const DROPOFF_HUBS = [
+  {
+    id: 'hn-bulky',
+    city: 'hanoi',
+    stream: 'bulky',
+    titleVi: 'Điểm tập kết rác cồng kềnh cấp xã/phường (Hà Nội)',
+    titleEn: 'Commune Bulky Waste Hubs (Hanoi)',
+    badgeVi: 'Rác cồng kềnh · QĐ 87/2024 Điều 6(5)',
+    badgeEn: 'Bulky Waste · Dec. 87 Art. 6(5)',
+    addressVi: 'UBND các xã, phường, thị trấn trên toàn địa bàn Hà Nội (tối thiểu 01 điểm/xã hoặc xe cuốn ép chuyên dùng định kỳ)',
+    addressEn: 'Ward & commune People\'s Committees across Hanoi (minimum 1 hub per commune or scheduled specialized compaction trucks)',
+    notesVi: 'Tiếp nhận đệm mút cũ, sofa, giường tủ gỗ, cành cây to. Đăng ký trước với Tổ trưởng dân phố hoặc Đội môi trường URENCO quận/huyện.',
+    notesEn: 'Accepts old mattresses, sofas, furniture, large tree branches. Register with neighborhood leader or district URENCO.',
+  },
+  {
+    id: 'hn-hazardous',
+    city: 'hanoi',
+    stream: 'hazardous',
+    titleVi: 'Thùng thu hồi pin cũ & CTNH tại UBND phường & URENCO',
+    titleEn: 'Battery & Hazardous Drop-off Points at Ward Offices & URENCO',
+    badgeVi: 'Chất thải nguy hại · Thu gom miễn phí',
+    badgeEn: 'Hazardous Waste · Free Drop-off',
+    addressVi: 'Trụ sở UBND các phường (Hoàn Kiếm, Ba Đình, Đống Đa, Cầu Giấy, Hai Bà Trưng, v.v.), Nhà văn hóa tổ dân phố và các trường học',
+    addressEn: 'Ward People\'s Committee headquarters (Hoan Kiem, Ba Dinh, Dong Da, Cau Giay...), cultural community centers, schools',
+    notesVi: 'Tiếp nhận pin AA/AAA, bóng đèn huỳnh quang bọc giấy báo, nhiệt kế thủy ngân hỏng. Dán băng dính vào 2 cực pin trước khi bỏ thùng.',
+    notesEn: 'Accepts AA/AAA batteries, newspaper-wrapped fluorescent tubes, mercury thermometers. Tape terminals before dropping off.',
+  },
+  {
+    id: 'hcm-hazardous',
+    city: 'ho-chi-minh-city',
+    stream: 'hazardous',
+    titleVi: 'Điểm tiếp nhận CTNH hộ gia đình 22 quận/huyện & TP. Thủ Đức',
+    titleEn: 'Household Hazardous Waste Hubs across 22 Districts & Thu Duc City',
+    badgeVi: 'Chất thải nguy hại · QĐ 58/2025 & QĐ 36/2025',
+    badgeEn: 'Hazardous Waste · Dec. 58/2025 & Dec. 36/2025',
+    addressVi: 'Các trạm trung chuyển rác thải & điểm tiếp nhận cố định của Phòng TN&MT tại 22 quận, huyện và TP. Thủ Đức',
+    addressEn: 'Waste transfer stations & designated Natural Resources & Environment receiving hubs in 22 districts & Thu Duc City',
+    notesVi: 'Tiếp nhận pin cũ, ắc quy, bóng đèn hỏng, vỏ chai lọ thuốc trừ sâu gia dụng, sơn tồn dư, hóa chất tẩy rửa.',
+    notesEn: 'Accepts batteries, accumulators, broken bulbs, pesticide canisters, leftover household paint, cleaning chemicals.',
+  },
+  {
+    id: 'hcm-recycles',
+    city: 'ho-chi-minh-city',
+    stream: 'recyclables',
+    titleVi: 'Mạng lưới thu hồi rác điện tử miễn phí Việt Nam Tái Chế',
+    titleEn: 'Vietnam Recycles Free E-Waste Take-back Network',
+    badgeVi: 'Rác điện tử (EPR) · Tiếp nhận miễn phí',
+    badgeEn: 'E-Waste (EPR) · Free Drop-off',
+    addressVi: 'Thùng thu hồi cố định tại UBND P.9 (Q.3), UBND P.15 (Q.4), UBND P.17 (Phú Nhuận), UBND P.2 (Bình Thạnh) & chuỗi AEON Mall, MM Mega Market, BigC/GO!',
+    addressEn: 'Fixed bins at Ward 9 (Dist. 3), Ward 15 (Dist. 4), Ward 17 (Phu Nhuan), Ward 2 (Binh Thanh) & AEON Malls, MM Mega Market, BigC/GO!',
+    notesVi: 'Tiếp nhận điện thoại di động, laptop, pin sạc dự phòng, máy in, TV, đồ điện gia dụng cũ hỏng để tháo dỡ xử lý theo chuẩn EPR.',
+    notesEn: 'Accepts mobile phones, laptops, power banks, printers, televisions, home appliances for environmentally sound EPR recycling.',
+  },
+  {
+    id: 'nationwide-oil',
+    city: 'all',
+    stream: 'hazardous',
+    titleVi: 'Điểm thu hồi dầu nhớt xe máy thải & bình ắc quy chì (EPR)',
+    titleEn: 'Motorbike Motor Oil & Lead-Acid Accumulator EPR Return Hubs',
+    badgeVi: 'Nhớt thải & Ắc quy · Trạm bảo dưỡng ủy quyền',
+    badgeEn: 'Waste Oil & Accumulator · Authorized Stations',
+    addressVi: 'Hệ thống HEAD Honda, Yamaha Town và các trạm dịch vụ bảo dưỡng xe máy chính hãng trên toàn quốc',
+    addressEn: 'Nationwide network of authorized Honda HEADs, Yamaha Towns, and certified vehicle maintenance workshops',
+    notesVi: 'Thu hồi dầu nhớt động cơ đã qua sử dụng và ắc quy chì xe máy thải bỏ. Tuyệt đối không đổ dầu nhớt thải xuống cống thoát nước sinh hoạt.',
+    notesEn: 'Collection of spent engine oil and discarded motorcycle batteries. Strictly never dump motor oil into domestic sewage.',
+  },
+];
+
 // DOM References
 const form = document.querySelector('#recognize-form');
 const citySelect = document.querySelector('#jurisdiction');
@@ -747,7 +1076,11 @@ const choosePhotoButton = document.querySelector('#choose-photo-button');
 const imagePreview = document.querySelector('#image-preview');
 const imagePreviewImage = document.querySelector('#image-preview-image');
 const imagePreviewName = document.querySelector('#image-preview-name');
+const imagePreviewMeta = document.querySelector('#image-preview-meta');
 const removeImageButton = document.querySelector('#remove-image-button');
+const retakeImageButton = document.querySelector('#retake-image-button');
+const voiceSearchBtn = document.querySelector('#voice-search-btn');
+const voiceStatus = document.querySelector('#voice-status');
 const recognitionFeedback = document.querySelector('#recognition-feedback');
 const candidatePanel = document.querySelector('#candidate-panel');
 const candidateName = document.querySelector('#candidate-name');
@@ -767,6 +1100,26 @@ const streamTabsContainer = document.querySelector('.stream-tabs');
 const streamChipsContainer = document.querySelector('#stream-chips');
 const langButtons = document.querySelectorAll('.lang-btn');
 
+// Quick Nav & Modals DOM
+const openQuizBtn = document.querySelector('#open-quiz-btn');
+const footerQuizBtn = document.querySelector('#footer-quiz-btn');
+const quizModal = document.querySelector('#quiz-modal');
+const quizBackdrop = document.querySelector('#quiz-backdrop');
+const quizCloseBtn = document.querySelector('#quiz-close-btn');
+const quizBody = document.querySelector('#quiz-body');
+
+const openDropoffBtn = document.querySelector('#open-dropoff-btn');
+const footerDropoffBtn = document.querySelector('#footer-dropoff-btn');
+const dropoffModal = document.querySelector('#dropoff-modal');
+const dropoffBackdrop = document.querySelector('#dropoff-backdrop');
+const dropoffCloseBtn = document.querySelector('#dropoff-close-btn');
+const dropoffList = document.querySelector('#dropoff-list');
+const dropoffCityFilters = document.querySelector('#dropoff-city-filters');
+const dropoffStreamFilters = document.querySelector('#dropoff-stream-filters');
+
+const printGuideBtn = document.querySelector('#print-guide-btn');
+const footerPrintBtn = document.querySelector('#footer-print-btn');
+
 // App State
 let currentLang = 'vi';
 try {
@@ -784,6 +1137,20 @@ let explanationVersion = 0;
 let comparisonVersion = 0;
 let imagePreviewUrl = null;
 let selectedImage = null;
+
+// Quiz State
+let quizCurrentIndex = 0;
+let quizScore = 0;
+let quizUserAnswers = [];
+
+// Drop-off State
+let dropoffActiveCity = 'all';
+let dropoffActiveStream = 'all';
+
+// Voice Search State
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+let recognitionInstance = null;
+let isListening = false;
 
 // Helpers
 function t(key) {
@@ -838,6 +1205,31 @@ function setLanguage(lang) {
     if (key && TRANSLATIONS[lang]?.[key]) {
       el.placeholder = TRANSLATIONS[lang][key];
     }
+  }
+
+  // Update titles & aria-labels
+  for (const el of document.querySelectorAll('[data-i18n-title]')) {
+    const key = el.dataset.i18nTitle;
+    if (key && TRANSLATIONS[lang]?.[key]) el.title = TRANSLATIONS[lang][key];
+  }
+  for (const el of document.querySelectorAll('[data-i18n-aria-label]')) {
+    const key = el.dataset.i18nAriaLabel;
+    if (key && TRANSLATIONS[lang]?.[key]) el.setAttribute('aria-label', TRANSLATIONS[lang][key]);
+  }
+
+  // Update speech recognition language if initialized
+  if (recognitionInstance) {
+    recognitionInstance.lang = lang === 'vi' ? 'vi-VN' : 'en-US';
+  }
+
+  // Update quiz if active
+  if (quizModal && !quizModal.hidden) {
+    renderQuizQuestion();
+  }
+
+  // Update dropoff list if active
+  if (dropoffModal && !dropoffModal.hidden) {
+    renderDropoffList();
   }
 
   // Update stream chips
@@ -1011,7 +1403,74 @@ function setCandidate(item) {
   confirmButton.focus();
 }
 
+async function compressImage(file) {
+  return new Promise((resolve, reject) => {
+    if (!file || (typeof file.type === 'string' && !file.type.startsWith('image/'))) {
+      resolve(null);
+      return;
+    }
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error(
+      currentLang === 'vi' ? 'Không thể đọc tệp ảnh.' : 'Could not read that photo file.'
+    ));
+    reader.onload = () => {
+      const img = new Image();
+      img.onerror = () => reject(new Error(
+        currentLang === 'vi' ? 'Không thể giải mã hình ảnh.' : 'Could not decode image.'
+      ));
+      img.onload = () => {
+        let width = img.naturalWidth || img.width;
+        let height = img.naturalHeight || img.height;
+        const maxDim = 1200;
+
+        if (width > maxDim || height > maxDim) {
+          const ratio = Math.min(maxDim / width, maxDim / height);
+          width = Math.round(width * ratio);
+          height = Math.round(height * ratio);
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        ctx.drawImage(img, 0, 0, width, height);
+
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+        const comma = dataUrl.indexOf(',');
+        if (comma < 0) {
+          reject(new Error(currentLang === 'vi' ? 'Lỗi nén ảnh.' : 'Compression failed.'));
+          return;
+        }
+        const base64 = dataUrl.slice(comma + 1);
+        const approxBytes = Math.round((base64.length * 3) / 4);
+
+        resolve({
+          mimeType: 'image/jpeg',
+          base64,
+          dataUrl,
+          width,
+          height,
+          sizeBytes: approxBytes,
+        });
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
 async function readImage(file) {
+  try {
+    const compressed = await compressImage(file);
+    if (compressed && compressed.base64) {
+      return { mimeType: 'image/jpeg', base64: compressed.base64 };
+    }
+  } catch (err) {
+    console.warn('Canvas compression fallback to raw read:', err);
+  }
+
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.addEventListener('load', () => {
@@ -1024,7 +1483,7 @@ async function readImage(file) {
             : 'Could not read that photo. Choose it again or continue with a description.'
         ));
       } else {
-        resolve({ mimeType: file.type, base64: result.slice(comma + 1) });
+        resolve({ mimeType: file.type || 'image/jpeg', base64: result.slice(comma + 1) });
       }
     }, { once: true });
     reader.addEventListener('error', () => {
@@ -1044,6 +1503,7 @@ function clearImagePreview() {
   imagePreviewImage.removeAttribute('src');
   imagePreviewImage.alt = '';
   imagePreviewName.textContent = '';
+  if (imagePreviewMeta) imagePreviewMeta.textContent = '';
   imagePreview.hidden = true;
 }
 
@@ -1054,7 +1514,22 @@ function showImagePreview(file) {
   imagePreviewImage.src = imagePreviewUrl;
   imagePreviewImage.alt = `Selected photo: ${file.name}`;
   imagePreviewName.textContent = file.name;
+  if (imagePreviewMeta) {
+    const origSizeKb = Math.round(file.size / 1024);
+    imagePreviewMeta.textContent = currentLang === 'vi'
+      ? `Gốc: ${origSizeKb} KB · Đang tối ưu…`
+      : `Original: ${origSizeKb} KB · Optimizing…`;
+  }
   imagePreview.hidden = false;
+
+  compressImage(file).then((res) => {
+    if (res && selectedImage === file && imagePreviewMeta) {
+      const compSizeKb = Math.round(res.sizeBytes / 1024);
+      imagePreviewMeta.textContent = currentLang === 'vi'
+        ? `Đã tối ưu: ~${compSizeKb} KB (${res.width}×${res.height})`
+        : `Optimized: ~${compSizeKb} KB (${res.width}×${res.height})`;
+    }
+  }).catch(() => {});
 }
 
 for (const input of [imageInput, cameraInput]) {
@@ -1066,6 +1541,12 @@ for (const input of [imageInput, cameraInput]) {
 
 takePhotoButton.addEventListener('click', () => cameraInput.click());
 choosePhotoButton.addEventListener('click', () => imageInput.click());
+
+if (retakeImageButton) {
+  retakeImageButton.addEventListener('click', () => {
+    choosePhotoButton.click();
+  });
+}
 
 removeImageButton.addEventListener('click', () => {
   imageInput.value = '';
@@ -1510,6 +1991,9 @@ function renderResolution(
       : CATEGORY_LOCALIZATIONS[cat]?.en || cat;
   if (localizedCat) addText(contentNode, 'p', localizedCat, 'result-category');
 
+  // Official Bag Color Badge & Decree 45 Compliance Notice
+  renderBagBadgeAndNotice(contentNode, cat, canonicalItemId);
+
   // Instruction
   const instructionBlock = document.createElement('div');
   instructionBlock.className = 'instruction';
@@ -1816,6 +2300,480 @@ for (const btn of langButtons) {
   });
 }
 
+// Stream and Bag Color Badges Helper
+function getStreamForCategory(category, canonicalItemId) {
+  if (category === 'Food waste') return 'food';
+  if (category === 'Reusable and recyclable solid waste') return 'recyclables';
+  if (category === 'Household hazardous waste') return 'hazardous';
+  if (category === 'Bulky waste') return 'bulky';
+  if (category === 'Other domestic solid waste') return 'other';
+  const item = findCatalogItem(canonicalItemId);
+  if (item?.stream) return item.stream;
+  return 'other';
+}
+
+function renderBagBadgeAndNotice(container, category, canonicalItemId) {
+  const streamKey = getStreamForCategory(category, canonicalItemId);
+  const info = BAG_BADGE_INFO[streamKey] || BAG_BADGE_INFO.other;
+
+  const badge = document.createElement('div');
+  badge.className = `official-bag-badge ${info.badgeClass}`;
+
+  const icon = document.createElement('span');
+  icon.className = 'bag-badge-icon';
+  icon.setAttribute('aria-hidden', 'true');
+  icon.textContent = info.icon;
+
+  const content = document.createElement('div');
+  content.className = 'bag-badge-content';
+
+  const label = document.createElement('span');
+  label.className = 'bag-badge-label';
+  label.textContent = t('bagStandardLabel');
+
+  const title = document.createElement('strong');
+  title.className = 'bag-badge-title';
+  title.textContent = t(info.titleKey);
+
+  const desc = document.createElement('span');
+  desc.className = 'bag-badge-desc';
+  desc.textContent = currentLang === 'vi' ? info.subVi : info.subEn;
+
+  content.append(label, title, desc);
+  badge.append(icon, content);
+  container.append(badge);
+
+  const compliance = document.createElement('aside');
+  compliance.className = 'compliance-notice';
+  compliance.setAttribute('aria-label', t('decreeNoticeHeading'));
+
+  const compIcon = document.createElement('span');
+  compIcon.className = 'compliance-icon';
+  compIcon.setAttribute('aria-hidden', 'true');
+  compIcon.textContent = '⚖️';
+
+  const compContent = document.createElement('div');
+  compContent.className = 'compliance-content';
+
+  const compTitle = document.createElement('strong');
+  compTitle.className = 'compliance-title';
+  compTitle.textContent = t('decreeNoticeHeading');
+
+  const compCopy = document.createElement('p');
+  compCopy.className = 'compliance-copy';
+  compCopy.textContent = t('decreeNoticeText');
+
+  compContent.append(compTitle, compCopy);
+  compliance.append(compIcon, compContent);
+  container.append(compliance);
+}
+
+// Voice Search (Web Speech API)
+function setupVoiceSearch() {
+  if (!voiceSearchBtn) return;
+
+  if (!SpeechRecognition) {
+    voiceSearchBtn.addEventListener('click', () => {
+      showVoiceStatus(t('voiceNotSupported'), false);
+    });
+    return;
+  }
+
+  voiceSearchBtn.addEventListener('click', () => {
+    if (isListening) {
+      stopVoiceSearch();
+    } else {
+      startVoiceSearch();
+    }
+  });
+}
+
+function showVoiceStatus(message, isRecording = false) {
+  if (!voiceStatus) return;
+  voiceStatus.textContent = message;
+  voiceStatus.classList.toggle('listening', isRecording);
+  voiceStatus.hidden = false;
+  if (!isRecording) {
+    setTimeout(() => {
+      if (!isListening && voiceStatus) voiceStatus.hidden = true;
+    }, 4500);
+  }
+}
+
+function startVoiceSearch() {
+  if (!SpeechRecognition) return;
+  try {
+    recognitionInstance = new SpeechRecognition();
+    recognitionInstance.lang = currentLang === 'vi' ? 'vi-VN' : 'en-US';
+    recognitionInstance.interimResults = true;
+    recognitionInstance.continuous = false;
+
+    recognitionInstance.onstart = () => {
+      isListening = true;
+      voiceSearchBtn.classList.add('listening');
+      showVoiceStatus(t('voiceListening'), true);
+    };
+
+    recognitionInstance.onresult = (event) => {
+      let transcript = '';
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        transcript += event.results[i][0].transcript;
+      }
+      if (transcript.trim()) {
+        descriptionInput.value = transcript.trim();
+      }
+    };
+
+    recognitionInstance.onerror = (event) => {
+      console.warn('Speech recognition error:', event.error);
+      isListening = false;
+      voiceSearchBtn.classList.remove('listening');
+      if (event.error === 'not-allowed') {
+        showVoiceStatus(t('voicePermissionDenied'), false);
+      } else if (event.error !== 'no-speech') {
+        showVoiceStatus(event.error, false);
+      } else {
+        showVoiceStatus(t('voiceNoSpeech'), false);
+      }
+    };
+
+    recognitionInstance.onend = () => {
+      isListening = false;
+      voiceSearchBtn.classList.remove('listening');
+      if (descriptionInput.value.trim()) {
+        showVoiceStatus(t('voiceSuccess'), false);
+      } else {
+        if (voiceStatus) voiceStatus.hidden = true;
+      }
+    };
+
+    recognitionInstance.start();
+  } catch (err) {
+    console.warn('Speech start failed:', err);
+    isListening = false;
+    if (voiceSearchBtn) voiceSearchBtn.classList.remove('listening');
+  }
+}
+
+function stopVoiceSearch() {
+  if (recognitionInstance) {
+    try {
+      recognitionInstance.stop();
+    } catch {}
+  }
+  isListening = false;
+  if (voiceSearchBtn) voiceSearchBtn.classList.remove('listening');
+}
+
+// Waste Sorting Quiz Logic
+function openQuizModal() {
+  quizCurrentIndex = 0;
+  quizScore = 0;
+  quizUserAnswers = [];
+  renderQuizQuestion();
+  if (quizModal) quizModal.hidden = false;
+  document.body.style.overflow = 'hidden';
+}
+
+function closeQuizModal() {
+  if (!quizModal) return;
+  quizModal.hidden = true;
+  document.body.style.overflow = '';
+}
+
+function renderQuizQuestion() {
+  if (!quizBody) return;
+  quizBody.replaceChildren();
+
+  if (quizCurrentIndex >= QUIZ_QUESTIONS.length) {
+    renderQuizScoreScreen();
+    return;
+  }
+
+  const q = QUIZ_QUESTIONS[quizCurrentIndex];
+  const total = QUIZ_QUESTIONS.length;
+  const currentNum = quizCurrentIndex + 1;
+
+  const progBar = document.createElement('div');
+  progBar.className = 'quiz-progress-bar';
+  const progFill = document.createElement('div');
+  progFill.className = 'quiz-progress-fill';
+  progFill.style.width = `${((currentNum - 1) / total) * 100}%`;
+  progBar.append(progFill);
+
+  const counter = document.createElement('div');
+  counter.className = 'quiz-counter';
+  counter.textContent = t('quizQuestionCounter')
+    .replace('{current}', String(currentNum))
+    .replace('{total}', String(total));
+
+  const qText = document.createElement('h3');
+  qText.className = 'quiz-question-text';
+  qText.textContent = currentLang === 'vi' ? q.questionVi : q.questionEn;
+
+  const optionsContainer = document.createElement('div');
+  optionsContainer.className = 'quiz-options';
+  const letters = ['A', 'B', 'C', 'D'];
+  const options = currentLang === 'vi' ? q.optionsVi : q.optionsEn;
+
+  const buttons = [];
+  options.forEach((optText, idx) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'quiz-option-btn';
+
+    const letterSpan = document.createElement('span');
+    letterSpan.className = 'quiz-option-letter';
+    letterSpan.textContent = letters[idx];
+
+    const labelSpan = document.createElement('span');
+    labelSpan.textContent = optText;
+
+    btn.append(letterSpan, labelSpan);
+
+    btn.addEventListener('click', () => {
+      handleAnswerSelected(idx, buttons, q);
+    });
+
+    buttons.push(btn);
+    optionsContainer.append(btn);
+  });
+
+  quizBody.append(progBar, counter, qText, optionsContainer);
+}
+
+function handleAnswerSelected(selectedIdx, buttons, question) {
+  buttons.forEach((b) => (b.disabled = true));
+  const isCorrect = selectedIdx === question.correctIndex;
+  if (isCorrect) quizScore++;
+  quizUserAnswers.push({ questionId: question.id, selectedIdx, isCorrect });
+
+  buttons.forEach((b, idx) => {
+    if (idx === question.correctIndex) {
+      b.classList.add('correct');
+    } else if (idx === selectedIdx && !isCorrect) {
+      b.classList.add('incorrect');
+    }
+  });
+
+  const feedback = document.createElement('div');
+  feedback.className = `quiz-feedback ${isCorrect ? '' : 'is-wrong'}`;
+
+  const fbTitle = document.createElement('div');
+  fbTitle.className = 'quiz-feedback-title';
+  fbTitle.textContent = isCorrect
+    ? (currentLang === 'vi' ? '✔ Chính xác!' : '✔ Correct!')
+    : (currentLang === 'vi' ? '✖ Chưa chính xác!' : '✖ Incorrect!');
+
+  const fbCopy = document.createElement('p');
+  fbCopy.className = 'quiz-feedback-copy';
+  fbCopy.textContent = currentLang === 'vi' ? question.feedbackVi : question.feedbackEn;
+
+  feedback.append(fbTitle, fbCopy);
+
+  const navActions = document.createElement('div');
+  navActions.className = 'quiz-nav-actions';
+  const nextBtn = document.createElement('button');
+  nextBtn.type = 'button';
+  nextBtn.className = 'button button-primary';
+  const isLast = quizCurrentIndex === QUIZ_QUESTIONS.length - 1;
+  nextBtn.textContent = isLast ? t('quizFinishBtn') : t('quizNextBtn');
+
+  nextBtn.addEventListener('click', () => {
+    quizCurrentIndex++;
+    renderQuizQuestion();
+  });
+
+  navActions.append(nextBtn);
+  quizBody.append(feedback, navActions);
+}
+
+function renderQuizScoreScreen() {
+  const view = document.createElement('div');
+  view.className = 'quiz-score-view';
+
+  const trophy = document.createElement('div');
+  trophy.className = 'quiz-trophy';
+  trophy.textContent = quizScore === 5 ? '🏆' : quizScore >= 3 ? '🎉' : '📚';
+
+  const scoreNum = document.createElement('h3');
+  scoreNum.className = 'quiz-score-number';
+  scoreNum.textContent = `${quizScore} / ${QUIZ_QUESTIONS.length}`;
+
+  const scoreTitle = document.createElement('p');
+  scoreTitle.className = 'quiz-score-title';
+  if (quizScore === 5) {
+    scoreTitle.textContent = t('quizScoreMaster');
+  } else if (quizScore >= 3) {
+    scoreTitle.textContent = t('quizScoreGood');
+  } else {
+    scoreTitle.textContent = t('quizScorePractice');
+  }
+
+  const scoreCopy = document.createElement('p');
+  scoreCopy.className = 'quiz-score-copy';
+  scoreCopy.textContent = currentLang === 'vi'
+    ? 'Căn cứ theo Nghị định 45/2022/NĐ-CP, việc phân loại rác đúng nguồn là nghĩa vụ pháp lý của mọi hộ gia đình tại Hà Nội và TP.HCM.'
+    : 'Under Decree 45/2022/NĐ-CP, source-segregation of domestic waste is legally binding for households in Hanoi and Ho Chi Minh City.';
+
+  const actions = document.createElement('div');
+  actions.className = 'quiz-score-actions';
+
+  const shareBtn = document.createElement('button');
+  shareBtn.type = 'button';
+  shareBtn.className = 'button button-primary';
+  shareBtn.textContent = t('quizShareBtn');
+  shareBtn.addEventListener('click', async () => {
+    const summaryText = currentLang === 'vi'
+      ? `♻️ Tôi vừa đạt ${quizScore}/5 điểm Trắc nghiệm phân loại rác trên WhatBin! Hãy thử tài phân loại rác chuẩn Hà Nội & TP.HCM tại WhatBin!`
+      : `♻️ I scored ${quizScore}/5 on WhatBin's Waste Sorting Quiz! Test your waste sorting skills under Hanoi & HCMC regulations!`;
+    try {
+      await navigator.clipboard.writeText(summaryText);
+      shareBtn.textContent = t('quizCopied');
+      setTimeout(() => {
+        shareBtn.textContent = t('quizShareBtn');
+      }, 3000);
+    } catch {
+      alert(summaryText);
+    }
+  });
+
+  const retakeBtn = document.createElement('button');
+  retakeBtn.type = 'button';
+  retakeBtn.className = 'button button-secondary';
+  retakeBtn.textContent = t('quizRetakeBtn');
+  retakeBtn.addEventListener('click', () => {
+    quizCurrentIndex = 0;
+    quizScore = 0;
+    quizUserAnswers = [];
+    renderQuizQuestion();
+  });
+
+  actions.append(shareBtn, retakeBtn);
+  view.append(trophy, scoreNum, scoreTitle, scoreCopy, actions);
+  quizBody.append(view);
+}
+
+// Drop-off Directory Logic
+function openDropoffModal() {
+  if (!dropoffModal) return;
+  dropoffModal.hidden = false;
+  document.body.style.overflow = 'hidden';
+  renderDropoffList();
+}
+
+function closeDropoffModal() {
+  if (!dropoffModal) return;
+  dropoffModal.hidden = true;
+  document.body.style.overflow = '';
+}
+
+function renderDropoffList() {
+  if (!dropoffList) return;
+  dropoffList.replaceChildren();
+
+  const filtered = DROPOFF_HUBS.filter((hub) => {
+    const matchesCity = dropoffActiveCity === 'all' || hub.city === 'all' || hub.city === dropoffActiveCity;
+    const matchesStream = dropoffActiveStream === 'all' || hub.stream === dropoffActiveStream;
+    return matchesCity && matchesStream;
+  });
+
+  if (!filtered.length) {
+    const empty = document.createElement('p');
+    empty.className = 'muted-copy';
+    empty.textContent = currentLang === 'vi'
+      ? 'Không tìm thấy điểm thu gom phù hợp với bộ lọc.'
+      : 'No drop-off hubs matched the selected filters.';
+    dropoffList.append(empty);
+    return;
+  }
+
+  for (const hub of filtered) {
+    const card = document.createElement('article');
+    card.className = 'dropoff-card';
+
+    const header = document.createElement('div');
+    header.className = 'dropoff-card-header';
+
+    const title = document.createElement('h3');
+    title.className = 'dropoff-card-title';
+    title.textContent = currentLang === 'vi' ? hub.titleVi : hub.titleEn;
+
+    const badge = document.createElement('span');
+    badge.className = 'dropoff-badge';
+    badge.textContent = currentLang === 'vi' ? hub.badgeVi : hub.badgeEn;
+
+    header.append(title, badge);
+
+    const address = document.createElement('p');
+    address.className = 'dropoff-address';
+    address.innerHTML = `<span>📍</span> <span>${currentLang === 'vi' ? hub.addressVi : hub.addressEn}</span>`;
+
+    const notes = document.createElement('p');
+    notes.className = 'dropoff-notes';
+    notes.textContent = currentLang === 'vi' ? hub.notesVi : hub.notesEn;
+
+    card.append(header, address, notes);
+    dropoffList.append(card);
+  }
+}
+
+function setupDropoffFilters() {
+  if (dropoffCityFilters) {
+    dropoffCityFilters.querySelectorAll('.filter-chip').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        dropoffCityFilters.querySelectorAll('.filter-chip').forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        dropoffActiveCity = btn.dataset.city;
+        renderDropoffList();
+      });
+    });
+  }
+
+  if (dropoffStreamFilters) {
+    dropoffStreamFilters.querySelectorAll('.filter-chip').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        dropoffStreamFilters.querySelectorAll('.filter-chip').forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        dropoffActiveStream = btn.dataset.stream;
+        renderDropoffList();
+      });
+    });
+  }
+}
+
+// Quick Nav, Modals & Print Listeners
+openQuizBtn?.addEventListener('click', openQuizModal);
+footerQuizBtn?.addEventListener('click', openQuizModal);
+quizCloseBtn?.addEventListener('click', closeQuizModal);
+quizBackdrop?.addEventListener('click', closeQuizModal);
+
+openDropoffBtn?.addEventListener('click', openDropoffModal);
+footerDropoffBtn?.addEventListener('click', openDropoffModal);
+dropoffCloseBtn?.addEventListener('click', closeDropoffModal);
+dropoffBackdrop?.addEventListener('click', closeDropoffModal);
+
+printGuideBtn?.addEventListener('click', () => window.print());
+footerPrintBtn?.addEventListener('click', () => window.print());
+
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeQuizModal();
+    closeDropoffModal();
+  }
+});
+
+// Progressive Web App Service Worker Registration
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch((err) => {
+      console.warn('SW registration failed:', err);
+    });
+  });
+}
+
 // Initial setup
 setupStreamTabs();
+setupVoiceSearch();
+setupDropoffFilters();
 setLanguage(currentLang);

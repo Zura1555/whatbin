@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#16a34a"/>
+      <stop offset="100%" stop-color="#15803d"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#grad)"/>
+  <!-- Stylized W / Recycling mark -->
+  <g fill="#ffffff">
+    <path d="M128 152 L188 356 L238 212 L274 212 L324 356 L384 152 L332 152 L298 284 L260 168 L252 168 L214 284 L180 152 Z"/>
+    <!-- Organic leaf accent -->
+    <path d="M256 360 C236 385 240 415 256 424 C272 415 276 385 256 360 Z" fill="#86efac"/>
+  </g>
+</svg>
