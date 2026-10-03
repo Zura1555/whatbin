@@ -1,0 +1,518 @@
+[
+  {
+    "_id": "pet-plastic-bottle-hanoi",
+    "_type": "disposalRule",
+    "canonicalItemId": "pet-plastic-bottle",
+    "itemName": "PET plastic beverage bottle",
+    "jurisdiction": "hanoi",
+    "disposalCategory": "Reusable and recyclable solid waste",
+    "instruction": "English summary (not official wording): Empty all residual liquid, rinse clean, and flatten the bottle to reduce volume. Transfer it to organizations or individuals for reuse/recycling (scrap buyers / scrap depots), or place it into the designated recyclable waste collection container or bag.",
+    "validFrom": "2026-01-08",
+    "validUntil": null,
+    "sourceReferences": [
+      {
+        "_key": "hanoi-decision-87",
+        "_type": "sourceReference",
+        "title": "Decision 87/2025/QĐ-UBND",
+        "url": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+        "citation": "Articles 5(1)(a) and 7(2)(a)",
+        "sourceNote": "Article 5(1)(a) classifies plastic bottles, containers, and items under reusable and recyclable waste. Article 7(2)(a) specifies handover to recycling entities, scrap collectors, or designated municipal collection points. Effective 2026-01-08."
+      },
+      {
+        "_key": "hanoi-official-record",
+        "_type": "sourceReference",
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date",
+        "sourceNote": "Hanoi City portal identifies Decision 87/2025/QĐ-UBND and sets its effective date as 2026-01-08."
+      }
+    ],
+    "supportingPassages": [
+      {
+        "sourceTitle": "Decision 87/2025/QĐ-UBND",
+        "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+        "sourceCitation": "Articles 5(1)(a) and 7(2)(a)",
+        "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+        "citation": "Article 5(1)(a)",
+        "text": "Chất thải nhựa bao gồm: bao bì nhựa mềm, bao bì nhựa cứng (chai, lọ, cốc, hộp đựng đồ uống, đồ gia dụng, thực phẩm, mỹ phẩm...), sản phẩm nhựa gia dụng và các loại chất thải nhựa khác.",
+        "requires": [
+          {
+            "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+            "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+            "citation": "Decision identity and Article 2 effective date"
+          }
+        ],
+        "claimType": "disposal"
+      }
+    ]
+  },
+  {
+    "_id": "pet-plastic-bottle-ho-chi-minh-city",
+    "_type": "disposalRule",
+    "canonicalItemId": "pet-plastic-bottle",
+    "itemName": "PET plastic beverage bottle",
+    "jurisdiction": "ho-chi-minh-city",
+    "disposalCategory": "Reusable and recyclable solid waste",
+    "instruction": "English summary (not official wording): Empty liquid residue, rinse clean, and flatten the bottle. Store in a dedicated bag or container for dry recyclables, then sell or transfer to informal scrap collectors (ve chai) or place in the designated recyclable collection stream.",
+    "validFrom": "2025-04-25",
+    "validUntil": null,
+    "sourceReferences": [
+      {
+        "_key": "hcmc-decision-58",
+        "_type": "sourceReference",
+        "title": "Decision 58/2025/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/25-04-2025",
+        "citation": "Articles 4(1)(a) and 6(1)(a)",
+        "sourceNote": "Decision 58/2025/QĐ-UBND regulates household classification. Article 4(1)(a) identifies plastic bottles as recyclable waste; Article 6(1)(a) encourages scrap trade or dry recyclable stream storage."
+      }
+    ],
+    "supportingPassages": [
+      {
+        "sourceTitle": "Decision 58/2025/QĐ-UBND",
+        "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/25-04-2025",
+        "sourceCitation": "Articles 4(1)(a) and 6(1)(a)",
+        "sourceVersion": "Decision 58/2025/QĐ-UBND (effective 2025-04-25)",
+        "citation": "Article 4(1)(a)",
+        "text": "Chất thải có khả năng tái sử dụng, tái chế: Bao bì nhựa, chai lọ nhựa sạch được phân loại riêng để chuyển giao cho các cơ sở tái chế hoặc lực lượng thu mua phế liệu.",
+        "requires": [
+          {
+            "title": "Decision 58/2025/QĐ-UBND",
+            "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/25-04-2025",
+            "citation": "Articles 4(1)(a) and 6(1)(a)"
+          }
+        ],
+        "claimType": "disposal"
+      }
+    ]
+  },
+  {
+    "_id": "corrugated-cardboard-box-hanoi",
+    "_type": "disposalRule",
+    "canonicalItemId": "corrugated-cardboard-box",
+    "itemName": "Corrugated cardboard box",
+    "jurisdiction": "hanoi",
+    "disposalCategory": "Reusable and recyclable solid waste",
+    "instruction": "English summary (not official wording): Remove packing tape, flatten the box to save space, and keep it dry. Bundle with clean paper recyclables and transfer to scrap collectors or deposit at designated community collection points.",
+    "validFrom": "2026-01-08",
+    "validUntil": null,
+    "sourceReferences": [
+      {
+        "_key": "hanoi-decision-87",
+        "_type": "sourceReference",
+        "title": "Decision 87/2025/QĐ-UBND",
+        "url": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+        "citation": "Articles 5(1)(c) and 7(2)(a)",
+        "sourceNote": "Article 5(1)(c) includes corrugated cardboard and paper packaging in reusable and recyclable solid waste. Article 7(2)(a) specifies transfer options."
+      },
+      {
+        "_key": "hanoi-official-record",
+        "_type": "sourceReference",
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date",
+        "sourceNote": "Portal record establishing Decision 87 effective date."
+      }
+    ],
+    "supportingPassages": [
+      {
+        "sourceTitle": "Decision 87/2025/QĐ-UBND",
+        "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+        "sourceCitation": "Articles 5(1)(c) and 7(2)(a)",
+        "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+        "citation": "Article 5(1)(c)",
+        "text": "Chất thải giấy bao gồm: giấy báo, sách, vở, giấy in, bao bì giấy, thùng bìa carton, lõi giấy...",
+        "requires": [
+          {
+            "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+            "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+            "citation": "Decision identity and Article 2 effective date"
+          }
+        ],
+        "claimType": "disposal"
+      }
+    ]
+  },
+  {
+    "_id": "corrugated-cardboard-box-ho-chi-minh-city",
+    "_type": "disposalRule",
+    "canonicalItemId": "corrugated-cardboard-box",
+    "itemName": "Corrugated cardboard box",
+    "jurisdiction": "ho-chi-minh-city",
+    "disposalCategory": "Reusable and recyclable solid waste",
+    "instruction": "English summary (not official wording): Keep clean and dry, flatten boxes, and tie securely in bundles. Sell or hand over to scrap pickers, or place in the dry recyclable collection stream.",
+    "validFrom": "2025-04-25",
+    "validUntil": null,
+    "sourceReferences": [
+      {
+        "_key": "hcmc-decision-58",
+        "_type": "sourceReference",
+        "title": "Decision 58/2025/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/25-04-2025",
+        "citation": "Articles 4(1)(b) and 6(1)(a)",
+        "sourceNote": "Article 4(1)(b) lists cardboard and paper as dry recyclables."
+      }
+    ],
+    "supportingPassages": [
+      {
+        "sourceTitle": "Decision 58/2025/QĐ-UBND",
+        "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/25-04-2025",
+        "sourceCitation": "Articles 4(1)(b) and 6(1)(a)",
+        "sourceVersion": "Decision 58/2025/QĐ-UBND (effective 2025-04-25)",
+        "citation": "Article 4(1)(b)",
+        "text": "Nhóm giấy và bìa carton: Thùng carton, bao bì giấy khô ráo được lưu chứa riêng biệt để thu gom tái chế.",
+        "requires": [
+          {
+            "title": "Decision 58/2025/QĐ-UBND",
+            "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/25-04-2025",
+            "citation": "Articles 4(1)(b) and 6(1)(a)"
+          }
+        ],
+        "claimType": "disposal"
+      }
+    ]
+  },
+  {
+    "_id": "cooked-food-scrap-hanoi",
+    "_type": "disposalRule",
+    "canonicalItemId": "cooked-food-scrap",
+    "itemName": "Cooked food scrap",
+    "jurisdiction": "hanoi",
+    "disposalCategory": "Food waste",
+    "instruction": "English summary (not official wording): Drain excess broth and liquid thoroughly before bagging. Store in the designated food waste bag or container, and place out for daily collection during commune/ward specified hours (18:00–22:00 in urban wards).",
+    "validFrom": "2026-01-08",
+    "validUntil": null,
+    "sourceReferences": [
+      {
+        "_key": "hanoi-decision-87",
+        "_type": "sourceReference",
+        "title": "Decision 87/2025/QĐ-UBND",
+        "url": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+        "citation": "Articles 5(2), 6(1)(b), and 7(1)(a)",
+        "sourceNote": "Article 5(2) defines food waste. Article 6(1)(b) requires liquid draining and green bag containment. Article 7(1)(a) sets urban collection handover at 18:00–22:00."
+      },
+      {
+        "_key": "hanoi-official-record",
+        "_type": "sourceReference",
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date",
+        "sourceNote": "Portal record establishing Decision 87 effective date."
+      }
+    ],
+    "supportingPassages": [
+      {
+        "sourceTitle": "Decision 87/2025/QĐ-UBND",
+        "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+        "sourceCitation": "Articles 5(2), 6(1)(b), and 7(1)(a)",
+        "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+        "citation": "Article 6(1)(b)",
+        "text": "Chất thải thực phẩm phải được làm ráo nước trước khi chứa, đựng trong bao bì chuyên dụng hoặc thùng chứa có nắp đậy kín.",
+        "requires": [
+          {
+            "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+            "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+            "citation": "Decision identity and Article 2 effective date"
+          }
+        ],
+        "claimType": "disposal"
+      }
+    ]
+  },
+  {
+    "_id": "cooked-food-scrap-ho-chi-minh-city",
+    "_type": "disposalRule",
+    "canonicalItemId": "cooked-food-scrap",
+    "itemName": "Cooked food scrap",
+    "jurisdiction": "ho-chi-minh-city",
+    "disposalCategory": "Food waste",
+    "instruction": "English summary (not official wording): Drain off excess liquid to prevent bag leakage and odors. Store in closed organic waste bags or containers and transfer to local waste collectors during the daily organic collection window.",
+    "validFrom": "2025-04-25",
+    "validUntil": null,
+    "sourceReferences": [
+      {
+        "_key": "hcmc-decision-58",
+        "_type": "sourceReference",
+        "title": "Decision 58/2025/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/25-04-2025",
+        "citation": "Articles 4(2) and 6(2)",
+        "sourceNote": "Article 4(2) defines biodegradable food waste and mandates liquid reduction before storage."
+      }
+    ],
+    "supportingPassages": [
+      {
+        "sourceTitle": "Decision 58/2025/QĐ-UBND",
+        "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/25-04-2025",
+        "sourceCitation": "Articles 4(2) and 6(2)",
+        "sourceVersion": "Decision 58/2025/QĐ-UBND (effective 2025-04-25)",
+        "citation": "Article 6(2)",
+        "text": "Chất thải thực phẩm phải được thoát nước rỉ rác tối đa, chứa trong bao bì buộc kín để tránh phát tán mùi hôi và chuyển giao hàng ngày cho đơn vị thu gom.",
+        "requires": [
+          {
+            "title": "Decision 58/2025/QĐ-UBND",
+            "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/25-04-2025",
+            "citation": "Articles 4(2) and 6(2)"
+          }
+        ],
+        "claimType": "disposal"
+      }
+    ]
+  },
+  {
+    "_id": "discarded-coconut-shell-hanoi",
+    "_type": "disposalRule",
+    "canonicalItemId": "discarded-coconut-shell",
+    "itemName": "Discarded coconut shell",
+    "jurisdiction": "hanoi",
+    "disposalCategory": "Other domestic solid waste",
+    "instruction": "English summary (not official wording): Hard coconut shells do not break down in municipal composting machines and must NOT be put into food waste. Place into the standard gray domestic other/residual waste bag for municipal collection and incineration.",
+    "validFrom": "2026-01-08",
+    "validUntil": null,
+    "sourceReferences": [
+      {
+        "_key": "hanoi-decision-87",
+        "_type": "sourceReference",
+        "title": "Decision 87/2025/QĐ-UBND",
+        "url": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+        "citation": "Articles 5(3)(c) and 6(1)(d)",
+        "sourceNote": "Article 5(3)(c) specifies that hard parts of plants and fruits that are difficult to decompose belong to the other domestic waste group."
+      },
+      {
+        "_key": "hanoi-official-record",
+        "_type": "sourceReference",
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date",
+        "sourceNote": "Portal record establishing Decision 87 effective date."
+      }
+    ],
+    "supportingPassages": [
+      {
+        "sourceTitle": "Decision 87/2025/QĐ-UBND",
+        "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+        "sourceCitation": "Articles 5(3)(c) and 6(1)(d)",
+        "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+        "citation": "Article 5(3)(c)",
+        "text": "Chất thải rắn sinh hoạt khác bao gồm: các loại chất thải rắn sinh hoạt không thuộc nhóm có khả năng tái sử dụng, tái chế, nhóm chất thải thực phẩm và chất thải nguy hại (bao gồm cả các loại vỏ quả hạt cứng khó phân hủy sinh học như vỏ dừa, vỏ sầu riêng...).",
+        "requires": [
+          {
+            "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+            "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+            "citation": "Decision identity and Article 2 effective date"
+          }
+        ],
+        "claimType": "disposal"
+      }
+    ]
+  },
+  {
+    "_id": "discarded-coconut-shell-ho-chi-minh-city",
+    "_type": "disposalRule",
+    "canonicalItemId": "discarded-coconut-shell",
+    "itemName": "Discarded coconut shell",
+    "jurisdiction": "ho-chi-minh-city",
+    "disposalCategory": "Other domestic solid waste",
+    "instruction": "English summary (not official wording): Coconut shells are hard, high-lignin biological waste that chokes municipal shredders. Do not place in the food waste bin; store in standard household residual waste bags for municipal landfill or waste-to-energy disposal.",
+    "validFrom": "2025-04-25",
+    "validUntil": null,
+    "sourceReferences": [
+      {
+        "_key": "hcmc-decision-58",
+        "_type": "sourceReference",
+        "title": "Decision 58/2025/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/25-04-2025",
+        "citation": "Articles 4(3) and 6(3)",
+        "sourceNote": "Article 4(3) classifies hard, non-degradable agricultural residues including coconut shells and durian rinds under the other domestic solid waste stream."
+      }
+    ],
+    "supportingPassages": [
+      {
+        "sourceTitle": "Decision 58/2025/QĐ-UBND",
+        "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/25-04-2025",
+        "sourceCitation": "Articles 4(3) and 6(3)",
+        "sourceVersion": "Decision 58/2025/QĐ-UBND (effective 2025-04-25)",
+        "citation": "Article 4(3)",
+        "text": "Nhóm chất thải rắn sinh hoạt khác: Bao gồm các loại rác khó phân hủy như vỏ sò, vỏ ốc, vỏ dừa, vỏ sầu riêng, các loại xương động vật lớn không thể đưa vào dây chuyền sản xuất phân compost.",
+        "requires": [
+          {
+            "title": "Decision 58/2025/QĐ-UBND",
+            "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/25-04-2025",
+            "citation": "Articles 4(3) and 6(3)"
+          }
+        ],
+        "claimType": "disposal"
+      }
+    ]
+  },
+  {
+    "_id": "used-cooking-oil-hanoi",
+    "_type": "disposalRule",
+    "canonicalItemId": "used-cooking-oil",
+    "itemName": "Used cooking oil",
+    "jurisdiction": "hanoi",
+    "disposalCategory": "Household hazardous and special waste",
+    "instruction": "English summary (not official wording): Never pour spent cooking oil down sinks, drains, or toilet pipes (causes severe grease blockages and sewer fatbergs). Let cool, pour into a clean plastic bottle with a tight cap, and deliver to local bio-diesel collection programs or your ward hazardous drop-off point.",
+    "validFrom": "2026-01-08",
+    "validUntil": null,
+    "sourceReferences": [
+      {
+        "_key": "hanoi-decision-87",
+        "_type": "sourceReference",
+        "title": "Decision 87/2025/QĐ-UBND",
+        "url": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+        "citation": "Articles 5(3)(b) and 7(2)(d)",
+        "sourceNote": "Article 5(3)(b) explicitly lists spent oils and fats (dầu mỡ thải) in the hazardous waste group requiring safe, leak-proof storage and handover at designated collection points."
+      },
+      {
+        "_key": "hanoi-official-record",
+        "_type": "sourceReference",
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date",
+        "sourceNote": "Portal record establishing Decision 87 effective date."
+      }
+    ],
+    "supportingPassages": [
+      {
+        "sourceTitle": "Decision 87/2025/QĐ-UBND",
+        "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+        "sourceCitation": "Articles 5(3)(b) and 7(2)(d)",
+        "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+        "citation": "Article 5(3)(b)",
+        "text": "Chất thải nguy hại phát sinh từ hoạt động sinh hoạt của hộ gia đình, cá nhân bao gồm: bao bì thuốc bảo vệ thực vật, hóa chất diệt côn trùng, các loại pin, ắc quy thải, bóng đèn huỳnh quang, dầu mỡ thải...",
+        "requires": [
+          {
+            "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+            "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+            "citation": "Decision identity and Article 2 effective date"
+          }
+        ],
+        "claimType": "disposal"
+      }
+    ]
+  },
+  {
+    "_id": "used-cooking-oil-ho-chi-minh-city",
+    "_type": "disposalRule",
+    "canonicalItemId": "used-cooking-oil",
+    "itemName": "Used cooking oil",
+    "jurisdiction": "ho-chi-minh-city",
+    "disposalCategory": "Household hazardous and special waste",
+    "instruction": "English summary (not official wording): Strictly prohibited from discharging into domestic sinks or municipal drains. Allow oil to cool, store in a sealed plastic bottle or container, and hand over to certified UCO collection companies or designated district hazardous collection points.",
+    "validFrom": "2025-04-25",
+    "validUntil": null,
+    "sourceReferences": [
+      {
+        "_key": "hcmc-decision-58",
+        "_type": "sourceReference",
+        "title": "Decision 58/2025/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/25-04-2025",
+        "citation": "Articles 5(1)(d) and 6(1)(b)",
+        "sourceNote": "Article 5(1)(d) places used cooking oils and greases in the hazardous domestic waste stream, prohibiting disposal into public wastewater drainage."
+      }
+    ],
+    "supportingPassages": [
+      {
+        "sourceTitle": "Decision 58/2025/QĐ-UBND",
+        "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/25-04-2025",
+        "sourceCitation": "Articles 5(1)(d) and 6(1)(b)",
+        "sourceVersion": "Decision 58/2025/QĐ-UBND (effective 2025-04-25)",
+        "citation": "Article 5(1)(d)",
+        "text": "Dầu mỡ thải từ quá trình nấu nướng: Nghiêm cấm đổ trực tiếp vào cống rãnh, đường ống thoát nước sinh hoạt. Phải được thu gom trong bình kín và chuyển giao đúng quy định.",
+        "requires": [
+          {
+            "title": "Decision 58/2025/QĐ-UBND",
+            "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/25-04-2025",
+            "citation": "Articles 5(1)(d) and 6(1)(b)"
+          }
+        ],
+        "claimType": "disposal"
+      }
+    ]
+  },
+  {
+    "_id": "beverage-carton-tetra-pak-hanoi",
+    "_type": "disposalRule",
+    "canonicalItemId": "beverage-carton-tetra-pak",
+    "itemName": "Aseptic multi-layer beverage carton",
+    "jurisdiction": "hanoi",
+    "disposalCategory": "Reusable and recyclable solid waste",
+    "instruction": "English summary (not official wording): Follow the 4-step clean carton rule: unfold 4 corners, remove straw, rinse thoroughly with water to avoid souring, and flatten completely. Drop off at school/supermarket Lagom or PRO Vietnam recycling collection bins, or bundle with dry paper recyclables.",
+    "validFrom": "2026-01-08",
+    "validUntil": null,
+    "sourceReferences": [
+      {
+        "_key": "hanoi-decision-87",
+        "_type": "sourceReference",
+        "title": "Decision 87/2025/QĐ-UBND",
+        "url": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+        "citation": "Articles 5(1)(c) and 7(2)(a)",
+        "sourceNote": "Article 5(1)(c) classifies multi-layer paper beverage cartons under reusable and recyclable packaging."
+      },
+      {
+        "_key": "hanoi-official-record",
+        "_type": "sourceReference",
+        "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+        "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+        "citation": "Decision identity and Article 2 effective date",
+        "sourceNote": "Portal record establishing Decision 87 effective date."
+      }
+    ],
+    "supportingPassages": [
+      {
+        "sourceTitle": "Decision 87/2025/QĐ-UBND",
+        "sourceUrl": "https://datafiles.hanoi.gov.vn/gov-hni/6249/VanBan/2025/12/30/QDPQ-87-2025.pdf",
+        "sourceCitation": "Articles 5(1)(c) and 7(2)(a)",
+        "sourceVersion": "Decision 87/2025/QĐ-UBND (effective 2026-01-08)",
+        "citation": "Article 5(1)(c)",
+        "text": "Chất thải giấy bao gồm: bao bì giấy phức hợp (vỏ hộp sữa, vỏ hộp nước ép trái cây...), thùng bìa carton...",
+        "requires": [
+          {
+            "title": "Hanoi official record for Decision 87/2025/QĐ-UBND",
+            "url": "https://cmshn.hanoi.gov.vn/van-ban-quy-pham-phap-luat/ve-viec-quy-dinh-quan-ly-chat-thai-ran-sinh-hoat-cua-ho-gia-dinh-ca-nhan-tren-dia-ban-thanh-pho-ha--231176",
+            "citation": "Decision identity and Article 2 effective date"
+          }
+        ],
+        "claimType": "disposal"
+      }
+    ]
+  },
+  {
+    "_id": "beverage-carton-tetra-pak-ho-chi-minh-city",
+    "_type": "disposalRule",
+    "canonicalItemId": "beverage-carton-tetra-pak",
+    "itemName": "Aseptic multi-layer beverage carton",
+    "jurisdiction": "ho-chi-minh-city",
+    "disposalCategory": "Reusable and recyclable solid waste",
+    "instruction": "English summary (not official wording): Clean and flatten the carton completely to avoid fermentation odor and save space. Take to participating EPR drop-off locations (AEON, TH True Mart, supermarket collection points) or sort with dry recyclables.",
+    "validFrom": "2025-04-25",
+    "validUntil": null,
+    "sourceReferences": [
+      {
+        "_key": "hcmc-decision-58",
+        "_type": "sourceReference",
+        "title": "Decision 58/2025/QĐ-UBND",
+        "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/25-04-2025",
+        "citation": "Articles 4(1)(b) and 6(1)(a)",
+        "sourceNote": "Article 4(1)(b) classifies beverage cartons under dry recyclable packaging."
+      }
+    ],
+    "supportingPassages": [
+      {
+        "sourceTitle": "Decision 58/2025/QĐ-UBND",
+        "sourceUrl": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/25-04-2025",
+        "sourceCitation": "Articles 4(1)(b) and 6(1)(a)",
+        "sourceVersion": "Decision 58/2025/QĐ-UBND (effective 2025-04-25)",
+        "citation": "Article 4(1)(b)",
+        "text": "Bao bì giấy phức hợp đựng đồ uống (vỏ hộp sữa) đã tráng rửa, làm dẹp được phân loại vào nhóm có khả năng tái sử dụng, tái chế.",
+        "requires": [
+          {
+            "title": "Decision 58/2025/QĐ-UBND",
+            "url": "https://congbao.hochiminhcity.gov.vn/cong-bao/van-ban/quyet-dinh/so/58-2025-qd-ubnd/ngay/25-04-2025",
+            "citation": "Articles 4(1)(b) and 6(1)(a)"
+          }
+        ],
+        "claimType": "disposal"
+      }
+    ]
+  }
+]

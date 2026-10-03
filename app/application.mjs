@@ -193,7 +193,8 @@ async function recognize(input) {
       }),
     })
     if (response.ok || (response.status !== 503 && response.status !== 429)) break
-    await new Promise((r) => setTimeout(r, 600 * (attempt + 1)))
+    const delay = response.status === 429 ? 2000 * (attempt + 1) : 600 * (attempt + 1)
+    await new Promise((r) => setTimeout(r, delay))
   }
   if (!response.ok) {
     const errorBody = await response.text().catch(() => '')
