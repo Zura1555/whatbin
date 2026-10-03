@@ -1865,11 +1865,9 @@ form.addEventListener('submit', async (event) => {
     const proposed = data?.candidate;
     if (!proposed || typeof proposed.canonicalItemId !== 'string' || !proposed.canonicalItemId.trim() || typeof proposed.itemName !== 'string' || !proposed.itemName.trim()) {
       await offerManualSelection(
-        typeof data?.message === 'string' && data.message
-          ? `${data.message} ${currentLang === 'vi' ? 'Hoặc chọn từ danh mục chuẩn:' : 'Or choose a catalog item:'}`
-          : (currentLang === 'vi'
-              ? 'Chưa nhận diện được độ chắc chắn cao. Vui lòng chọn từ danh mục chuẩn:'
-              : 'I could not confidently identify that item. Choose a catalog item instead:'),
+        currentLang === 'vi'
+          ? 'Chưa nhận diện được độ chắc chắn cao. Vui lòng chọn từ danh mục chuẩn:'
+          : 'I could not confidently identify that item. Choose a catalog item instead:',
         version
       );
       return;
@@ -1879,7 +1877,9 @@ form.addEventListener('submit', async (event) => {
   } catch (error) {
     if (version === requestVersion) {
       await offerManualSelection(
-        `${error instanceof Error ? error.message : (currentLang === 'vi' ? 'Nhận diện thất bại.' : 'Recognition failed.')} ${currentLang === 'vi' ? 'Chọn từ danh mục chuẩn:' : 'Choose a catalog item instead:'}`,
+        currentLang === 'vi'
+          ? 'Nhận diện thất bại. Chọn từ danh mục chuẩn:'
+          : 'Recognition failed. Choose a catalog item instead:',
         version
       );
     }
