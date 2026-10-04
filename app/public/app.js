@@ -2604,6 +2604,7 @@ function renderResolution(
 
   statusNode.textContent = statusLabel;
   statusNode.className = `status-pill ${statusClass}`;
+  contentNode.classList.toggle("result-content-matched", status === "MATCHED");
   contentNode.replaceChildren();
 
   if (includeCity) addText(contentNode, "p", cityName(city), "result-city");
