@@ -1011,6 +1011,13 @@ textarea::placeholder {
  border-radius: 16px;
  background: #fbfcfa;
 }
+.comparison-card .result-content-matched {
+ grid-template-columns: minmax(0, 1fr);
+}
+
+#comparison-modal .modal-dialog {
+ width: min(100%, 960px);
+}
 .comparison-card h3 {
  margin: 0 0 12px;
  font-size: 16px;
