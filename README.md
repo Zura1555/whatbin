@@ -33,7 +33,7 @@ node --env-file=app/.env app/server.mjs
 Run the server tests from the repository root:
 
 ```sh
-node --test app/server.test.mjs app/source-research.test.mjs studio/scripts/migrate-evidence.test.mjs
+node --test app/server.test.mjs app/source-research.test.mjs app/context-agent.test.mjs studio/scripts/migrate-evidence.test.mjs
 ```
 
 Run the Sanity Studio from its directory:

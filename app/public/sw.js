@@ -47,7 +47,7 @@ self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET') return;
 
-  const url = new URL(req.url);
+  const url = new self.URL(req.url);
 
   // Check if request is one of the shell assets or static files
   const isMatch = SHELL_ASSETS.some((asset) => {

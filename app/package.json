@@ -8,7 +8,7 @@
   "scripts": {
     "postinstall": "node scripts/vendor-lism-css.mjs",
     "start": "node --env-file=.env server.mjs",
-    "test": "node --test server.test.mjs source-research.test.mjs"
+    "test": "node --test server.test.mjs source-research.test.mjs context-agent.test.mjs"
   },
   "dependencies": {
     "@ai-sdk/google": "^4.0.82",
