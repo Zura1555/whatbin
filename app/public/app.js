@@ -818,10 +818,6 @@ const TRANSLATIONS = {
     correctBtn: "Chưa đúng — sửa lại mô tả",
     step3Number: "03",
     step3Title: "Kết quả phân loại",
-    flowProgressLabel: "Tiến trình tra cứu",
-    flowStepLookup: "Mô tả",
-    flowStepConfirm: "Xác nhận",
-    flowStepResult: "Kết quả",
     flowBackToLookup: "Quay lại mô tả",
     flowBackToConfirm: "Quay lại xác nhận",
     flowNewLookup: "Tra cứu vật dụng khác",
@@ -975,10 +971,6 @@ const TRANSLATIONS = {
     correctBtn: "Not quite — edit description",
     step3Number: "03",
     step3Title: "City guidance",
-    flowProgressLabel: "Lookup progress",
-    flowStepLookup: "Describe",
-    flowStepConfirm: "Confirm",
-    flowStepResult: "Result",
     flowBackToLookup: "Back to description",
     flowBackToConfirm: "Back to confirmation",
     flowNewLookup: "Look up another item",
@@ -1444,7 +1436,6 @@ const retakeImageButton = document.querySelector("#retake-image-button");
 const voiceSearchBtn = document.querySelector("#voice-search-btn");
 const voiceStatus = document.querySelector("#voice-status");
 const flowHome = document.querySelector("#flow-home");
-const flowProgress = document.querySelector("#flow-progress");
 const lookupScreen = document.querySelector("#lookup-screen");
 const confirmScreen = document.querySelector("#confirm-screen");
 const recognitionFeedback = document.querySelector("#recognition-feedback");
@@ -1876,20 +1867,6 @@ function scrollFlowTarget(element) {
   });
 }
 
-function updateFlowProgress(step) {
-  if (!flowProgress) return;
-  const showProgress = step !== "lookup";
-  flowProgress.hidden = !showProgress;
-  for (const item of flowProgress.querySelectorAll(".flow-progress-step")) {
-    const itemStep = item.dataset.flowStep;
-    const isActive = itemStep === step;
-    const isComplete =
-      (step === "confirm" && itemStep === "lookup") ||
-      (step === "result" && (itemStep === "lookup" || itemStep === "confirm"));
-    item.classList.toggle("is-active", isActive);
-    item.classList.toggle("is-complete", isComplete);
-  }
-}
 
 function setFlowStep(step) {
   if (step !== "lookup" && step !== "confirm" && step !== "result") return;
@@ -1901,7 +1878,6 @@ function setFlowStep(step) {
     if (step === "result") showFlowPanel(resultPanel, "result");
     else resultPanel.hidden = true;
   }
-  updateFlowProgress(step);
 
   if (step === "lookup") scrollFlowTarget(flowHome || lookupScreen);
   else if (step === "confirm") scrollFlowTarget(confirmScreen);

@@ -9,7 +9,7 @@
     <meta name="theme-color" content="#16a34a" />
     <title>WhatBin — Check where it goes</title>
     <link rel="manifest" href="/manifest.json" />
-    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="icon" type="image/png" sizes="128x128" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/icon-192.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -148,44 +148,6 @@
           </button>
         </nav>
       </div>
-
-      <nav
-        id="flow-progress"
-        class="flow-progress"
-        aria-label="Lookup progress"
-        data-i18n-aria-label="flowProgressLabel"
-        hidden
-      >
-        <ol class="flow-progress-list l--flex -jc:center -ai:center -g:10">
-          <li
-            class="flow-progress-step l--stack -fx:1 -ai:center -g:5"
-            data-flow-step="lookup"
-          >
-            <span class="flow-progress-dot" aria-hidden="true"></span>
-            <span class="flow-progress-label" data-i18n="flowStepLookup"
-              >Mô tả</span
-            >
-          </li>
-          <li
-            class="flow-progress-step l--stack -fx:1 -ai:center -g:5"
-            data-flow-step="confirm"
-          >
-            <span class="flow-progress-dot" aria-hidden="true"></span>
-            <span class="flow-progress-label" data-i18n="flowStepConfirm"
-              >Xác nhận</span
-            >
-          </li>
-          <li
-            class="flow-progress-step l--stack -fx:1 -ai:center -g:5"
-            data-flow-step="result"
-          >
-            <span class="flow-progress-dot" aria-hidden="true"></span>
-            <span class="flow-progress-label" data-i18n="flowStepResult"
-              >Kết quả</span
-            >
-          </li>
-        </ol>
-      </nav>
 
       <section
         id="lookup-screen"

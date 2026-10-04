@@ -1,5 +1,5 @@
 // WhatBin Service Worker — Stale-While-Revalidate Caching for Offline Shell
-const CACHE_NAME = 'whatbin-shell-v3';
+const CACHE_NAME = 'whatbin-shell-v4';
 
 const SHELL_ASSETS = [
   '/',
@@ -10,6 +10,7 @@ const SHELL_ASSETS = [
   '/icon.svg',
   '/icon-192.png',
   '/icon-512.png',
+  '/favicon.png',
   '/whatbin-background.webp',
   '/mascot-happy.webp',
   '/mascot-hero.webp',
