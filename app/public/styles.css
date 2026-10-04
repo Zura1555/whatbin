@@ -2814,17 +2814,14 @@ body::before {
  position: fixed;
  z-index: 0;
  inset: 0;
- background:
-  radial-gradient(ellipse 58px 120px at 4% 22%, rgb(170 219 159 / 48%) 0 42%, transparent 44%),
-  radial-gradient(ellipse 38px 92px at 10% 39%, rgb(194 229 183 / 65%) 0 42%, transparent 44%),
-  radial-gradient(ellipse 72px 145px at 2% 67%, rgb(176 220 160 / 55%) 0 43%, transparent 45%),
-  radial-gradient(ellipse 46px 105px at 12% 82%, rgb(201 232 185 / 64%) 0 42%, transparent 44%),
-  radial-gradient(ellipse 58px 120px at 96% 24%, rgb(179 222 165 / 52%) 0 42%, transparent 44%),
-  radial-gradient(ellipse 38px 92px at 91% 42%, rgb(197 229 184 / 64%) 0 42%, transparent 44%),
-  radial-gradient(ellipse 72px 145px at 98% 68%, rgb(173 219 157 / 53%) 0 43%, transparent 45%),
-  radial-gradient(ellipse 46px 105px at 88% 84%, rgb(201 232 185 / 64%) 0 42%, transparent 44%);
+ background: url("/whatbin-background.png") center / cover no-repeat;
  content: "";
  pointer-events: none;
+}
+@media (max-width: 899px) {
+ body::before {
+  background-size: auto 100%;
+ }
 }
 .page-shell {
  position: relative;
@@ -2832,10 +2829,11 @@ body::before {
 }
 .mark {
  display: block;
- width: 40px;
- height: 40px;
- border-radius: 12px;
- object-fit: cover;
+ width: 44px;
+ height: 44px;
+ border-radius: 0;
+ object-fit: contain;
+ background: transparent;
 }
 .lookup-card {
  position: relative;
@@ -2843,11 +2841,49 @@ body::before {
 .lookup-mascot {
  position: absolute;
  z-index: 1;
- top: -91px;
+ top: -92px;
  right: 82px;
- width: 130px;
- height: 108px;
+ width: 148px;
+ height: 122px;
  object-fit: contain;
+ pointer-events: none;
+}
+.lookup-card::before {
+ position: absolute;
+ top: -62px;
+ right: 214px;
+ width: 30px;
+ height: 30px;
+ background: url("/accent-spark-teal.png") center / contain no-repeat;
+ content: "";
+ pointer-events: none;
+}
+.stream-banner {
+ position: relative;
+ padding-right: 60px;
+}
+.stream-banner::after {
+ position: absolute;
+ right: 6px;
+ bottom: -6px;
+ width: 54px;
+ height: 54px;
+ background: url("/mascot-wink.png") center / contain no-repeat;
+ content: "";
+ pointer-events: none;
+}
+.direct-submit-wrap {
+ position: relative;
+}
+.direct-submit-wrap::before {
+ position: absolute;
+ z-index: 1;
+ top: -12px;
+ left: -20px;
+ width: 26px;
+ height: 26px;
+ background: url("/accent-spark-yellow.png") center / contain no-repeat;
+ content: "";
  pointer-events: none;
 }
 .photo-picker {
@@ -2898,5 +2934,16 @@ body::before {
  .photo-mascot {
   width: 72px;
   height: 78px;
+ }
+}
+@media (max-width: 899px) {
+ .stream-banner {
+  padding-right: 12px;
+ }
+ .stream-banner::after {
+  display: none;
+ }
+ .lookup-card::before {
+  display: none;
  }
 }
