@@ -18,6 +18,21 @@ function geminiUrl() {
 }
 const OPENROUTER_COMPLETIONS_URL = 'https://openrouter.ai/api/v1/chat/completions'
 const OPENROUTER_DECISIONS_URL = 'https://openrouter.ai/api/alpha/decisions'
+const CLEF_FLASH_RUN_PATH = '@cf/cloudflare/clef-flash'
+const CLEF_RUN_PATH = '@cf/cloudflare/clef'
+const RECOGNITION_CONFIDENCE_THRESHOLD = 0.8
+
+function cloudflareClefRunUrl(accountId, variant) {
+  const path = variant === 'clef' ? CLEF_RUN_PATH : CLEF_FLASH_RUN_PATH
+  return `https://api.cloudflare.com/client/v4/accounts/${accountId}/ai/run/${path}`
+}
+
+function cloudflareClefCredentials() {
+  const accountId = process.env.CLOUDFLARE_ACCOUNT_ID?.trim()
+  const token = (process.env.CLOUDFLARE_API_TOKEN || process.env.CLOUDFLARE_AUTH_TOKEN)?.trim()
+  if (!accountId || !token) return null
+  return { accountId, token }
+}
 const RECOGNITION_CATEGORIES = new Map([
   ['old-mattress', {name: 'Old mattress', criteria: 'An old or used household mattress being discarded.'}],
   ['used-household-battery', {name: 'Used household battery', criteria: 'A clearly identified discarded, intact household-size AA or AAA cell.'}],
@@ -164,11 +179,18 @@ function validImage(image) {
 }
 
 async function recognize(input) {
+  const clefCredentials = cloudflareClefCredentials()
   const openRouterKey = process.env.OPENROUTER_API_KEY
   const key = process.env.GEMINI_API_KEY
-  if (!openRouterKey && !key) throw Object.assign(new Error('Recognition is unavailable: configure GEMINI_API_KEY or OPENROUTER_API_KEY.'), { status: 503 })
+  if (!clefCredentials && !openRouterKey && !key) {
+    throw Object.assign(new Error('Recognition is unavailable: configure CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN, GEMINI_API_KEY, or OPENROUTER_API_KEY.'), { status: 503 })
+  }
   const image = input.image
   const description = validText(input.description, 4000) ? input.description.trim() : null
+  if (clefCredentials) {
+    const result = await recognizeWithClef(clefCredentials, description, image)
+    return recognitionResponse(result)
+  }
   const prompt = `Identify a household item${image && description ? ` using the attached image and this description: ${description}` : image ? ' from the attached image' : ` from this description: ${description}`}. The only supported items are canonicalItemId "old-mattress", itemName "Old mattress" (an old or used household mattress being discarded); canonicalItemId "used-household-battery", itemName "Used household battery" (a clearly identified discarded, intact household-size AA or AAA cell); canonicalItemId "used-lithium-ion-battery", itemName "Used rechargeable lithium-ion battery" (a clearly identified discarded rechargeable lithium-ion cell or battery pack that is not installed in a device; do not use this category for batteries still installed in devices, whole devices including power banks, other battery chemistries, chargers, or uncertain items); canonicalItemId "used-power-bank", itemName "Used power bank" (a clearly identified complete discarded portable power bank as a whole item; never identify a whole power bank as a standalone battery); canonicalItemId "used-mobile-phone", itemName "Used mobile phone" (a clearly identified discarded whole mobile phone as one household electronic item; do not use for phone accessories, standalone batteries, batteries installed in a device as separate items, or complete power banks); canonicalItemId "used-fluorescent-lamp", itemName "Used fluorescent lamp" (a clearly identified discarded fluorescent tube or compact fluorescent bulb, whether intact or broken); canonicalItemId "used-mercury-thermometer", itemName "Used mercury thermometer" (a clearly identified discarded mercury thermometer); canonicalItemId "cooked-food-scrap", itemName "Cooked food scrap" (discarded cooked meal leftovers, rice, noodles, or soft food scraps, not raw animal carcasses or large hard bones); canonicalItemId "fruit-vegetable-peel", itemName "Raw fruit and vegetable peel" (discarded soft peels, stems, and trimmings from raw fruits and vegetables, not coconut shells or durian husks); canonicalItemId "fallen-leaves-garden-waste", itemName "Fallen leaves and garden waste" (small quantities of swept fallen leaves, wilted plant foliage, or tender garden trimmings, not large tree branches or trunks); canonicalItemId "discarded-coconut-shell", itemName "Discarded coconut shell" (a discarded whole, halved, or chopped hard coconut shell or husk, not soft coconut meat or general fruit peel); canonicalItemId "large-animal-bone", itemName "Large animal bone" (a discarded large, hard animal bone such as cattle, pig, or goat soup bones, not small soft poultry or fish bones); canonicalItemId "pet-plastic-bottle", itemName "PET plastic beverage bottle" (a discarded transparent or lightly tinted polyethylene terephthalate (PET) plastic bottle used for beverages or cooking oil, not opaque HDPE or PVC bottles); canonicalItemId "corrugated-cardboard-box", itemName "Corrugated cardboard box" (a clean, dry discarded corrugated cardboard shipping or parcel delivery box, not greasy or wax-coated paperboard); canonicalItemId "aluminum-beverage-can", itemName "Aluminum beverage can" (a discarded empty aluminum can used for beer, soda, or other beverages, not a pressurized aerosol spray can); canonicalItemId "glass-bottle-jar", itemName "Glass bottle or jar" (a discarded empty glass beverage bottle or food condiment jar, not broken window glass, mirrors, or ceramic tableware); canonicalItemId "expired-household-medicine", itemName "Expired household medicine" (discarded expired or unused prescription or over-the-counter medicine in pill, liquid, or ointment form, not empty packaging or sharps); canonicalItemId "used-cooking-oil", itemName "Used cooking oil" (discarded spent cooking oil or frying grease from domestic food preparation, not engine or motor oil); canonicalItemId "aerosol-spray-can", itemName "Aerosol spray can" (a discarded pressurized metal canister with a spray valve such as hairspray, deodorant, or spray paint, not an unpressurized beverage can); canonicalItemId "household-pesticide-container", itemName "Household pesticide container" (a discarded bottle, spray, or can that contained household insecticides, mosquito sprays, or pest poison, not regular detergent bottles); canonicalItemId "discarded-wooden-furniture", itemName "Discarded wooden furniture" (a large discarded household wooden item such as a wardrobe, table, chair, desk, or bed frame, not small wooden utensils); canonicalItemId "discarded-upholstered-sofa", itemName "Discarded upholstered sofa" (a discarded sofa, couch, or upholstered armchair, not a compact office chair or loose cushion); canonicalItemId "discarded-electric-fan", itemName "Discarded electric fan" (a discarded standing, desk, wall, or ceiling electric fan, not a handheld mini battery fan); canonicalItemId "discarded-laptop", itemName "Discarded laptop computer" (a complete discarded laptop or notebook computer with screen and keyboard, not a standalone battery or computer monitor); canonicalItemId "discarded-microwave-oven", itemName "Discarded microwave oven" (a discarded countertop microwave or toaster oven, not an industrial oven or standalone induction plate); canonicalItemId "discarded-charging-cable", itemName "Discarded charging cable" (a discarded phone charging cable, USB cord, power cord, or wall charging brick, not a phone or power bank); canonicalItemId "disposable-baby-diaper", itemName "Disposable baby diaper" (a used single-use baby diaper, adult incontinence pad, or sanitary napkin, not cloth diapers); canonicalItemId "broken-ceramic-tableware", itemName "Broken ceramic dish or shards" (broken pieces or shards of ceramic, porcelain bowls, plates, or mugs, not recyclable glass bottles or jars); canonicalItemId "multi-layer-snack-packaging", itemName "Multi-layer snack packaging" (a discarded flexible plastic foil snack bag or noodle wrapper with a shiny metallic interior lining, not clean transparent plastic bags); canonicalItemId "used-motor-oil", itemName "Used motorbike engine motor oil" (spent, dark viscous hydrocarbon motor oil drained from a motorcycle engine, not cooking oil or clean oil); canonicalItemId "used-lead-acid-accumulator", itemName "Discarded motorbike lead-acid battery" (a discarded 12V lead-acid motorcycle battery or accumulator with exposed terminals, not a small cylindrical battery or lithium-ion pack); canonicalItemId "used-motorbike-tire", itemName "Used motorbike tires and inner tubes" (a discarded worn rubber motorcycle tire or punctured inner tube, not bicycle tires or footwear soles); canonicalItemId "discarded-motorbike-helmet", itemName "Discarded motorbike helmet" (a damaged or expired protective motorcycle helmet with outer hard shell and bonded foam liner, not an industrial hard hat or bicycle helmet); canonicalItemId "beverage-carton-tetra-pak", itemName "Aseptic multi-layer beverage carton" (a multi-layer aseptic paper, plastic, and aluminum beverage or milk carton, not a corrugated shipping box or plain paper cup); canonicalItemId "polystyrene-foam-box", itemName "Expanded polystyrene foam box" (a white lightweight expanded polystyrene takeout food box or cooler transport box, not flexible bubble wrap); canonicalItemId "single-use-plastic-bag", itemName "Single-use plastic carrier bag" (an ultra-thin, lightweight single-use polyethylene plastic carrier bag or market film, not a thick reusable shopping bag); canonicalItemId "plastic-bubble-wrap", itemName "Plastic bubble wrap packaging" (flexible plastic cushioning film with air-filled bubbles used for parcel packaging, not rigid foam boxes or cling wrap); canonicalItemId "renovation-rubble-tiles", itemName "Minor home renovation rubble and tiles" (dense mineral debris, shattered bricks, concrete chunks, or broken ceramic floor and wall tiles from home repairs, not dining tableware); canonicalItemId "discarded-ceramic-toilet-sink", itemName "Discarded ceramic toilet or sink" (a discarded vitreous china or porcelain toilet bowl, cistern, or bathroom washbasin, not a stainless steel sink or dining dish); canonicalItemId "used-clothing-textile", itemName "Wearable second-hand clothing" (clean wearable used garments, shirts, pants, or dresses suitable for donation or reuse, not oil-soaked rags or mattresses); canonicalItemId "worn-out-footwear", itemName "Old worn-out shoes and footwear" (torn, broken, or unwearable shoes, disintegrated foam sandals, or sneakers, not wearable shoes or rubber tires); canonicalItemId "used-medical-mask", itemName "Used disposable medical mask" (a used single-use 3-ply or 4-ply pleated surgical or medical face mask with ear loops, not a reusable cloth mask); canonicalItemId "household-medical-sharps", itemName "Household medical sharps and needles" (discarded diabetic lancets, insulin pen needles, or syringes used for domestic medical care, not sewing needles or utility blades); canonicalItemId "discarded-nail-polish-bottle", itemName "Nail polish and solvent bottle" (a small bottle containing nail polish enamel, lacquer, or acetone solvent remover with an applicator cap, not regular beverage glass); canonicalItemId "leftover-paint-can", itemName "Leftover household paint can" (a metal can or plastic bucket containing liquid or cured architectural wall paint, not an aerosol spray can); canonicalItemId "incense-joss-paper-ash", itemName "Incense ash and joss paper ash" (cold, fully extinguished ash from burnt ancestral altar incense sticks or votive spirit paper, not hot embers or charcoal slag); canonicalItemId "coffee-grounds-tea-leaves", itemName "Coffee grounds and loose tea leaves" (spent brewed coffee grounds from drip filters or loose steeped tea leaves, not synthetic plastic tea bags). Do not infer from an uncertain image or description. Return JSON with supported, confidence from 0 to 1, canonicalItemId, and exact itemName. If no supported item is clearly identified, set supported false, confidence below 0.8, canonicalItemId null, and itemName null.`
   if (openRouterKey) {
     const classificationModel = process.env.OPENROUTER_CLASSIFICATION_MODEL || 'typesafe/jev-1.13'
@@ -227,32 +249,95 @@ async function postOpenRouter(url, apiKey, body) {
   }
 }
 
-async function classifyWithJev(apiKey, model, description) {
+function recognitionItemCriteria() {
   const criteria = Object.fromEntries([...RECOGNITION_CATEGORIES].map(([id, item]) => [id, item.criteria]))
   criteria.unsupported = 'Any other item, an item that is unclear or uncertain, or an item that does not meet one supported category exactly.'
-  const envelope = await postOpenRouter(OPENROUTER_DECISIONS_URL, apiKey, {
-    model,
-    state: { description },
-    questions: {
-      item: {
-        type: 'choice',
-        instructions: 'Which single supported discarded household item is clearly identified by the description? Choose unsupported for ambiguity, uncertainty, accessories, or anything outside the listed categories.',
-        criteria,
-      },
+  return criteria
+}
+
+function recognitionItemQuestions(image, description) {
+  const scope = image && description
+    ? ' by the description and attached image'
+    : image ? ' from the attached image' : ' by the description'
+  return {
+    item: {
+      type: 'choice',
+      instructions: `Which single supported discarded household item is clearly identified${scope}? Choose unsupported for ambiguity, uncertainty, accessories, or anything outside the listed categories.`,
+      criteria: recognitionItemCriteria(),
     },
-  })
-  const answer = envelope?.answers?.item
+  }
+}
+
+function recognitionClefState(description, image) {
+  if (description && image) return { description, note: 'An image of the item is attached.' }
+  if (description) return { description }
+  return 'Identify the discarded household item from the attached image.'
+}
+
+function clefEmbeddedImages(image) {
+  if (!image) return undefined
+  return [{ content_type: image.mimeType, base64: image.base64 }]
+}
+
+function decisionChoiceToRecognition(answer) {
   if (answer?.type !== 'choice' || typeof answer.choice !== 'string' ||
     typeof answer.confidence !== 'number' || answer.confidence < 0 || answer.confidence > 1) {
     throw Object.assign(new Error('Recognition provider returned invalid data.'), { status: 502 })
   }
   const item = RECOGNITION_CATEGORIES.get(answer.choice)
   return {
-    supported: Boolean(item) && answer.confidence >= 0.8,
+    supported: Boolean(item) && answer.confidence >= RECOGNITION_CONFIDENCE_THRESHOLD,
     confidence: answer.confidence,
     canonicalItemId: answer.choice,
     itemName: item?.name ?? null,
   }
+}
+
+function decisionRecognitionIsConfident(result) {
+  return result?.supported === true && typeof result.confidence === 'number' &&
+    result.confidence >= RECOGNITION_CONFIDENCE_THRESHOLD && RECOGNITION_CATEGORIES.has(result.canonicalItemId)
+}
+
+async function postCloudflareClef({ accountId, token }, variant, description, image) {
+  const model = variant === 'clef' ? 'clef' : 'clef-flash'
+  const body = {
+    model,
+    state: recognitionClefState(description, image),
+    questions: recognitionItemQuestions(image, description),
+  }
+  const images = clefEmbeddedImages(image)
+  if (images) body.images = images
+  const response = await fetch(cloudflareClefRunUrl(accountId, variant), {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', authorization: `Bearer ${token}` },
+    signal: AbortSignal.timeout(20000),
+    body: JSON.stringify(body),
+  })
+  if (!response.ok) throw Object.assign(new Error('Recognition provider request failed.'), { status: 502 })
+  let envelope
+  try { envelope = await response.json() } catch {
+    throw Object.assign(new Error('Recognition provider returned invalid data.'), { status: 502 })
+  }
+  if (envelope?.success === false) throw Object.assign(new Error('Recognition provider request failed.'), { status: 502 })
+  const payload = envelope?.result ?? envelope
+  return decisionChoiceToRecognition(payload?.answers?.item)
+}
+
+async function recognizeWithClef(credentials, description, image) {
+  const flashResult = await postCloudflareClef(credentials, 'clef-flash', description, image)
+  if (decisionRecognitionIsConfident(flashResult)) return flashResult
+  const clefResult = await postCloudflareClef(credentials, 'clef', description, image)
+  if (decisionRecognitionIsConfident(clefResult)) return clefResult
+  return clefResult.confidence >= flashResult.confidence ? clefResult : flashResult
+}
+
+async function classifyWithJev(apiKey, model, description) {
+  const envelope = await postOpenRouter(OPENROUTER_DECISIONS_URL, apiKey, {
+    model,
+    state: { description },
+    questions: recognitionItemQuestions(null, description),
+  })
+  return decisionChoiceToRecognition(envelope?.answers?.item)
 }
 
 async function classifyWithOpenRouter(apiKey, model, prompt, image) {
@@ -295,7 +380,7 @@ async function classifyWithOpenRouter(apiKey, model, prompt, image) {
 function recognitionResponse(result) {
   const item = RECOGNITION_CATEGORIES.get(result?.canonicalItemId)
   const validCandidate = result?.supported === true && typeof result.confidence === 'number' &&
-    result.confidence >= 0.8 && result.confidence <= 1 && item?.name === result.itemName
+    result.confidence >= RECOGNITION_CONFIDENCE_THRESHOLD && result.confidence <= 1 && item?.name === result.itemName
   return validCandidate
     ? { candidate: { canonicalItemId: result.canonicalItemId, itemName: result.itemName.trim() } }
     : { candidate: null, message: 'The item could not be identified with enough certainty. Try a clearer photo or description.' }

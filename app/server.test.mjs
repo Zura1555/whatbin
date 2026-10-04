@@ -184,6 +184,8 @@ test('recognize accepts exact phone, battery, and power-bank pairs without confl
   let description = 'discarded rechargeable lithium-ion battery pack'
   let prompt
   delete process.env.OPENROUTER_API_KEY
+  delete process.env.CLOUDFLARE_ACCOUNT_ID
+  delete process.env.CLOUDFLARE_API_TOKEN
   process.env.GEMINI_API_KEY = 'test-key'
   globalThis.fetch = async (input, init) => {
     if (String(input).includes('generativelanguage.googleapis.com')) {
@@ -258,12 +260,14 @@ test('recognition uses OpenRouter Jev for text and configurable chat models for 
   await new Promise((resolve) => server.once('listening', resolve))
 
   const originalFetch = globalThis.fetch
-  const envNames = ['GEMINI_API_KEY', 'OPENROUTER_API_KEY', 'OPENROUTER_CLASSIFICATION_MODEL', 'OPENROUTER_VISION_MODEL']
+  const envNames = ['GEMINI_API_KEY', 'OPENROUTER_API_KEY', 'OPENROUTER_CLASSIFICATION_MODEL', 'OPENROUTER_VISION_MODEL', 'CLOUDFLARE_ACCOUNT_ID', 'CLOUDFLARE_API_TOKEN']
   const originalEnv = Object.fromEntries(envNames.map((name) => [name, process.env[name]]))
   process.env.OPENROUTER_API_KEY = 'openrouter-test-key'
   process.env.OPENROUTER_CLASSIFICATION_MODEL = 'typesafe/jev-1.13'
   process.env.OPENROUTER_VISION_MODEL = 'google/gemini-test-vision'
   delete process.env.GEMINI_API_KEY
+  delete process.env.CLOUDFLARE_ACCOUNT_ID
+  delete process.env.CLOUDFLARE_API_TOKEN
   let jevRequest
   let completionRequest
   let answer = {type: 'choice', choice: 'used-mobile-phone', confidence: 0.9, probabilities: {'used-mobile-phone': 0.9}}
@@ -339,7 +343,11 @@ test('recognize handles base64 image requests with Gemini and enforces validatio
   const originalFetch = globalThis.fetch
   const originalApiKey = process.env.GEMINI_API_KEY
   const originalOpenRouterKey = process.env.OPENROUTER_API_KEY
+  const originalCfAccount = process.env.CLOUDFLARE_ACCOUNT_ID
+  const originalCfToken = process.env.CLOUDFLARE_API_TOKEN
   delete process.env.OPENROUTER_API_KEY
+  delete process.env.CLOUDFLARE_ACCOUNT_ID
+  delete process.env.CLOUDFLARE_API_TOKEN
   process.env.GEMINI_API_KEY = 'test-gemini-key'
 
   let geminiPayload
@@ -416,6 +424,72 @@ test('recognize handles base64 image requests with Gemini and enforces validatio
     else process.env.OPENROUTER_API_KEY = originalOpenRouterKey
     if (originalApiKey === undefined) delete process.env.GEMINI_API_KEY
     else process.env.GEMINI_API_KEY = originalApiKey
+    if (originalCfAccount === undefined) delete process.env.CLOUDFLARE_ACCOUNT_ID
+    else process.env.CLOUDFLARE_ACCOUNT_ID = originalCfAccount
+    if (originalCfToken === undefined) delete process.env.CLOUDFLARE_API_TOKEN
+    else process.env.CLOUDFLARE_API_TOKEN = originalCfToken
+    await new Promise((resolve, reject) => server.close((error) => error ? reject(error) : resolve()))
+  }
+})
+test('recognition uses Cloudflare Clef-flash then Clef fallback with images', async () => {
+  const server = createServer()
+  server.listen(0, '127.0.0.1')
+  await new Promise((resolve) => server.once('listening', resolve))
+
+  const originalFetch = globalThis.fetch
+  const envNames = ['GEMINI_API_KEY', 'OPENROUTER_API_KEY', 'CLOUDFLARE_ACCOUNT_ID', 'CLOUDFLARE_API_TOKEN']
+  const originalEnv = Object.fromEntries(envNames.map((name) => [name, process.env[name]]))
+  process.env.CLOUDFLARE_ACCOUNT_ID = 'cf-test-account'
+  process.env.CLOUDFLARE_API_TOKEN = 'cf-test-token'
+  delete process.env.GEMINI_API_KEY
+  delete process.env.OPENROUTER_API_KEY
+
+  const flashAnswer = {type: 'choice', choice: 'used-mobile-phone', confidence: 0.79, probabilities: {'used-mobile-phone': 0.79}}
+  const clefAnswer = {type: 'choice', choice: 'used-mobile-phone', confidence: 0.91, probabilities: {'used-mobile-phone': 0.91}}
+  const clefRequests = []
+  globalThis.fetch = async (input, init) => {
+    const url = String(input)
+    if (url.startsWith('http://127.0.0.1:')) return originalFetch(input, init)
+    if (!url.includes('api.cloudflare.com/client/v4/accounts/cf-test-account/ai/run/')) {
+      throw new Error(`Unexpected external request: ${url}`)
+    }
+    const request = {url, headers: init.headers, body: JSON.parse(init.body)}
+    clefRequests.push(request)
+    const isFlash = url.includes('clef-flash')
+    return new Response(JSON.stringify({
+      success: true,
+      result: {model: isFlash ? 'clef-flash' : 'clef', answers: {item: isFlash ? flashAnswer : clefAnswer}},
+    }), {status: 200})
+  }
+
+  try {
+    const origin = `http://127.0.0.1:${server.address().port}`
+    const response = await originalFetch(`${origin}/api/recognize`, {
+      method: 'POST',
+      headers: {'content-type': 'application/json'},
+      body: JSON.stringify({
+        description: 'discarded whole mobile phone',
+        image: {mimeType: 'image/jpeg', base64: 'AA=='},
+      }),
+    })
+    assert.equal(response.status, 200)
+    assert.deepEqual((await response.json()).candidate, {
+      canonicalItemId: 'used-mobile-phone', itemName: 'Used mobile phone',
+    })
+    assert.equal(clefRequests.length, 2)
+    assert.match(clefRequests[0].url, /clef-flash$/)
+    assert.equal(clefRequests[0].body.model, 'clef-flash')
+    assert.equal(clefRequests[0].body.state.description, 'discarded whole mobile phone')
+    assert.deepEqual(clefRequests[0].body.images, [{content_type: 'image/jpeg', base64: 'AA=='}])
+    assert.match(clefRequests[1].url, /\/clef$/)
+    assert.equal(clefRequests[1].body.model, 'clef')
+    assert.equal(clefRequests[0].headers.authorization, 'Bearer cf-test-token')
+  } finally {
+    globalThis.fetch = originalFetch
+    for (const name of envNames) {
+      if (originalEnv[name] === undefined) delete process.env[name]
+      else process.env[name] = originalEnv[name]
+    }
     await new Promise((resolve, reject) => server.close((error) => error ? reject(error) : resolve()))
   }
 })

@@ -1462,6 +1462,17 @@ const resultContent = document.querySelector("#result-content");
 const compareCitiesButton = document.querySelector("#compare-cities-button");
 const comparisonFeedback = document.querySelector("#comparison-feedback");
 const comparisonPanel = document.querySelector("#comparison-panel");
+const resultTopline = resultPanel.querySelector(".result-topline");
+const resultHeading = document.querySelector("#result-heading");
+const resultLayout = document.createElement("div");
+resultLayout.className = "result-layout";
+const resultMain = document.createElement("div");
+resultMain.className = "result-main";
+const resultChat = document.createElement("aside");
+resultChat.className = "result-chat";
+resultPanel.insertBefore(resultLayout, compareCitiesButton);
+resultMain.append(resultTopline, resultHeading, resultContent);
+resultLayout.append(resultMain, resultChat);
 const recognizeButton = document.querySelector("#recognize-button");
 const manualPanel = document.querySelector("#manual-panel");
 const manualItemSelect = document.querySelector("#manual-item");
@@ -1911,6 +1922,8 @@ function clearResults() {
   resultPanel.hidden = true;
   resultStatus.textContent = "";
   resultContent.replaceChildren();
+  resultChat.replaceChildren();
+  resultLayout.classList.remove("has-chat");
   compareCitiesButton.hidden = true;
   compareCitiesButton.disabled = false;
   comparisonFeedback.hidden = true;
@@ -2364,6 +2377,8 @@ citySelect.addEventListener("change", () => {
   correctButton.disabled = false;
   resultStatus.textContent = "";
   resultContent.replaceChildren();
+  resultChat.replaceChildren();
+  resultLayout.classList.remove("has-chat");
   compareCitiesButton.hidden = true;
   compareCitiesButton.disabled = false;
   comparisonFeedback.hidden = true;
@@ -2580,6 +2595,12 @@ function renderResolution(
   } = {},
 ) {
   currentResolvedData = data;
+  if (panel === resultPanel) {
+    resultChat.replaceChildren();
+    resultLayout.classList.toggle("has-chat", includeExplainer);
+    if (includeExplainer) resultChat.setAttribute("aria-label", t("explainerHeading"));
+    else resultChat.removeAttribute("aria-label");
+  }
   const status = typeof data?.status === "string" ? data.status : "";
   panel.hidden = false;
 
@@ -2602,7 +2623,6 @@ function renderResolution(
   statusNode.className = `status-pill ${statusClass}`;
   contentNode.classList.toggle("result-content-matched", status === "MATCHED");
   contentNode.replaceChildren();
-
   if (includeCity) addText(contentNode, "p", cityName(city), "result-city");
 
   if (status !== "MATCHED") {
@@ -2840,7 +2860,6 @@ function renderExplainer(city, canonicalItemId) {
   expForm.append(question);
   const submit = document.createElement("button");
   submit.className = "button button-primary";
-  submit.type = "submit";
   submit.textContent = t("explainerSubmit");
   expForm.append(submit);
 
@@ -2851,7 +2870,7 @@ function renderExplainer(city, canonicalItemId) {
   feedback.setAttribute("aria-live", "polite");
   feedback.hidden = true;
   section.append(thread, expForm, feedback);
-  resultContent.append(section);
+  resultChat.append(section);
 
   expForm.addEventListener("submit", async (event) => {
     event.preventDefault();
