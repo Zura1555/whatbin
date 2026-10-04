@@ -2548,6 +2548,11 @@ footer {
  display: none;
 }
 
+@page {
+ size: A4 landscape;
+ margin: 8mm;
+}
+
 @media print {
  /* Hide all interactive/screen elements */
  body {
@@ -2581,7 +2586,7 @@ footer {
  /* Show and format printable guide */
  .printable-guide {
   display: block !important;
-  padding: 8mm 10mm !important;
+  padding: 4mm 2mm !important;
   color: #000000 !important;
   font-family: Inter, system-ui, sans-serif !important;
  }
@@ -2634,15 +2639,15 @@ footer {
  }
  .print-streams-grid {
   display: grid !important;
-  grid-template-columns: repeat(5, 1fr) !important;
-  gap: 8px !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  gap: 10px !important;
  }
  .print-stream-card {
   border: 1.5px solid #cbd5e1 !important;
   border-radius: 8px !important;
-  padding: 8px !important;
-  font-size: 9pt !important;
-  line-height: 12.5pt !important;
+  padding: 10px !important;
+  font-size: 10pt !important;
+  line-height: 14.5pt !important;
   display: flex !important;
   flex-direction: column !important;
   background: #ffffff !important;
@@ -2682,18 +2687,18 @@ footer {
  }
  .print-stream-title-wrap h2 {
   margin: 0 !important;
-  font-size: 9.5pt !important;
+  font-size: 10.5pt !important;
   font-weight: 800 !important;
-  line-height: 11pt !important;
+  line-height: 12.5pt !important;
  }
  .print-badge {
-  font-size: 7.5pt !important;
+  font-size: 8.5pt !important;
   font-weight: 700 !important;
   display: block !important;
-  margin-top: 2px !important;
+  margin-top: 3px !important;
  }
  .print-dos {
-  margin-bottom: 5px !important;
+  margin-bottom: 8px !important;
  }
  .dos-label {
   font-weight: 700 !important;
