@@ -591,6 +591,19 @@ async function serveStatic(req, res, pathname) {
   } catch { send(res, 404, { error: 'Not found.' }) }
 }
 
+function errorDiagnostics(error) {
+  if (!error || typeof error !== 'object') return {type: typeof error}
+  const details = {}
+  if (typeof error.name === 'string') details.name = error.name
+  if (Number.isInteger(error.statusCode)) details.statusCode = error.statusCode
+  else if (Number.isInteger(error.status)) details.statusCode = error.status
+  if (typeof error.code === 'string') details.code = error.code
+  if (error.cause && typeof error.cause === 'object' && typeof error.cause.name === 'string') {
+    details.cause = error.cause.name
+  }
+  return details
+}
+
 export function createServer() {
   return createHttpServer(async (req, res) => {
     const url = new URL(req.url, 'http://localhost')
@@ -670,8 +683,9 @@ export function createServer() {
               emitted = true
               if (!res.write(chunk)) await once(res, 'drain')
             }
-          } catch {
+          } catch (error) {
             failed = true
+            console.error('WhatBin explainer stream failed:', errorDiagnostics(error))
           }
           if (!res.destroyed) {
             if (!emitted || failed) {

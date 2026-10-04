@@ -90,7 +90,6 @@ export async function startExplanationStream({question, history, outcomes, abort
           else if (Object.hasOwn(tools, 'array_field_reader') && !calls.has('array_field_reader') && !calls.has('groq_query')) requiredTool = 'array_field_reader'
           return requiredTool ? {toolChoice: {type: 'tool', toolName: requiredTool}} : undefined
         },
-        onError: () => console.error('WhatBin explainer stream failed.'),
       }),
       close: () => mcpClient.close(),
     }
