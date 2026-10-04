@@ -2814,7 +2814,7 @@ body::before {
  position: fixed;
  z-index: 0;
  inset: 0;
- background: url("/whatbin-background.png") center / cover no-repeat;
+ background: url("/whatbin-background.webp") center / cover no-repeat;
  content: "";
  pointer-events: none;
 }
@@ -2854,7 +2854,7 @@ body::before {
  right: 214px;
  width: 30px;
  height: 30px;
- background: url("/accent-spark-teal.png") center / contain no-repeat;
+ background: url("/accent-spark-teal.webp") center / contain no-repeat;
  content: "";
  pointer-events: none;
 }
@@ -2868,7 +2868,7 @@ body::before {
  bottom: -6px;
  width: 54px;
  height: 54px;
- background: url("/mascot-wink.png") center / contain no-repeat;
+ background: url("/mascot-wink.webp") center / contain no-repeat;
  content: "";
  pointer-events: none;
 }
@@ -2882,7 +2882,7 @@ body::before {
  left: -20px;
  width: 26px;
  height: 26px;
- background: url("/accent-spark-yellow.png") center / contain no-repeat;
+ background: url("/accent-spark-yellow.webp") center / contain no-repeat;
  content: "";
  pointer-events: none;
 }
