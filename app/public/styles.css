@@ -304,7 +304,7 @@ textarea {
  border-radius: 12px;
  color: var(--ink);
  background: white;
- font-size: 14px;
+ font-size: 16px;
  transition: border-color 140ms ease;
 }
 select {
@@ -2079,6 +2079,7 @@ footer span:first-child {
  z-index: 1;
  width: min(100%, 580px);
  max-height: 90vh;
+ max-height: 90dvh;
  display: flex;
  flex-direction: column;
  border-radius: 20px;
