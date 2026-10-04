@@ -1016,7 +1016,7 @@ textarea::placeholder {
 }
 
 #comparison-modal .modal-dialog {
- width: min(100%, 960px);
+ width: min(100%, 1120px);
 }
 .comparison-card h3 {
  margin: 0 0 12px;
