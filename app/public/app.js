@@ -802,8 +802,6 @@ const TRANSLATIONS = {
     removePhoto: "Gỡ ảnh",
     photoHint:
       "Có thể chọn ảnh chụp màn hình từ thư viện. Ảnh chỉ được gửi đi khi bạn bấm nhận diện.",
-    privacyNote:
-      "Mô tả và hình ảnh chỉ được gửi đến mô hình AI khi bạn nhấn nhận diện để xác định nhóm rác. WhatBin không lưu trữ hình ảnh hay dữ liệu cá nhân của bạn.",
     recognizeBtn: "Nhận diện & Tra cứu",
     identifying: "Đang nhận diện vật dụng…",
     manualHeading: "Chọn từ danh mục chuẩn",
@@ -962,8 +960,6 @@ const TRANSLATIONS = {
     removePhoto: "Remove",
     photoHint:
       "Choose a screenshot from your photo library, too. Your image is only sent when you identify the item.",
-    privacyNote:
-      "Your description and any photo are sent to Gemini or OpenRouter, depending on server configuration, only when you identify the item. WhatBin does not store them.",
     recognizeBtn: "Identify item",
     identifying: "Identifying your item…",
     manualHeading: "Choose a catalog item",

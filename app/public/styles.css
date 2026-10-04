@@ -552,9 +552,6 @@ textarea::placeholder {
 .direct-submit-wrap {
  margin-top: 4px;
 }
-.direct-submit-wrap .privacy-note {
- margin: 14px 0 16px;
-}
 
 @media (max-width: 899px) {
  #recognize-form[data-active-mode="catalog"] .lookup-col-catalog {
@@ -940,24 +937,6 @@ textarea::placeholder {
  background: #f1f5f9;
  color: #334155;
  border: 1px solid #e2e8f0;
-}
-.privacy-note {
- display: flex;
- gap: 10px;
- margin: 23px 0 20px;
- padding: 14px 15px;
- border: 1px solid #e7ede6;
- border-radius: 12px;
- color: #52645a;
- background: #f6f9f5;
- font-size: 14px;
- line-height: 20px;
-}
-.privacy-icon {
- flex: 0 0 auto;
- color: var(--green);
- font-size: 15px;
- font-weight: 700;
 }
 .button {
  display: inline-flex;
