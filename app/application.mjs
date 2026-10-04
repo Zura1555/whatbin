@@ -687,6 +687,11 @@ export function createServer() {
             failed = true
             console.error('WhatBin explainer stream failed:', errorDiagnostics(error))
           }
+          if (!failed && await agent.result.finishReason === 'length') {
+            failed = true
+            console.error('WhatBin explainer response reached its output token limit.')
+          }
+
           if (!res.destroyed) {
             if (!emitted || failed) {
               if (emitted) res.write('\n\n')

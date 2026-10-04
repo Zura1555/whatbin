@@ -76,10 +76,10 @@ export async function startExplanationStream({question, history, outcomes, abort
         prompt: JSON.stringify({question, history, outcomes}),
         tools,
         stopWhen: stepCountIs(10),
-        maxOutputTokens: 700,
+        maxOutputTokens: 1200,
         temperature: 0.2,
         providerOptions: openRouterApiKey
-          ? {openrouter: {reasoning: {effort: 'low'}}}
+          ? {openrouter: {reasoning: {effort: 'none', exclude: true}}}
           : {google: {thinkingConfig: {thinkingLevel: 'minimal'}}},
         abortSignal,
         prepareStep: ({steps}) => {
