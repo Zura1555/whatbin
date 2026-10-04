@@ -13,7 +13,10 @@
     <link rel="apple-touch-icon" href="/icon-192.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    />
     <link rel="stylesheet" href="/vendor/lism-css/main.css" />
     <link rel="stylesheet" href="/styles.css" />
     <script src="/app.js" defer></script>
@@ -21,47 +24,123 @@
   <body>
     <main class="page-shell l--grid">
       <header class="masthead l--flex -jc:between -ai:center -fxw:wrap -g:10">
-        <a class="wordmark l--flex -ai:center -g:10" href="/" aria-label="WhatBin home">
+        <a
+          class="wordmark l--flex -ai:center -g:10"
+          href="/"
+          aria-label="WhatBin home"
+        >
           <span class="mark" aria-hidden="true">W</span> WhatBin
         </a>
         <div class="masthead-meta l--flex -ai:center -jc:between -g:15">
-          <span class="location-note" data-i18n="mastheadNote">Việt Nam · Cẩm nang phân loại rác tại nguồn</span>
-          <div class="lang-switch l--flex -ai:center" role="radiogroup" aria-label="Language selection">
-            <button type="button" class="lang-btn active" data-lang="vi" role="radio" aria-checked="true">Tiếng Việt</button>
-            <button type="button" class="lang-btn" data-lang="en" role="radio" aria-checked="false">English</button>
+          <span class="location-note" data-i18n="mastheadNote"
+            >Việt Nam · Cẩm nang phân loại rác tại nguồn</span
+          >
+          <div
+            class="lang-switch l--flex -ai:center"
+            role="radiogroup"
+            aria-label="Language selection"
+          >
+            <button
+              type="button"
+              class="lang-btn active"
+              data-lang="vi"
+              role="radio"
+              aria-checked="true"
+            >
+              Tiếng Việt
+            </button>
+            <button
+              type="button"
+              class="lang-btn"
+              data-lang="en"
+              role="radio"
+              aria-checked="false"
+            >
+              English
+            </button>
           </div>
         </div>
       </header>
 
       <div id="flow-home" class="flow-home">
-      <section class="intro" aria-labelledby="page-title">
-        <p class="eyebrow" data-i18n="introEyebrow">Phân loại rác tại nguồn</p>
-        <h1 id="page-title" data-i18n="introTitle">Bỏ vào thùng nào?</h1>
-        <p class="intro-copy" data-i18n="introCopy">
-          Tra cứu quy định phân loại rác theo từng đô thị và đối chiếu trực tiếp với căn cứ pháp lý chính thức.
-        </p>
-      </section>
+        <section class="intro" aria-labelledby="page-title">
+          <p class="eyebrow" data-i18n="introEyebrow">
+            Phân loại rác tại nguồn
+          </p>
+          <h1 id="page-title" data-i18n="introTitle">Bỏ vào thùng nào?</h1>
+          <p class="intro-copy" data-i18n="introCopy">
+            Tra cứu quy định phân loại rác theo từng đô thị và đối chiếu trực
+            tiếp với căn cứ pháp lý chính thức.
+          </p>
+        </section>
 
-      <nav class="quick-nav l--cluster -jc:center -g:10" aria-label="Feature shortcuts">
-        <button type="button" class="quick-nav-btn" id="open-quiz-btn">
-          <span class="btn-icon" aria-hidden="true">
-            <svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.516 0c.85.493 1.508 1.333 1.508 2.316V18" /></svg>
-          </span>
-          <span data-i18n="quickNavQuiz">Trắc nghiệm phân loại</span>
-        </button>
-        <button type="button" class="quick-nav-btn" id="open-dropoff-btn">
-          <span class="btn-icon" aria-hidden="true">
-            <svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" /></svg>
-          </span>
-          <span data-i18n="quickNavDropoff">Điểm thu gom &amp; EPR</span>
-        </button>
-        <button type="button" class="quick-nav-btn" id="print-guide-btn">
-          <span class="btn-icon" aria-hidden="true">
-            <svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0 1 10.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0 .229 2.523a1.125 1.125 0 0 1-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0 0 21 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 0 0-1.913-.247M6.34 18H5.25A2.25 2.25 0 0 1 3 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 0 1 1.913-.247m10.5 0a48.536 48.536 0 0 0-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5Zm-3 0h.008v.008H15V10.5Z" /></svg>
-          </span>
-          <span data-i18n="quickNavPrint">In cẩm nang treo tường</span>
-        </button>
-      </nav>
+        <nav
+          class="quick-nav l--cluster -jc:center -g:10"
+          aria-label="Feature shortcuts"
+        >
+          <button type="button" class="quick-nav-btn" id="open-quiz-btn">
+            <span class="btn-icon" aria-hidden="true">
+              <svg
+                class="hi-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.75"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.516 0c.85.493 1.508 1.333 1.508 2.316V18"
+                />
+              </svg>
+            </span>
+            <span data-i18n="quickNavQuiz">Trắc nghiệm phân loại</span>
+          </button>
+          <button type="button" class="quick-nav-btn" id="open-dropoff-btn">
+            <span class="btn-icon" aria-hidden="true">
+              <svg
+                class="hi-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.75"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
+                />
+              </svg>
+            </span>
+            <span data-i18n="quickNavDropoff">Điểm thu gom &amp; EPR</span>
+          </button>
+          <button type="button" class="quick-nav-btn" id="print-guide-btn">
+            <span class="btn-icon" aria-hidden="true">
+              <svg
+                class="hi-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.75"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0 1 10.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0 .229 2.523a1.125 1.125 0 0 1-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0 0 21 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 0 0-1.913-.247M6.34 18H5.25A2.25 2.25 0 0 1 3 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 0 1 1.913-.247m10.5 0a48.536 48.536 0 0 0-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5Zm-3 0h.008v.008H15V10.5Z"
+                />
+              </svg>
+            </span>
+            <span data-i18n="quickNavPrint">In cẩm nang treo tường</span>
+          </button>
+        </nav>
       </div>
 
       <nav
@@ -72,41 +151,98 @@
         hidden
       >
         <ol class="flow-progress-list l--flex -jc:center -ai:center -g:10">
-          <li class="flow-progress-step l--stack -fx:1 -ai:center -g:5" data-flow-step="lookup">
+          <li
+            class="flow-progress-step l--stack -fx:1 -ai:center -g:5"
+            data-flow-step="lookup"
+          >
             <span class="flow-progress-dot" aria-hidden="true"></span>
-            <span class="flow-progress-label" data-i18n="flowStepLookup">Mô tả</span>
+            <span class="flow-progress-label" data-i18n="flowStepLookup"
+              >Mô tả</span
+            >
           </li>
-          <li class="flow-progress-step l--stack -fx:1 -ai:center -g:5" data-flow-step="confirm">
+          <li
+            class="flow-progress-step l--stack -fx:1 -ai:center -g:5"
+            data-flow-step="confirm"
+          >
             <span class="flow-progress-dot" aria-hidden="true"></span>
-            <span class="flow-progress-label" data-i18n="flowStepConfirm">Xác nhận</span>
+            <span class="flow-progress-label" data-i18n="flowStepConfirm"
+              >Xác nhận</span
+            >
           </li>
-          <li class="flow-progress-step l--stack -fx:1 -ai:center -g:5" data-flow-step="result">
+          <li
+            class="flow-progress-step l--stack -fx:1 -ai:center -g:5"
+            data-flow-step="result"
+          >
             <span class="flow-progress-dot" aria-hidden="true"></span>
-            <span class="flow-progress-label" data-i18n="flowStepResult">Kết quả</span>
+            <span class="flow-progress-label" data-i18n="flowStepResult"
+              >Kết quả</span
+            >
           </li>
         </ol>
       </nav>
 
-      <section id="lookup-screen" class="lookup-card flow-screen" aria-labelledby="lookup-title">
+      <section
+        id="lookup-screen"
+        class="lookup-card flow-screen"
+        aria-labelledby="lookup-title"
+      >
         <div class="section-heading l--flex -ai:start -g:15">
-          <span class="step-number" aria-hidden="true" data-i18n="step1Number">01</span>
+          <span class="step-number" aria-hidden="true" data-i18n="step1Number"
+            >01</span
+          >
           <div>
-            <h2 id="lookup-title" data-i18n="step1Title">Chụp ảnh hoặc mô tả đồ cần bỏ</h2>
-            <p data-i18n="step1Copy">Chọn thành phố, sau đó chụp ảnh, tải ảnh hoặc nhập mô tả vật dụng.</p>
+            <h2 id="lookup-title" data-i18n="step1Title">
+              Chụp ảnh hoặc mô tả đồ cần bỏ
+            </h2>
+            <p data-i18n="step1Copy">
+              Chọn thành phố, sau đó chụp ảnh, tải ảnh hoặc nhập mô tả vật dụng.
+            </p>
           </div>
         </div>
 
-                <form id="recognize-form" data-active-mode="catalog">
+        <form id="recognize-form" data-active-mode="catalog">
           <div class="field-group city-field-group">
-            <label for="jurisdiction" data-i18n="cityLabel">Thành phố của bạn</label>
-            <select id="jurisdiction" name="jurisdiction" required>
-              <option value="hanoi" data-i18n="cityHanoi">Hà Nội</option>
-              <option value="ho-chi-minh-city" data-i18n="cityHcmc">TP. Hồ Chí Minh</option>
-            </select>
+            <label id="city-label" for="jurisdiction" data-i18n="cityLabel"
+              >Thành phố của bạn</label
+            >
+            <div class="city-picker">
+              <select
+                id="jurisdiction"
+                name="jurisdiction"
+                required
+                aria-hidden="true"
+                tabindex="-1"
+              >
+                <option value="hanoi" data-i18n="cityHanoi">Hà Nội</option>
+                <option value="ho-chi-minh-city" data-i18n="cityHcmc">
+                  TP. Hồ Chí Minh
+                </option>
+              </select>
+              <button
+                class="city-picker-trigger"
+                type="button"
+                aria-labelledby="city-label city-value"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+              >
+                <span id="city-value">Hà Nội</span
+                ><span class="city-picker-chevron" aria-hidden="true"></span>
+              </button>
+              <div
+                class="city-picker-menu"
+                role="listbox"
+                aria-labelledby="city-label"
+                hidden
+              ></div>
+            </div>
           </div>
 
           <!-- Mobile Segmented Mode Switcher (visible on mobile only) -->
-          <div class="input-mode-switcher l--flex -g:5" role="tablist" aria-label="Input mode">
+          <div
+            class="input-mode-switcher l--flex -g:5"
+            role="tablist"
+            aria-label="Input mode"
+          >
             <button
               type="button"
               class="mode-tab l--flex -fx:1 -ai:center -jc:center -g:5 active"
@@ -116,7 +252,24 @@
               id="mode-tab-catalog"
             >
               <span class="mode-icon" aria-hidden="true">
-                <svg class="hi-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" /></svg>
+                <svg
+                  class="hi-icon"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 6h.008v.008H6V6Z"
+                  />
+                </svg>
               </span>
               <span data-i18n="modeCatalog">Danh mục 5 nhóm</span>
             </button>
@@ -129,7 +282,19 @@
               id="mode-tab-text"
             >
               <span class="mode-icon" aria-hidden="true">
-                <svg class="hi-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" /></svg>
+                <svg
+                  class="hi-icon"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
+                  />
+                </svg>
               </span>
               <span data-i18n="modeText">Mô tả / Giọng nói</span>
             </button>
@@ -142,7 +307,24 @@
               id="mode-tab-photo"
             >
               <span class="mode-icon" aria-hidden="true">
-                <svg class="hi-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z" /></svg>
+                <svg
+                  class="hi-icon"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z"
+                  />
+                </svg>
               </span>
               <span data-i18n="modePhoto">Chụp ảnh AI</span>
             </button>
@@ -153,265 +335,415 @@
             <div class="lookup-col-direct">
               <div class="input-panel-text" id="input-panel-text">
                 <div class="field-group">
-            <div class="textarea-label-row">
-              <label for="description" data-i18n="itemLabel">Vật dụng bạn muốn bỏ là gì?</label>
-            </div>
-            <div class="textarea-wrapper">
-              <textarea
-                id="description"
-                name="description"
-                rows="3"
-                maxlength="2000"
-                placeholder="Mô tả vật dụng hoặc tình trạng (ví dụ: chai nhựa rỗng, bóng đèn huỳnh quang, đệm mút cũ...)"
-                data-i18n-placeholder="itemPlaceholder"
-              ></textarea>
-              <button
-                type="button"
-                id="voice-search-btn"
-                class="voice-search-btn"
-                title="Tìm kiếm bằng giọng nói"
-                aria-label="Tìm kiếm bằng giọng nói"
-                data-i18n-title="voiceSearchTitle"
-                data-i18n-aria-label="voiceSearchTitle"
-              >
-                <svg class="mic-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3M8 22h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span class="mic-wave" aria-hidden="true"></span>
-              </button>
-            </div>
-            <div id="voice-status" class="voice-status enter-transition" hidden aria-live="polite"></div>
+                  <div class="textarea-label-row">
+                    <label for="description" data-i18n="itemLabel"
+                      >Vật dụng bạn muốn bỏ là gì?</label
+                    >
+                  </div>
+                  <div class="textarea-wrapper">
+                    <textarea
+                      id="description"
+                      name="description"
+                      rows="3"
+                      maxlength="2000"
+                      placeholder="Mô tả vật dụng hoặc tình trạng (ví dụ: chai nhựa rỗng, bóng đèn huỳnh quang, đệm mút cũ...)"
+                      data-i18n-placeholder="itemPlaceholder"
+                    ></textarea>
+                    <button
+                      type="button"
+                      id="voice-search-btn"
+                      class="voice-search-btn"
+                      title="Tìm kiếm bằng giọng nói"
+                      aria-label="Tìm kiếm bằng giọng nói"
+                      data-i18n-title="voiceSearchTitle"
+                      data-i18n-aria-label="voiceSearchTitle"
+                    >
+                      <svg
+                        class="mic-icon"
+                        aria-hidden="true"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"
+                          stroke="currentColor"
+                          stroke-width="1.8"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3M8 22h8"
+                          stroke="currentColor"
+                          stroke-width="1.8"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      <span class="mic-wave" aria-hidden="true"></span>
+                    </button>
+                  </div>
+                  <div
+                    id="voice-status"
+                    class="voice-status enter-transition"
+                    hidden
+                    aria-live="polite"
+                  ></div>
                 </div>
               </div>
 
               <div class="input-panel-photo" id="input-panel-photo">
                 <div class="field-group photo-field">
-            <p class="photo-label" id="photo-label">
-              <span data-i18n="photoLabel">Chụp ảnh hoặc chọn ảnh</span> <span class="optional" data-i18n="photoOptional">(không bắt buộc)</span>
-            </p>
-            <div class="photo-picker">
-              <div class="photo-picker-copy">
-                <strong data-i18n="photoPickerTitle">Hình ảnh vật dụng</strong>
-                <span data-i18n="photoPickerCopy">Chụp ảnh trực tiếp hoặc chọn ảnh/ảnh chụp màn hình từ thư viện.</span>
-              </div>
-              <input
-                id="image"
-                type="file"
-                accept="image/jpeg,image/png,image/webp"
-                aria-describedby="photo-hint"
-                hidden
-              />
-              <input
-                id="camera-image"
-                type="file"
-                accept="image/jpeg,image/png,image/webp"
-                capture="environment"
-                aria-describedby="photo-hint"
-                hidden
-              />
-              <div class="photo-actions l--columns -g:10">
-                <button
-                  class="button button-primary photo-action"
-                  id="take-photo-button"
-                  type="button"
-                >
-                  <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M4 7.5h3l1.5-2h7l1.5 2h3A1.5 1.5 0 0 1 21.5 9v9a1.5 1.5 0 0 1-1.5 1.5H4A1.5 1.5 0 0 1 2.5 18V9A1.5 1.5 0 0 1 4 7.5Z"
-                      stroke="currentColor"
-                      stroke-width="1.7"
-                      stroke-linejoin="round"
+                  <p class="photo-label" id="photo-label">
+                    <span data-i18n="photoLabel">Chụp ảnh hoặc chọn ảnh</span>
+                    <span class="optional" data-i18n="photoOptional"
+                      >(không bắt buộc)</span
+                    >
+                  </p>
+                  <div class="photo-picker">
+                    <div class="photo-picker-copy">
+                      <strong data-i18n="photoPickerTitle"
+                        >Hình ảnh vật dụng</strong
+                      >
+                      <span data-i18n="photoPickerCopy"
+                        >Chụp ảnh trực tiếp hoặc chọn ảnh/ảnh chụp màn hình từ
+                        thư viện.</span
+                      >
+                    </div>
+                    <input
+                      id="image"
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp"
+                      aria-describedby="photo-hint"
+                      hidden
                     />
-                    <circle
-                      cx="12"
-                      cy="13"
-                      r="3.25"
-                      stroke="currentColor"
-                      stroke-width="1.7"
+                    <input
+                      id="camera-image"
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp"
+                      capture="environment"
+                      aria-describedby="photo-hint"
+                      hidden
                     />
-                  </svg>
-                  <span data-i18n="takePhoto">Chụp ảnh</span>
-                </button>
-                <button
-                  class="button button-secondary photo-action"
-                  id="choose-photo-button"
-                  type="button"
-                >
-                  <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
-                    <rect
-                      x="3"
-                      y="4"
-                      width="18"
-                      height="16"
-                      rx="2"
-                      stroke="currentColor"
-                      stroke-width="1.7"
-                    />
-                    <circle
-                      cx="9"
-                      cy="10"
-                      r="1.5"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                    />
-                    <path
-                      d="m4 17 5-4 3 2 3-3 5 5"
-                      stroke="currentColor"
-                      stroke-width="1.7"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  <span data-i18n="choosePhoto">Tải ảnh lên</span>
-                </button>
-              </div>
-            </div>
-            <div id="image-preview" class="photo-preview" hidden>
-              <div class="photo-preview-thumb-wrap">
-                <img id="image-preview-image" alt="" />
-                <button
-                  class="photo-clear-btn"
-                  id="remove-image-button"
-                  type="button"
-                  title="Gỡ ảnh này"
-                  aria-label="Gỡ ảnh này"
-                  data-i18n-title="removePhoto"
-                  data-i18n-aria-label="removePhoto"
-                ><svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg></button>
-              </div>
-              <div class="photo-preview-copy">
-                <strong data-i18n="photoReady">Ảnh đã sẵn sàng</strong>
-                <span id="image-preview-name"></span>
-                <span id="image-preview-meta" class="photo-preview-meta"></span>
-              </div>
-              <div class="photo-preview-actions">
-                <button
-                  class="button button-secondary photo-retake-btn"
-                  id="retake-image-button"
-                  type="button"
-                  data-i18n="retakePhoto"
-                >
-                  Đổi ảnh
-                </button>
-              </div>
-            </div>
-            <span class="field-hint" id="photo-hint" data-i18n="photoHint">
-              Có thể chọn ảnh chụp màn hình từ thư viện. Ảnh chỉ được gửi đi khi bạn bấm nhận diện.
-            </span>
-          </div>
+                    <div class="photo-actions l--columns -g:10">
+                      <button
+                        class="button button-primary photo-action"
+                        id="take-photo-button"
+                        type="button"
+                      >
+                        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+                          <path
+                            d="M4 7.5h3l1.5-2h7l1.5 2h3A1.5 1.5 0 0 1 21.5 9v9a1.5 1.5 0 0 1-1.5 1.5H4A1.5 1.5 0 0 1 2.5 18V9A1.5 1.5 0 0 1 4 7.5Z"
+                            stroke="currentColor"
+                            stroke-width="1.7"
+                            stroke-linejoin="round"
+                          />
+                          <circle
+                            cx="12"
+                            cy="13"
+                            r="3.25"
+                            stroke="currentColor"
+                            stroke-width="1.7"
+                          />
+                        </svg>
+                        <span data-i18n="takePhoto">Chụp ảnh</span>
+                      </button>
+                      <button
+                        class="button button-secondary photo-action"
+                        id="choose-photo-button"
+                        type="button"
+                      >
+                        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+                          <rect
+                            x="3"
+                            y="4"
+                            width="18"
+                            height="16"
+                            rx="2"
+                            stroke="currentColor"
+                            stroke-width="1.7"
+                          />
+                          <circle
+                            cx="9"
+                            cy="10"
+                            r="1.5"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                          />
+                          <path
+                            d="m4 17 5-4 3 2 3-3 5 5"
+                            stroke="currentColor"
+                            stroke-width="1.7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                        <span data-i18n="choosePhoto">Tải ảnh lên</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div id="image-preview" class="photo-preview" hidden>
+                    <div class="photo-preview-thumb-wrap">
+                      <img id="image-preview-image" alt="" />
+                      <button
+                        class="photo-clear-btn"
+                        id="remove-image-button"
+                        type="button"
+                        title="Gỡ ảnh này"
+                        aria-label="Gỡ ảnh này"
+                        data-i18n-title="removePhoto"
+                        data-i18n-aria-label="removePhoto"
+                      >
+                        <svg
+                          class="hi-icon"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="2.2"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M6 18 18 6M6 6l12 12"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                    <div class="photo-preview-copy">
+                      <strong data-i18n="photoReady">Ảnh đã sẵn sàng</strong>
+                      <span id="image-preview-name"></span>
+                      <span
+                        id="image-preview-meta"
+                        class="photo-preview-meta"
+                      ></span>
+                    </div>
+                    <div class="photo-preview-actions">
+                      <button
+                        class="button button-secondary photo-retake-btn"
+                        id="retake-image-button"
+                        type="button"
+                        data-i18n="retakePhoto"
+                      >
+                        Đổi ảnh
+                      </button>
+                    </div>
+                  </div>
+                  <span
+                    class="field-hint"
+                    id="photo-hint"
+                    data-i18n="photoHint"
+                  >
+                    Có thể chọn ảnh chụp màn hình từ thư viện. Ảnh chỉ được gửi
+                    đi khi bạn bấm nhận diện.
+                  </span>
+                </div>
               </div>
 
               <div class="direct-submit-wrap" id="direct-submit-wrap">
                 <p class="privacy-note">
-            <span class="privacy-icon" aria-hidden="true">↗</span>
-            <span data-i18n="privacyNote">Mô tả và hình ảnh chỉ được gửi đến mô hình AI khi bạn nhấn nhận diện để xác định nhóm rác. WhatBin không lưu trữ hình ảnh hay dữ liệu cá nhân của bạn.</span>
-          </p>
-          <button
-            class="button button-primary"
-            type="submit"
-            id="recognize-button"
-          >
-            <span data-i18n="recognizeBtn">Nhận diện &amp; Tra cứu</span> <span aria-hidden="true">→</span>
-          </button>
+                  <span class="privacy-icon" aria-hidden="true">↗</span>
+                  <span data-i18n="privacyNote"
+                    >Mô tả và hình ảnh chỉ được gửi đến mô hình AI khi bạn nhấn
+                    nhận diện để xác định nhóm rác. WhatBin không lưu trữ hình
+                    ảnh hay dữ liệu cá nhân của bạn.</span
+                  >
+                </p>
+                <button
+                  class="button button-primary"
+                  type="submit"
+                  id="recognize-button"
+                >
+                  <span data-i18n="recognizeBtn">Nhận diện &amp; Tra cứu</span>
+                  <span aria-hidden="true">→</span>
+                </button>
               </div>
             </div>
 
             <!-- Right Column on Desktop: 5-Stream Catalog & Quick-Tap Hub -->
             <div class="lookup-col-catalog" id="input-panel-catalog">
-              <div class="stream-catalog" aria-labelledby="stream-catalog-label">
-              <div class="stream-catalog-header">
-                <span class="examples-label" id="stream-catalog-label" data-i18n="streamCatalogLabel">
-                  Danh mục 5 nhóm rác &amp; tra cứu nhanh
-                </span>
-              </div>
-              <div class="stream-tabs l--flex -g:5" role="tablist" aria-label="Waste stream categories">
-                <button
-                  type="button"
-                  class="stream-tab active"
-                  role="tab"
-                  id="tab-recyclables"
-                  aria-selected="true"
-                  aria-controls="stream-chips"
-                  data-stream="recyclables"
-                >
-                  <span class="stream-icon" aria-hidden="true">
-                    <svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3" /></svg>
-                  </span>
-                  <span class="stream-title" data-i18n="streamRecyclable">Tái chế</span>
-                  <span class="stream-tab-count">12</span>
-                </button>
-                <button
-                  type="button"
-                  class="stream-tab"
-                  role="tab"
-                  id="tab-food"
-                  aria-selected="false"
-                  aria-controls="stream-chips"
-                  data-stream="food"
-                >
-                  <span class="stream-icon" aria-hidden="true">
-                    <svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582" /></svg>
-                  </span>
-                  <span class="stream-title" data-i18n="streamFood">Thực phẩm</span>
-                  <span class="stream-tab-count">4</span>
-                </button>
-                <button
-                  type="button"
-                  class="stream-tab"
-                  role="tab"
-                  id="tab-hazardous"
-                  aria-selected="false"
-                  aria-controls="stream-chips"
-                  data-stream="hazardous"
-                >
-                  <span class="stream-icon" aria-hidden="true">
-                    <svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" /></svg>
-                  </span>
-                  <span class="stream-title" data-i18n="streamHazardous">Nguy hại</span>
-                  <span class="stream-tab-count">13</span>
-                </button>
-                <button
-                  type="button"
-                  class="stream-tab"
-                  role="tab"
-                  id="tab-bulky"
-                  aria-selected="false"
-                  aria-controls="stream-chips"
-                  data-stream="bulky"
-                >
-                  <span class="stream-icon" aria-hidden="true">
-                    <svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25M16.5 18.75h-2.25m0-11.25V18.75m0-11.25h-9a2.25 2.25 0 0 0-2.25 2.25v7.5" /></svg>
-                  </span>
-                  <span class="stream-title" data-i18n="streamBulky">Cồng kềnh</span>
-                  <span class="stream-tab-count">6</span>
-                </button>
-                <button
-                  type="button"
-                  class="stream-tab"
-                  role="tab"
-                  id="tab-other"
-                  aria-selected="false"
-                  aria-controls="stream-chips"
-                  data-stream="other"
-                >
-                  <span class="stream-icon" aria-hidden="true">
-                    <svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" /></svg>
-                  </span>
-                  <span class="stream-title" data-i18n="streamOther">Rác khác</span>
-                  <span class="stream-tab-count">12</span>
-                </button>
-              </div>
-              <div class="stream-banner" id="stream-banner" aria-live="polite"></div>
               <div
-                class="stream-chips example-list l--cluster -g:10"
-                id="stream-chips"
-                role="group"
+                class="stream-catalog"
                 aria-labelledby="stream-catalog-label"
               >
-                <!-- Populated dynamically with canonical items as quick-tap chips -->
+                <div class="stream-catalog-header">
+                  <span
+                    class="examples-label"
+                    id="stream-catalog-label"
+                    data-i18n="streamCatalogLabel"
+                  >
+                    Danh mục 5 nhóm rác &amp; tra cứu nhanh
+                  </span>
+                </div>
+                <div
+                  class="stream-tabs l--flex -g:5"
+                  role="tablist"
+                  aria-label="Waste stream categories"
+                >
+                  <button
+                    type="button"
+                    class="stream-tab active"
+                    role="tab"
+                    id="tab-recyclables"
+                    aria-selected="true"
+                    aria-controls="stream-chips"
+                    data-stream="recyclables"
+                  >
+                    <span class="stream-icon" aria-hidden="true">
+                      <svg
+                        class="hi-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.75"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3"
+                        />
+                      </svg>
+                    </span>
+                    <span class="stream-title" data-i18n="streamRecyclable"
+                      >Tái chế</span
+                    >
+                    <span class="stream-tab-count">12</span>
+                  </button>
+                  <button
+                    type="button"
+                    class="stream-tab"
+                    role="tab"
+                    id="tab-food"
+                    aria-selected="false"
+                    aria-controls="stream-chips"
+                    data-stream="food"
+                  >
+                    <span class="stream-icon" aria-hidden="true">
+                      <svg
+                        class="hi-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.75"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582"
+                        />
+                      </svg>
+                    </span>
+                    <span class="stream-title" data-i18n="streamFood"
+                      >Thực phẩm</span
+                    >
+                    <span class="stream-tab-count">4</span>
+                  </button>
+                  <button
+                    type="button"
+                    class="stream-tab"
+                    role="tab"
+                    id="tab-hazardous"
+                    aria-selected="false"
+                    aria-controls="stream-chips"
+                    data-stream="hazardous"
+                  >
+                    <span class="stream-icon" aria-hidden="true">
+                      <svg
+                        class="hi-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.75"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"
+                        />
+                      </svg>
+                    </span>
+                    <span class="stream-title" data-i18n="streamHazardous"
+                      >Nguy hại</span
+                    >
+                    <span class="stream-tab-count">13</span>
+                  </button>
+                  <button
+                    type="button"
+                    class="stream-tab"
+                    role="tab"
+                    id="tab-bulky"
+                    aria-selected="false"
+                    aria-controls="stream-chips"
+                    data-stream="bulky"
+                  >
+                    <span class="stream-icon" aria-hidden="true">
+                      <svg
+                        class="hi-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.75"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25M16.5 18.75h-2.25m0-11.25V18.75m0-11.25h-9a2.25 2.25 0 0 0-2.25 2.25v7.5"
+                        />
+                      </svg>
+                    </span>
+                    <span class="stream-title" data-i18n="streamBulky"
+                      >Cồng kềnh</span
+                    >
+                    <span class="stream-tab-count">6</span>
+                  </button>
+                  <button
+                    type="button"
+                    class="stream-tab"
+                    role="tab"
+                    id="tab-other"
+                    aria-selected="false"
+                    aria-controls="stream-chips"
+                    data-stream="other"
+                  >
+                    <span class="stream-icon" aria-hidden="true">
+                      <svg
+                        class="hi-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.75"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                        />
+                      </svg>
+                    </span>
+                    <span class="stream-title" data-i18n="streamOther"
+                      >Rác khác</span
+                    >
+                    <span class="stream-tab-count">12</span>
+                  </button>
+                </div>
+                <div
+                  class="stream-banner"
+                  id="stream-banner"
+                  aria-live="polite"
+                ></div>
+                <div
+                  class="stream-chips example-list l--cluster -g:10"
+                  id="stream-chips"
+                  role="group"
+                  aria-labelledby="stream-catalog-label"
+                >
+                  <!-- Populated dynamically with canonical items as quick-tap chips -->
+                </div>
               </div>
-            </div>
             </div>
           </div>
         </form>
@@ -435,7 +767,13 @@
           <span aria-hidden="true">←</span>
           <span data-i18n="flowBackToLookup">Quay lại mô tả</span>
         </button>
-        <h2 id="confirm-screen-title" class="visually-hidden" data-i18n="step2Title">Xác nhận vật dụng</h2>
+        <h2
+          id="confirm-screen-title"
+          class="visually-hidden"
+          data-i18n="step2Title"
+        >
+          Xác nhận vật dụng
+        </h2>
         <div
           id="confirm-feedback"
           class="feedback"
@@ -449,14 +787,22 @@
           aria-labelledby="manual-heading"
           hidden
         >
-          <h2 id="manual-heading" data-i18n="manualHeading">Chọn từ danh mục chuẩn</h2>
+          <h2 id="manual-heading" data-i18n="manualHeading">
+            Chọn từ danh mục chuẩn
+          </h2>
           <p class="candidate-intro" data-i18n="manualIntro">
-            Chọn vật dụng gần đúng nhất. Bước tiếp theo kiểm tra quy định ban hành tại thành phố của bạn; nếu chưa có quy định, WhatBin sẽ không tự suy đoán.
+            Chọn vật dụng gần đúng nhất. Bước tiếp theo kiểm tra quy định ban
+            hành tại thành phố của bạn; nếu chưa có quy định, WhatBin sẽ không
+            tự suy đoán.
           </p>
           <div class="field-group">
-            <label for="manual-item" data-i18n="manualSelectLabel">Vật dụng danh mục</label>
+            <label for="manual-item" data-i18n="manualSelectLabel"
+              >Vật dụng danh mục</label
+            >
             <select id="manual-item" disabled>
-              <option value="" data-i18n="manualSelectPlaceholder">Chọn một vật dụng chuẩn</option>
+              <option value="" data-i18n="manualSelectPlaceholder">
+                Chọn một vật dụng chuẩn
+              </option>
             </select>
           </div>
           <div class="candidate-actions">
@@ -478,8 +824,12 @@
           hidden
         >
           <div class="step-heading">
-            <span class="step-number" aria-hidden="true" data-i18n="step2Number">02</span>
-            <h2 id="candidate-heading" data-i18n="step2Title">Xác nhận vật dụng</h2>
+            <span class="step-number" aria-hidden="true" data-i18n="step2Number"
+              >02</span
+            >
+            <h2 id="candidate-heading" data-i18n="step2Title">
+              Xác nhận vật dụng
+            </h2>
           </div>
           <p class="candidate-intro" data-i18n="step2Intro">
             Kiểm tra kết quả nhận diện trước khi tra cứu hướng dẫn phân loại.
@@ -491,7 +841,8 @@
               id="confirm-button"
               type="button"
             >
-              <span data-i18n="confirmBtn">Xác nhận &amp; Xem hướng dẫn</span> <span aria-hidden="true">→</span>
+              <span data-i18n="confirmBtn">Xác nhận &amp; Xem hướng dẫn</span>
+              <span aria-hidden="true">→</span>
             </button>
             <button
               class="button button-secondary"
@@ -517,7 +868,9 @@
           <span data-i18n="flowBackToConfirm">Quay lại xác nhận</span>
         </button>
         <div class="result-topline">
-          <span class="step-number" aria-hidden="true" data-i18n="step3Number">03</span>
+          <span class="step-number" aria-hidden="true" data-i18n="step3Number"
+            >03</span
+          >
           <span id="result-status" class="status-pill"></span>
         </div>
         <h2 id="result-heading" data-i18n="step3Title">Kết quả phân loại</h2>
@@ -555,22 +908,51 @@
       </section>
 
       <!-- Printable Household Sorting Cheat-Sheet (Optimized for wall/fridge reference) -->
-      <section id="printable-guide" class="printable-guide" aria-label="Bảng tóm tắt phân loại rác tại nguồn">
+      <section
+        id="printable-guide"
+        class="printable-guide"
+        aria-label="Bảng tóm tắt phân loại rác tại nguồn"
+      >
         <div class="print-header">
           <div class="print-brand">
             <span class="mark" aria-hidden="true">W</span>
             <span class="print-brand-name">WhatBin</span>
           </div>
           <div class="print-titles">
-            <h1 class="print-title" data-i18n="printGuideTitle">CẨM NANG PHÂN LOẠI RÁC TẠI NGUỒN GIA ĐÌNH</h1>
-            <p class="print-subtitle" data-i18n="printGuideSubtitle">Áp dụng theo Quyết định 87/2024/QĐ-UBND (Hà Nội) &amp; Quyết định 36/2025/QĐ-UBND, 58/2025/QĐ-UBND (TP.HCM)</p>
+            <h1 class="print-title" data-i18n="printGuideTitle">
+              CẨM NANG PHÂN LOẠI RÁC TẠI NGUỒN GIA ĐÌNH
+            </h1>
+            <p class="print-subtitle" data-i18n="printGuideSubtitle">
+              Áp dụng theo Quyết định 87/2024/QĐ-UBND (Hà Nội) &amp; Quyết định
+              36/2025/QĐ-UBND, 58/2025/QĐ-UBND (TP.HCM)
+            </p>
           </div>
         </div>
 
         <div class="print-compliance-banner">
-          <span class="compliance-icon" aria-hidden="true"><svg class="hi-icon hi-inline-scale" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0 0 12 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52 2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 0 1-2.031.352 5.988 5.988 0 0 1-2.031-.352c-.483-.174-.711-.703-.59-1.202L18.75 4.971Zm-16.5.52c.99-.203 1.99-.377 3-.52m0 0 2.62 10.726c.122.499-.106 1.028-.589 1.202a5.989 5.989 0 0 1-2.031.352 5.989 5.989 0 0 1-2.031-.352c-.483-.174-.711-.703-.59-1.202L5.25 4.971Z" /></svg></span>
-          <strong data-i18n="printDecreeHeading">NGHỊ ĐỊNH 45/2022/NĐ-CP (ĐIỀU 26):</strong>
-          <span data-i18n="printDecreeNotice">Phạt tiền từ 500.000 đến 1.000.000 đồng đối với hộ gia đình, cá nhân không thực hiện phân loại chất thải rắn sinh hoạt tại nguồn hoặc không dùng đúng loại bao bì/thùng chứa theo quy định.</span>
+          <span class="compliance-icon" aria-hidden="true"
+            ><svg
+              class="hi-icon hi-inline-scale"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.75"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0 0 12 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52 2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 0 1-2.031.352 5.988 5.988 0 0 1-2.031-.352c-.483-.174-.711-.703-.59-1.202L18.75 4.971Zm-16.5.52c.99-.203 1.99-.377 3-.52m0 0 2.62 10.726c.122.499-.106 1.028-.589 1.202a5.989 5.989 0 0 1-2.031.352 5.989 5.989 0 0 1-2.031-.352c-.483-.174-.711-.703-.59-1.202L5.25 4.971Z"
+              /></svg
+          ></span>
+          <strong data-i18n="printDecreeHeading"
+            >NGHỊ ĐỊNH 45/2022/NĐ-CP (ĐIỀU 26):</strong
+          >
+          <span data-i18n="printDecreeNotice"
+            >Phạt tiền từ 500.000 đến 1.000.000 đồng đối với hộ gia đình, cá
+            nhân không thực hiện phân loại chất thải rắn sinh hoạt tại nguồn
+            hoặc không dùng đúng loại bao bì/thùng chứa theo quy định.</span
+          >
         </div>
 
         <div class="print-streams-grid">
@@ -578,21 +960,46 @@
           <article class="print-stream-card print-stream-food">
             <div class="print-stream-header">
               <span class="print-stream-icon" aria-hidden="true">
-                <svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582" /></svg>
+                <svg
+                  class="hi-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.75"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582"
+                  />
+                </svg>
               </span>
               <div class="print-stream-title-wrap">
                 <h2 data-i18n="printFoodTitle">CHẤT THẢI THỰC PHẨM</h2>
-                <span class="print-badge" data-i18n="printFoodBadge">Túi xanh lá / Thùng rác hữu cơ</span>
+                <span class="print-badge" data-i18n="printFoodBadge"
+                  >Túi xanh lá / Thùng rác hữu cơ</span
+                >
               </div>
             </div>
             <div class="print-stream-body">
               <div class="print-dos">
-                <span class="dos-label" data-i18n="printDoLabel">✔ ĐƯỢC BỎ:</span>
-                <p data-i18n="printFoodDos">Cơm thừa, rau củ quả gọt vỏ, bã trà, bã cà phê, thức ăn nấu chín thừa, hoa lá quét dọn vườn nhỏ.</p>
+                <span class="dos-label" data-i18n="printDoLabel"
+                  >✔ ĐƯỢC BỎ:</span
+                >
+                <p data-i18n="printFoodDos">
+                  Cơm thừa, rau củ quả gọt vỏ, bã trà, bã cà phê, thức ăn nấu
+                  chín thừa, hoa lá quét dọn vườn nhỏ.
+                </p>
               </div>
               <div class="print-donts">
-                <span class="donts-label" data-i18n="printDontLabel">✖ KHÔNG BỎ:</span>
-                <p data-i18n="printFoodDonts">Vỏ dừa, vỏ sầu riêng, xương động vật lớn, túi ni lông, vỏ sò ốc cứng, tã lót.</p>
+                <span class="donts-label" data-i18n="printDontLabel"
+                  >✖ KHÔNG BỎ:</span
+                >
+                <p data-i18n="printFoodDonts">
+                  Vỏ dừa, vỏ sầu riêng, xương động vật lớn, túi ni lông, vỏ sò
+                  ốc cứng, tã lót.
+                </p>
               </div>
             </div>
           </article>
@@ -601,21 +1008,47 @@
           <article class="print-stream-card print-stream-recyclables">
             <div class="print-stream-header">
               <span class="print-stream-icon" aria-hidden="true">
-                <svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0 3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3" /></svg>
+                <svg
+                  class="hi-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.75"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0 3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3"
+                  />
+                </svg>
               </span>
               <div class="print-stream-title-wrap">
                 <h2 data-i18n="printRecycleTitle">TÁI SỬ DỤNG &amp; TÁI CHẾ</h2>
-                <span class="print-badge" data-i18n="printRecycleBadge">Túi trong suốt / Thùng màu xanh dương</span>
+                <span class="print-badge" data-i18n="printRecycleBadge"
+                  >Túi trong suốt / Thùng màu xanh dương</span
+                >
               </div>
             </div>
             <div class="print-stream-body">
               <div class="print-dos">
-                <span class="dos-label" data-i18n="printDoLabel">✔ ĐƯỢC BỎ:</span>
-                <p data-i18n="printRecycleDos">Chai nhựa PET, lon nhôm, vỏ hộp sữa Tetra Pak, bìa carton, chai lọ thủy tinh sạch, giấy báo, thiết bị điện tử hỏng.</p>
+                <span class="dos-label" data-i18n="printDoLabel"
+                  >✔ ĐƯỢC BỎ:</span
+                >
+                <p data-i18n="printRecycleDos">
+                  Chai nhựa PET, lon nhôm, vỏ hộp sữa Tetra Pak, bìa carton,
+                  chai lọ thủy tinh sạch, giấy báo, thiết bị điện tử hỏng.
+                </p>
               </div>
               <div class="print-donts">
-                <span class="donts-label" data-i18n="printNoteLabel">⚡ HƯỚNG DẪN:</span>
-                <p data-i18n="printRecycleDonts">Tráng sạch cặn thức ăn, để ráo, ép dẹp hoặc gấp gọn để tiết kiệm diện tích. Bán phế liệu hoặc đưa vào nhóm thu gom tái chế.</p>
+                <span class="donts-label" data-i18n="printNoteLabel"
+                  >⚡ HƯỚNG DẪN:</span
+                >
+                <p data-i18n="printRecycleDonts">
+                  Tráng sạch cặn thức ăn, để ráo, ép dẹp hoặc gấp gọn để tiết
+                  kiệm diện tích. Bán phế liệu hoặc đưa vào nhóm thu gom tái
+                  chế.
+                </p>
               </div>
             </div>
           </article>
@@ -624,21 +1057,46 @@
           <article class="print-stream-card print-stream-other">
             <div class="print-stream-header">
               <span class="print-stream-icon" aria-hidden="true">
-                <svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" /></svg>
+                <svg
+                  class="hi-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.75"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                  />
+                </svg>
               </span>
               <div class="print-stream-title-wrap">
                 <h2 data-i18n="printOtherTitle">RÁC SINH HOẠT KHÁC</h2>
-                <span class="print-badge" data-i18n="printOtherBadge">Túi xám hoặc sẫm màu</span>
+                <span class="print-badge" data-i18n="printOtherBadge"
+                  >Túi xám hoặc sẫm màu</span
+                >
               </div>
             </div>
             <div class="print-stream-body">
               <div class="print-dos">
-                <span class="dos-label" data-i18n="printDoLabel">✔ ĐƯỢC BỎ:</span>
-                <p data-i18n="printOtherDos">Hộp xốp dính dầu mỡ, túi ni lông bẩn, tã bỉm, băng vệ sinh, khẩu trang dùng 1 lần, gốm sứ vỡ, tàn hương, vỏ dừa/sầu riêng.</p>
+                <span class="dos-label" data-i18n="printDoLabel"
+                  >✔ ĐƯỢC BỎ:</span
+                >
+                <p data-i18n="printOtherDos">
+                  Hộp xốp dính dầu mỡ, túi ni lông bẩn, tã bỉm, băng vệ sinh,
+                  khẩu trang dùng 1 lần, gốm sứ vỡ, tàn hương, vỏ dừa/sầu riêng.
+                </p>
               </div>
               <div class="print-donts">
-                <span class="donts-label" data-i18n="printNoteLabel">⚡ HƯỚNG DẪN:</span>
-                <p data-i18n="printOtherDonts">Buộc chặt miệng túi trước khi chuyển giao. Thu gom vào giờ quy định của công nhân vệ sinh đô thị.</p>
+                <span class="donts-label" data-i18n="printNoteLabel"
+                  >⚡ HƯỚNG DẪN:</span
+                >
+                <p data-i18n="printOtherDonts">
+                  Buộc chặt miệng túi trước khi chuyển giao. Thu gom vào giờ quy
+                  định của công nhân vệ sinh đô thị.
+                </p>
               </div>
             </div>
           </article>
@@ -647,21 +1105,47 @@
           <article class="print-stream-card print-stream-hazardous">
             <div class="print-stream-header">
               <span class="print-stream-icon" aria-hidden="true">
-                <svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" /></svg>
+                <svg
+                  class="hi-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.75"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"
+                  />
+                </svg>
               </span>
               <div class="print-stream-title-wrap">
                 <h2 data-i18n="printHazardTitle">CHẤT THẢI NGUY HẠI</h2>
-                <span class="print-badge" data-i18n="printHazardBadge">Hộp / Túi riêng có dán nhãn nguy hại</span>
+                <span class="print-badge" data-i18n="printHazardBadge"
+                  >Hộp / Túi riêng có dán nhãn nguy hại</span
+                >
               </div>
             </div>
             <div class="print-stream-body">
               <div class="print-dos">
-                <span class="dos-label" data-i18n="printDoLabel">✔ ĐƯỢC BỎ:</span>
-                <p data-i18n="printHazardDos">Pin tiểu AA/AAA, pin lithium, ắc quy xe máy, sạc dự phòng, bóng đèn huỳnh quang, nhiệt kế thủy ngân, bao bì thuốc sâu, nhớt thải.</p>
+                <span class="dos-label" data-i18n="printDoLabel"
+                  >✔ ĐƯỢC BỎ:</span
+                >
+                <p data-i18n="printHazardDos">
+                  Pin tiểu AA/AAA, pin lithium, ắc quy xe máy, sạc dự phòng,
+                  bóng đèn huỳnh quang, nhiệt kế thủy ngân, bao bì thuốc sâu,
+                  nhớt thải.
+                </p>
               </div>
               <div class="print-donts">
-                <span class="donts-label" data-i18n="printDontLabel">✖ LƯU Ý AN TOÀN:</span>
-                <p data-i18n="printHazardDonts">Dán băng dính vào 2 cực pin, bọc báo chống vỡ bóng đèn, không đổ nhớt ra cống. Đưa tới thùng thu gom CTNH cấp phường/xã.</p>
+                <span class="donts-label" data-i18n="printDontLabel"
+                  >✖ LƯU Ý AN TOÀN:</span
+                >
+                <p data-i18n="printHazardDonts">
+                  Dán băng dính vào 2 cực pin, bọc báo chống vỡ bóng đèn, không
+                  đổ nhớt ra cống. Đưa tới thùng thu gom CTNH cấp phường/xã.
+                </p>
               </div>
             </div>
           </article>
@@ -670,21 +1154,47 @@
           <article class="print-stream-card print-stream-bulky">
             <div class="print-stream-header">
               <span class="print-stream-icon" aria-hidden="true">
-                <svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25M16.5 18.75h-2.25m0-11.25V18.75m0-11.25h-9a2.25 2.25 0 0 0-2.25 2.25v7.5" /></svg>
+                <svg
+                  class="hi-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.75"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25M16.5 18.75h-2.25m0-11.25V18.75m0-11.25h-9a2.25 2.25 0 0 0-2.25 2.25v7.5"
+                  />
+                </svg>
               </span>
               <div class="print-stream-title-wrap">
                 <h2 data-i18n="printBulkyTitle">CHẤT THẢI CỒNG KỀNH</h2>
-                <span class="print-badge" data-i18n="printBulkyBadge">Điểm tập kết cồng kềnh / Xe chuyên dụng</span>
+                <span class="print-badge" data-i18n="printBulkyBadge"
+                  >Điểm tập kết cồng kềnh / Xe chuyên dụng</span
+                >
               </div>
             </div>
             <div class="print-stream-body">
               <div class="print-dos">
-                <span class="dos-label" data-i18n="printDoLabel">✔ ĐƯỢC BỎ:</span>
-                <p data-i18n="printBulkyDos">Nệm cũ, ghế sofa, bàn ghế gỗ, tủ giường, cành cây to chặt hạ, xà bần sửa nhà nhỏ.</p>
+                <span class="dos-label" data-i18n="printDoLabel"
+                  >✔ ĐƯỢC BỎ:</span
+                >
+                <p data-i18n="printBulkyDos">
+                  Nệm cũ, ghế sofa, bàn ghế gỗ, tủ giường, cành cây to chặt hạ,
+                  xà bần sửa nhà nhỏ.
+                </p>
               </div>
               <div class="print-donts">
-                <span class="donts-label" data-i18n="printDontLabel">✖ LƯU Ý THU GOM:</span>
-                <p data-i18n="printBulkyDonts">Tuyệt đối không tự ý vứt ra lòng lề đường. Đăng ký với UBND xã/phường hoặc đặt lịch đơn vị vệ sinh môi trường thu gom chuyên dụng.</p>
+                <span class="donts-label" data-i18n="printDontLabel"
+                  >✖ LƯU Ý THU GOM:</span
+                >
+                <p data-i18n="printBulkyDonts">
+                  Tuyệt đối không tự ý vứt ra lòng lề đường. Đăng ký với UBND
+                  xã/phường hoặc đặt lịch đơn vị vệ sinh môi trường thu gom
+                  chuyên dụng.
+                </p>
               </div>
             </div>
           </article>
@@ -693,25 +1203,68 @@
         <div class="print-footer">
           <div class="print-footer-info">
             <strong>WhatBin — Tra cứu phân loại rác tại nguồn</strong>
-            <span>Hà Nội &amp; TP. Hồ Chí Minh · Chung tay vì đô thị Xanh - Sạch - Văn minh</span>
+            <span
+              >Hà Nội &amp; TP. Hồ Chí Minh · Chung tay vì đô thị Xanh - Sạch -
+              Văn minh</span
+            >
           </div>
           <div class="print-footer-url">whatbin.vn</div>
         </div>
       </section>
 
       <!-- Quiz Modal -->
-      <div id="quiz-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="quiz-modal-title" hidden>
+      <div
+        id="quiz-modal"
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="quiz-modal-title"
+        hidden
+      >
         <div class="modal-backdrop" id="quiz-backdrop"></div>
         <div class="modal-dialog">
           <div class="modal-header l--flex -jc:between -ai:center">
             <div class="modal-title-wrap l--flex -ai:center -g:10">
               <span class="modal-icon" aria-hidden="true">
-                <svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.516 0c.85.493 1.508 1.333 1.508 2.316V18" /></svg>
+                <svg
+                  class="hi-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.75"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.516 0c.85.493 1.508 1.333 1.508 2.316V18"
+                  />
+                </svg>
               </span>
-              <h2 id="quiz-modal-title" data-i18n="quizModalTitle">Trắc nghiệm phân loại rác</h2>
+              <h2 id="quiz-modal-title" data-i18n="quizModalTitle">
+                Trắc nghiệm phân loại rác
+              </h2>
             </div>
-            <button type="button" class="modal-close-btn" id="quiz-close-btn" aria-label="Đóng modal">
-              <svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
+            <button
+              type="button"
+              class="modal-close-btn"
+              id="quiz-close-btn"
+              aria-label="Đóng modal"
+            >
+              <svg
+                class="hi-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.75"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18 18 6M6 6l12 12"
+                />
+              </svg>
             </button>
           </div>
           <div class="modal-body" id="quiz-body">
@@ -721,40 +1274,146 @@
       </div>
 
       <!-- Drop-off Hubs Modal -->
-      <div id="dropoff-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="dropoff-modal-title" hidden>
+      <div
+        id="dropoff-modal"
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="dropoff-modal-title"
+        hidden
+      >
         <div class="modal-backdrop" id="dropoff-backdrop"></div>
         <div class="modal-dialog modal-dialog-lg">
           <div class="modal-header l--flex -jc:between -ai:center">
             <div class="modal-title-wrap l--flex -ai:center -g:10">
               <span class="modal-icon" aria-hidden="true">
-                <svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" /></svg>
+                <svg
+                  class="hi-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.75"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
+                  />
+                </svg>
               </span>
-              <h2 id="dropoff-modal-title" data-i18n="dropoffModalTitle">Điểm thu gom tập trung &amp; Thu hồi EPR</h2>
+              <h2 id="dropoff-modal-title" data-i18n="dropoffModalTitle">
+                Điểm thu gom tập trung &amp; Thu hồi EPR
+              </h2>
             </div>
-            <button type="button" class="modal-close-btn" id="dropoff-close-btn" aria-label="Đóng modal">
-              <svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
+            <button
+              type="button"
+              class="modal-close-btn"
+              id="dropoff-close-btn"
+              aria-label="Đóng modal"
+            >
+              <svg
+                class="hi-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.75"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18 18 6M6 6l12 12"
+                />
+              </svg>
             </button>
           </div>
           <div class="modal-body">
             <p class="dropoff-intro" data-i18n="dropoffIntro">
-              Mạng lưới điểm tập kết rác cồng kềnh, điểm tiếp nhận chất thải nguy hại hộ gia đình và các trạm thu hồi pin, rác điện tử miễn phí tại Hà Nội &amp; TP.HCM.
+              Mạng lưới điểm tập kết rác cồng kềnh, điểm tiếp nhận chất thải
+              nguy hại hộ gia đình và các trạm thu hồi pin, rác điện tử miễn phí
+              tại Hà Nội &amp; TP.HCM.
             </p>
             <div class="dropoff-filters l--stack -g:10">
               <div class="filter-group l--cluster -g:10">
-                <span class="filter-label" data-i18n="filterCityLabel">Thành phố:</span>
-                <div class="filter-chips l--cluster -g:5" id="dropoff-city-filters">
-                  <button type="button" class="filter-chip active" data-city="all" data-i18n="filterAll">Tất cả</button>
-                  <button type="button" class="filter-chip" data-city="hanoi" data-i18n="cityHanoi">Hà Nội</button>
-                  <button type="button" class="filter-chip" data-city="ho-chi-minh-city" data-i18n="cityHcmc">TP. Hồ Chí Minh</button>
+                <span class="filter-label" data-i18n="filterCityLabel"
+                  >Thành phố:</span
+                >
+                <div
+                  class="filter-chips l--cluster -g:5"
+                  id="dropoff-city-filters"
+                >
+                  <button
+                    type="button"
+                    class="filter-chip active"
+                    data-city="all"
+                    data-i18n="filterAll"
+                  >
+                    Tất cả
+                  </button>
+                  <button
+                    type="button"
+                    class="filter-chip"
+                    data-city="hanoi"
+                    data-i18n="cityHanoi"
+                  >
+                    Hà Nội
+                  </button>
+                  <button
+                    type="button"
+                    class="filter-chip"
+                    data-city="ho-chi-minh-city"
+                    data-i18n="cityHcmc"
+                  >
+                    TP. Hồ Chí Minh
+                  </button>
                 </div>
               </div>
               <div class="filter-group l--cluster -g:10">
-                <span class="filter-label" data-i18n="filterStreamLabel">Nhóm rác:</span>
-                <div class="filter-chips l--cluster -g:5" id="dropoff-stream-filters">
-                  <button type="button" class="filter-chip active" data-stream="all" data-i18n="filterAll">Tất cả</button>
-                  <button type="button" class="filter-chip" data-stream="hazardous" data-i18n="streamHazardous">Nguy hại &amp; Pin</button>
-                  <button type="button" class="filter-chip" data-stream="recyclables" data-i18n="streamRecyclable">Điện tử (EPR)</button>
-                  <button type="button" class="filter-chip" data-stream="bulky" data-i18n="streamBulky">Cồng kềnh</button>
+                <span class="filter-label" data-i18n="filterStreamLabel"
+                  >Nhóm rác:</span
+                >
+                <div
+                  class="filter-chips l--cluster -g:5"
+                  id="dropoff-stream-filters"
+                >
+                  <button
+                    type="button"
+                    class="filter-chip active"
+                    data-stream="all"
+                    data-i18n="filterAll"
+                  >
+                    Tất cả
+                  </button>
+                  <button
+                    type="button"
+                    class="filter-chip"
+                    data-stream="hazardous"
+                    data-i18n="streamHazardous"
+                  >
+                    Nguy hại &amp; Pin
+                  </button>
+                  <button
+                    type="button"
+                    class="filter-chip"
+                    data-stream="recyclables"
+                    data-i18n="streamRecyclable"
+                  >
+                    Điện tử (EPR)
+                  </button>
+                  <button
+                    type="button"
+                    class="filter-chip"
+                    data-stream="bulky"
+                    data-i18n="streamBulky"
+                  >
+                    Cồng kềnh
+                  </button>
                 </div>
               </div>
             </div>
@@ -769,28 +1428,75 @@
         <div class="footer-links l--cluster -jc:center -g:10">
           <button type="button" class="footer-link-btn" id="footer-print-btn">
             <span class="btn-icon" aria-hidden="true">
-              <svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0 1 10.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0 .229 2.523a1.125 1.125 0 0 1-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0 0 21 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 0 0-1.913-.247M6.34 18H5.25A2.25 2.25 0 0 1 3 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 0 1 1.913-.247m10.5 0a48.536 48.536 0 0 0-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5Zm-3 0h.008v.008H15V10.5Z" /></svg>
+              <svg
+                class="hi-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.75"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0 1 10.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0 .229 2.523a1.125 1.125 0 0 1-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0 0 21 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 0 0-1.913-.247M6.34 18H5.25A2.25 2.25 0 0 1 3 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 0 1 1.913-.247m10.5 0a48.536 48.536 0 0 0-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5Zm-3 0h.008v.008H15V10.5Z"
+                />
+              </svg>
             </span>
             <span data-i18n="quickNavPrint">In cẩm nang</span>
           </button>
           <span class="footer-sep" aria-hidden="true">·</span>
           <button type="button" class="footer-link-btn" id="footer-dropoff-btn">
             <span class="btn-icon" aria-hidden="true">
-              <svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" /></svg>
+              <svg
+                class="hi-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.75"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
+                />
+              </svg>
             </span>
             <span data-i18n="quickNavDropoff">Điểm thu gom &amp; EPR</span>
           </button>
           <span class="footer-sep" aria-hidden="true">·</span>
           <button type="button" class="footer-link-btn" id="footer-quiz-btn">
             <span class="btn-icon" aria-hidden="true">
-              <svg class="hi-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.516 0c.85.493 1.508 1.333 1.508 2.316V18" /></svg>
+              <svg
+                class="hi-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.75"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.516 0c.85.493 1.508 1.333 1.508 2.316V18"
+                />
+              </svg>
             </span>
             <span data-i18n="quickNavQuiz">Trắc nghiệm phân loại</span>
           </button>
         </div>
         <div class="footer-meta">
           <span>WhatBin</span>
-          <span data-i18n="footerText">Luôn đối chiếu văn bản quy phạm pháp luật được liên kết để cập nhật hướng dẫn mới nhất.</span>
+          <span data-i18n="footerText"
+            >Luôn đối chiếu văn bản quy phạm pháp luật được liên kết để cập nhật
+            hướng dẫn mới nhất.</span
+          >
         </div>
       </footer>
     </main>
