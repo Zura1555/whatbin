@@ -1501,6 +1501,35 @@ a:active,
  font-size: 14px;
  line-height: 20px;
 }
+.explainer-answer {
+ display: grid;
+ gap: 8px;
+ min-width: 0;
+ overflow-wrap: anywhere;
+}
+.explainer-progress,
+.explainer-reasoning {
+ color: var(--muted);
+ font-size: 11px;
+ line-height: 1.6;
+}
+.explainer-reply[aria-busy="true"] .explainer-progress::before {
+ content: "●";
+ margin-right: 6px;
+ color: var(--green);
+}
+.explainer-reasoning summary {
+ cursor: pointer;
+ font-weight: 600;
+}
+.explainer-reasoning p {
+ margin-top: 8px;
+ white-space: pre-wrap;
+ overflow-wrap: anywhere;
+}
+.explainer-failed .explainer-progress {
+ color: #a33131;
+}
 .explainer-suggestions {
  display: flex;
  flex-wrap: wrap;

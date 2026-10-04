@@ -671,32 +671,43 @@ export function createServer() {
             abortSignal: AbortSignal.any([AbortSignal.timeout(45000), disconnect.signal]),
           })
           res.writeHead(200, {
-            'content-type': 'text/plain; charset=utf-8',
+            'content-type': 'application/x-ndjson; charset=utf-8',
             'cache-control': 'no-cache, no-transform',
             'x-content-type-options': 'nosniff',
           })
+          res.flushHeaders()
+          const writeEvent = async (event) => {
+            if (res.destroyed) throw new Error('Explanation client disconnected.')
+            if (!res.write(`${JSON.stringify(event)}\n`)) await once(res, 'drain', {signal: disconnect.signal})
+          }
+          await writeEvent({type: 'status', status: 'checking'})
           let emitted = false
           let failed = false
           try {
-            for await (const chunk of agent.result.textStream) {
-              if (!chunk) continue
-              emitted = true
-              if (!res.write(chunk)) await once(res, 'drain')
+            for await (const chunk of agent.result.fullStream) {
+              if (chunk.type === 'text-delta' && chunk.text) {
+                emitted = true
+                await writeEvent({type: 'text', delta: chunk.text})
+              } else if (chunk.type === 'reasoning-delta' && chunk.text) {
+                await writeEvent({type: 'reasoning', delta: chunk.text})
+              } else if (chunk.type === 'tool-call') {
+                await writeEvent({type: 'status', status: 'checking'})
+              } else if (chunk.type === 'error' || chunk.type === 'tool-error') {
+                throw chunk.error
+              }
             }
           } catch (error) {
             failed = true
             console.error('WhatBin explainer stream failed:', errorDiagnostics(error))
           }
-          if (!failed && await agent.result.finishReason === 'length') {
+          if (!failed && ['length', 'error', 'content-filter'].includes(await agent.result.finishReason)) {
             failed = true
-            console.error('WhatBin explainer response reached its output token limit.')
+            console.error('WhatBin explainer response did not finish successfully.')
           }
 
           if (!res.destroyed) {
-            if (!emitted || failed) {
-              if (emitted) res.write('\n\n')
-              res.end("I couldn't verify an explanation from Sanity Context. The displayed WhatBin result remains authoritative.")
-            } else res.end()
+            await writeEvent({type: !emitted || failed ? 'error' : 'done'})
+            res.end()
           }
         } finally {
           res.off('close', abortOnDisconnect)

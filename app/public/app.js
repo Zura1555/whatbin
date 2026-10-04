@@ -845,6 +845,11 @@ const TRANSLATIONS = {
     explainerQuestionLabel: "Đặt câu hỏi về cách phân loại vật dụng này",
     explainerSubmit: "Gửi câu hỏi",
     explainerLoading: "Đang đối chiếu cơ sở dữ liệu pháp lý…",
+    explainerReasoning: "Lập luận của mô hình",
+    explainerThinking: "Đang phân tích các nguồn…",
+    explainerStreaming: "Đang viết câu trả lời…",
+    explainerComplete: "Đã hoàn tất",
+    explainerFailed: "Không thể xác minh câu trả lời hoàn chỉnh. Kết quả WhatBin đã hiển thị vẫn là căn cứ chính thức.",
     explainerAssistant: "Trợ lý WhatBin",
     explainerContext: "Câu trả lời dựa trên hướng dẫn địa phương đã công bố",
     explainerSuggestionOne: "Tôi có cần rửa sạch vật dụng này không?",
@@ -1007,6 +1012,11 @@ const TRANSLATIONS = {
     explainerQuestionLabel: "Ask a question about this item",
     explainerSubmit: "Ask WhatBin",
     explainerLoading: "Checking the published sources…",
+    explainerReasoning: "Model reasoning",
+    explainerThinking: "Reasoning over the sources…",
+    explainerStreaming: "Writing the answer…",
+    explainerComplete: "Complete",
+    explainerFailed: "A complete explanation could not be verified. The displayed WhatBin result remains authoritative.",
     explainerAssistant: "WhatBin assistant",
     explainerContext: "Answers grounded in published local guidance",
     explainerSuggestionOne: "Do I need to rinse this item first?",
@@ -2243,7 +2253,7 @@ async function postJson(path, body) {
   return data;
 }
 
-async function postTextStream(path, body, onText) {
+async function postExplanationStream(path, body, onEvent) {
   const response = await fetch(path, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -2272,17 +2282,34 @@ async function postTextStream(path, body, onText) {
 
   const reader = response.body.getReader();
   const decoder = new TextDecoder();
+  let pending = "";
   let text = "";
+  let completed = false;
+  const consume = (line) => {
+    if (!line.trim()) return;
+    if (completed) throw new Error(t("explainerFailed"));
+    const event = JSON.parse(line);
+    if (event.type === "error") throw new Error(t("explainerFailed"));
+    if (event.type === "text") text += event.delta;
+    if (event.type === "done") completed = true;
+    onEvent(event, text);
+  };
   try {
     while (true) {
       const { done, value } = await reader.read();
       if (done) break;
-      text += decoder.decode(value, { stream: true });
-      onText(text);
+      pending += decoder.decode(value, { stream: true });
+      let newline;
+      while ((newline = pending.indexOf("\n")) !== -1) {
+        consume(pending.slice(0, newline));
+        pending = pending.slice(newline + 1);
+      }
     }
-    text += decoder.decode();
-    if (text) onText(text);
+    pending += decoder.decode();
+    consume(pending);
+    if (!completed) throw new Error(t("explainerFailed"));
   } finally {
+    await reader.cancel().catch(() => {});
     reader.releaseLock();
   }
   return text;
@@ -2948,9 +2975,19 @@ function renderExplainer(city, canonicalItemId) {
     addText(thread, "p", text, "explainer-user");
     const reply = document.createElement("div");
     reply.className = "explainer-reply";
+    reply.setAttribute("aria-busy", "true");
+    const progress = addText(reply, "p", t("explainerLoading"), "explainer-progress");
+    const reasoning = document.createElement("details");
+    reasoning.className = "explainer-reasoning";
+    reasoning.hidden = true;
+    addText(reasoning, "summary", t("explainerReasoning"));
+    const reasoningBody = addText(reasoning, "p", "");
+    const answerBody = document.createElement("div");
+    answerBody.className = "explainer-answer";
+    reply.append(reasoning, answerBody);
     thread.append(reply);
     try {
-      const answer = await postTextStream(
+      const answer = await postExplanationStream(
         "/api/explain",
         {
           canonicalItemId,
@@ -2959,9 +2996,24 @@ function renderExplainer(city, canonicalItemId) {
           history,
           confirmed: true,
         },
-        (value) => {
-          renderMarkdown(reply, value);
+        (event, value) => {
+          if (version !== explanationVersion || resultVersion !== requestVersion) return;
           feedback.hidden = true;
+          if (event.type === "reasoning") {
+            reasoning.hidden = false;
+            reasoningBody.textContent += event.delta;
+            progress.textContent = t("explainerThinking");
+          } else if (event.type === "text") {
+            renderMarkdown(answerBody, value);
+            progress.textContent = t("explainerStreaming");
+          } else if (event.type === "status") {
+            progress.textContent = t("explainerLoading");
+          } else if (event.type === "done") {
+            progress.textContent = t("explainerComplete");
+          }
+          if (thread.scrollHeight - thread.scrollTop - thread.clientHeight < 120) {
+            thread.scrollTop = thread.scrollHeight;
+          }
         },
       );
       if (version !== explanationVersion || resultVersion !== requestVersion)
@@ -2984,7 +3036,8 @@ function renderExplainer(city, canonicalItemId) {
       feedback.hidden = true;
       question.focus();
     } catch (error) {
-      reply.remove();
+      progress.textContent = t("explainerFailed");
+      reply.classList.add("explainer-failed");
       if (version === explanationVersion && resultVersion === requestVersion) {
         feedback.textContent =
           error instanceof Error
@@ -2996,6 +3049,7 @@ function renderExplainer(city, canonicalItemId) {
         feedback.hidden = false;
       }
     } finally {
+      reply.setAttribute("aria-busy", "false");
       if (version === explanationVersion && resultVersion === requestVersion) {
         submit.disabled = false;
         question.disabled = false;
