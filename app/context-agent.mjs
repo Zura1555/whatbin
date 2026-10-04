@@ -78,7 +78,9 @@ export async function startExplanationStream({question, history, outcomes, abort
         stopWhen: stepCountIs(10),
         maxOutputTokens: 700,
         temperature: 0.2,
-        ...(!openRouterApiKey && {providerOptions: {google: {thinkingConfig: {thinkingLevel: 'minimal'}}}}),
+        providerOptions: openRouterApiKey
+          ? {openrouter: {reasoning: {effort: 'low'}}}
+          : {google: {thinkingConfig: {thinkingLevel: 'minimal'}}},
         abortSignal,
         prepareStep: ({steps}) => {
           const calls = new Set(steps.flatMap((step) => (step.toolCalls ?? []).map(({toolName}) => toolName)))
