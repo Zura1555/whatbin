@@ -780,6 +780,8 @@ const TRANSLATIONS = {
     cityHanoi: "Hà Nội",
     cityHcmc: "TP. Hồ Chí Minh",
     detectCity: "Dùng vị trí của tôi",
+    dropoffMapNote: "Mở chỉ đường trong Google Maps từ vị trí hiện tại. Một số địa chỉ là mạng lưới hoặc điểm cấp khu vực, không phải địa chỉ từng điểm nhận.",
+    dropoffDirections: "Chỉ đường trên Google Maps",
     locationUnavailable: "Thiết bị không hỗ trợ định vị.",
     locationDetecting: "Đang xác định vị trí…",
     locationDetected: "Đã chọn thành phố gần nhất.",
@@ -958,6 +960,8 @@ const TRANSLATIONS = {
     locationDetecting: "Finding your location…",
     locationDetected: "Nearest city selected.",
     locationFailed: "Could not get your location. Check location permission.",
+    dropoffMapNote: "Open directions in Google Maps from your current location. Some listings describe a network or area, not an individual drop-off address.",
+    dropoffDirections: "Directions in Google Maps",
     itemLabel: "What is the item?",
     itemPlaceholder: "Describe the item and its condition",
     streamCatalogLabel: "Browse 5 waste streams & quick-tap catalog items",
@@ -3682,8 +3686,27 @@ function renderDropoffList() {
     const notes = document.createElement("p");
     notes.className = "dropoff-notes";
     notes.textContent = currentLang === "vi" ? hub.notesVi : hub.notesEn;
+    const directions = document.createElement("a");
+    const hubCity =
+      hub.city === "hanoi"
+        ? "Hanoi"
+        : hub.city === "ho-chi-minh-city"
+          ? "Ho Chi Minh City"
+          : "Vietnam";
+    const destination = `${currentLang === "vi" ? hub.titleVi : hub.titleEn}, ${currentLang === "vi" ? hub.addressVi : hub.addressEn}, ${hubCity}`;
+    const mapQuery = new URLSearchParams({
+      api: "1",
+      origin: "My Location",
+      destination,
+    });
+    directions.className = "button button-secondary";
+    directions.href = `https://www.google.com/maps/dir/?${mapQuery}`;
+    directions.target = "_blank";
+    directions.rel = "noopener noreferrer";
+    directions.textContent = t("dropoffDirections");
 
-    card.append(header, address, notes);
+    card.append(header, address, notes, directions);
+
     dropoffList.append(card);
   }
 }
