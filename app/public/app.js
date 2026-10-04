@@ -834,6 +834,8 @@ const TRANSLATIONS = {
     openSource: "Xem toàn văn văn bản gốc",
     supportingPassages: "Trích dẫn nguyên văn văn bản quy phạm pháp luật",
     compareCitiesBtn: "So sánh Hà Nội & TP. Hồ Chí Minh",
+    closeModal: "Đóng",
+    comparisonTitle: "So sánh Hà Nội & TP. Hồ Chí Minh",
     comparingCities: "Đang kiểm tra quy định của cả Hà Nội và TP. Hồ Chí Minh…",
     comparisonComplete: "Hoàn tất so sánh quy định giữa 2 thành phố.",
     comparisonFailed: "Hoàn tất so sánh. Một số kết quả chưa thể tải.",
@@ -987,6 +989,8 @@ const TRANSLATIONS = {
     openSource: "Open cited source",
     supportingPassages: "Supporting passages (original Vietnamese)",
     compareCitiesBtn: "Compare both cities",
+    comparisonTitle: "Compare Hanoi & Ho Chi Minh City",
+    closeModal: "Close",
     comparingCities: "Checking guidance for Hanoi and Ho Chi Minh City…",
     comparisonComplete: "Comparison complete.",
     comparisonFailed:
@@ -1453,6 +1457,9 @@ const resultContent = document.querySelector("#result-content");
 const compareCitiesButton = document.querySelector("#compare-cities-button");
 const comparisonFeedback = document.querySelector("#comparison-feedback");
 const comparisonPanel = document.querySelector("#comparison-panel");
+const comparisonModal = document.querySelector("#comparison-modal");
+const comparisonBackdrop = document.querySelector("#comparison-backdrop");
+const comparisonCloseBtn = document.querySelector("#comparison-close-btn");
 const resultTopline = resultPanel.querySelector(".result-topline");
 const resultHeading = document.querySelector("#result-heading");
 const resultLayout = document.createElement("div");
@@ -1900,6 +1907,7 @@ function clearResults() {
   resultContent.replaceChildren();
   resultChat.replaceChildren();
   resultLayout.classList.remove("has-chat");
+  closeComparisonModal();
   compareCitiesButton.hidden = true;
   compareCitiesButton.disabled = false;
   comparisonFeedback.hidden = true;
@@ -2355,6 +2363,7 @@ citySelect.addEventListener("change", () => {
   resultContent.replaceChildren();
   resultChat.replaceChildren();
   resultLayout.classList.remove("has-chat");
+  closeComparisonModal();
   compareCitiesButton.hidden = true;
   compareCitiesButton.disabled = false;
   comparisonFeedback.hidden = true;
@@ -2403,6 +2412,7 @@ resultBackButton?.addEventListener("click", () => {
   comparisonVersion++;
   explanationVersion++;
   explanationHistory = [];
+  closeComparisonModal();
   compareCitiesButton.hidden = true;
   compareCitiesButton.disabled = false;
   comparisonFeedback.hidden = true;
@@ -2979,6 +2989,9 @@ compareCitiesButton.addEventListener("click", async () => {
   const confirmedItem = candidate;
   const version = ++comparisonVersion;
   const cities = ["hanoi", "ho-chi-minh-city"];
+  comparisonModal.hidden = false;
+  document.body.style.overflow = "hidden";
+  comparisonCloseBtn.focus();
   compareCitiesButton.disabled = true;
   comparisonFeedback.textContent = t("comparingCities");
   comparisonFeedback.classList.remove("feedback-error");
@@ -3230,6 +3243,12 @@ function stopVoiceSearch() {
 }
 
 // Waste Sorting Quiz Logic
+function closeComparisonModal() {
+  if (!comparisonModal) return;
+  comparisonModal.hidden = true;
+  document.body.style.overflow = "";
+}
+
 function openQuizModal() {
   quizCurrentIndex = 0;
   quizScore = 0;
@@ -3541,6 +3560,8 @@ openDropoffBtn?.addEventListener("click", openDropoffModal);
 footerDropoffBtn?.addEventListener("click", openDropoffModal);
 dropoffCloseBtn?.addEventListener("click", closeDropoffModal);
 dropoffBackdrop?.addEventListener("click", closeDropoffModal);
+comparisonCloseBtn?.addEventListener("click", closeComparisonModal);
+comparisonBackdrop?.addEventListener("click", closeComparisonModal);
 
 printGuideBtn?.addEventListener("click", () => window.print());
 footerPrintBtn?.addEventListener("click", () => window.print());
@@ -3549,6 +3570,7 @@ window.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     closeQuizModal();
     closeDropoffModal();
+    closeComparisonModal();
   }
 });
 

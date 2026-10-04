@@ -857,19 +857,6 @@
         >
           So sánh Hà Nội &amp; TP. Hồ Chí Minh
         </button>
-        <p
-          id="comparison-feedback"
-          class="feedback"
-          role="status"
-          aria-live="polite"
-          hidden
-        ></p>
-        <section
-          id="comparison-panel"
-          class="comparison-grid l--columns -g:20"
-          aria-label="Guidance for both cities"
-          hidden
-        ></section>
         <button
           class="button button-secondary flow-new-lookup-btn"
           id="new-lookup-button"
@@ -879,6 +866,47 @@
           Tra cứu vật dụng khác
         </button>
       </section>
+      <div
+        id="comparison-modal"
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="comparison-modal-title"
+        hidden
+      >
+        <div class="modal-backdrop" id="comparison-backdrop"></div>
+        <div class="modal-dialog modal-dialog-lg">
+          <div class="modal-header l--flex -jc:between -ai:center">
+            <h2 id="comparison-modal-title" data-i18n="comparisonTitle">
+              So sánh Hà Nội &amp; TP. Hồ Chí Minh
+            </h2>
+            <button
+              type="button"
+              class="modal-close-btn"
+              id="comparison-close-btn"
+              aria-label="Đóng"
+              data-i18n-aria-label="closeModal"
+            >
+              ×
+            </button>
+          </div>
+          <div class="modal-body">
+            <p
+              id="comparison-feedback"
+              class="feedback"
+              role="status"
+              aria-live="polite"
+              hidden
+            ></p>
+            <section
+              id="comparison-panel"
+              class="comparison-grid l--columns -g:20"
+              aria-label="Guidance for both cities"
+              hidden
+            ></section>
+          </div>
+        </div>
+      </div>
 
       <!-- Printable Household Sorting Cheat-Sheet (Optimized for wall/fridge reference) -->
       <section
