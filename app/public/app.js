@@ -779,6 +779,11 @@ const TRANSLATIONS = {
     cityLabel: "Thành phố của bạn",
     cityHanoi: "Hà Nội",
     cityHcmc: "TP. Hồ Chí Minh",
+    detectCity: "Dùng vị trí của tôi",
+    locationUnavailable: "Thiết bị không hỗ trợ định vị.",
+    locationDetecting: "Đang xác định vị trí…",
+    locationDetected: "Đã chọn thành phố gần nhất.",
+    locationFailed: "Không thể xác định vị trí. Hãy kiểm tra quyền truy cập vị trí.",
     itemLabel: "Vật dụng bạn muốn bỏ là gì?",
     itemPlaceholder:
       "Mô tả vật dụng hoặc tình trạng (ví dụ: chai nhựa rỗng, bóng đèn huỳnh quang, đệm mút cũ...)",
@@ -948,6 +953,11 @@ const TRANSLATIONS = {
     cityLabel: "Your city",
     cityHanoi: "Hanoi",
     cityHcmc: "Ho Chi Minh City",
+    detectCity: "Use my location",
+    locationUnavailable: "Location is not supported by this device.",
+    locationDetecting: "Finding your location…",
+    locationDetected: "Nearest city selected.",
+    locationFailed: "Could not get your location. Check location permission.",
     itemLabel: "What is the item?",
     itemPlaceholder: "Describe the item and its condition",
     streamCatalogLabel: "Browse 5 waste streams & quick-tap catalog items",
@@ -1448,6 +1458,8 @@ const DROPOFF_HUBS = [
 // DOM References
 const form = document.querySelector("#recognize-form");
 const citySelect = document.querySelector("#jurisdiction");
+const detectCityButton = document.querySelector("#detect-city-button");
+const detectCityStatus = document.querySelector("#detect-city-status");
 const descriptionInput = document.querySelector("#description");
 const imageInput = document.querySelector("#image");
 const cameraInput = document.querySelector("#camera-image");
@@ -1599,6 +1611,33 @@ document.addEventListener("click", (event) => {
 renderCityPicker();
 
 citySelect.addEventListener("change", renderCityPicker);
+detectCityButton.addEventListener("click", () => {
+  if (!navigator.geolocation) {
+    detectCityStatus.textContent = t("locationUnavailable");
+    return;
+  }
+  detectCityButton.disabled = true;
+  detectCityStatus.textContent = t("locationDetecting");
+  navigator.geolocation.getCurrentPosition(
+    ({ coords: { latitude, longitude } }) => {
+      const distanceSquared = (lat, lon) =>
+        (latitude - lat) ** 2 + (longitude - lon) ** 2;
+      citySelect.value =
+        distanceSquared(21.0285, 105.8542) <
+        distanceSquared(10.8231, 106.6297)
+          ? "hanoi"
+          : "ho-chi-minh-city";
+      citySelect.dispatchEvent(new Event("change", { bubbles: true }));
+      detectCityStatus.textContent = t("locationDetected");
+      detectCityButton.disabled = false;
+    },
+    () => {
+      detectCityStatus.textContent = t("locationFailed");
+      detectCityButton.disabled = false;
+    },
+    { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 },
+  );
+});
 
 let activeStream = "recyclables";
 let candidate = null;
