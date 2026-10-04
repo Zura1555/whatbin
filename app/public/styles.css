@@ -2804,3 +2804,99 @@ footer {
  display: grid;
  gap: 8px;
 }
+
+/* Leafy, friendly framing from the WhatBin reference UI. */
+body {
+ position: relative;
+ isolation: isolate;
+}
+body::before {
+ position: fixed;
+ z-index: 0;
+ inset: 0;
+ background:
+  radial-gradient(ellipse 58px 120px at 4% 22%, rgb(170 219 159 / 48%) 0 42%, transparent 44%),
+  radial-gradient(ellipse 38px 92px at 10% 39%, rgb(194 229 183 / 65%) 0 42%, transparent 44%),
+  radial-gradient(ellipse 72px 145px at 2% 67%, rgb(176 220 160 / 55%) 0 43%, transparent 45%),
+  radial-gradient(ellipse 46px 105px at 12% 82%, rgb(201 232 185 / 64%) 0 42%, transparent 44%),
+  radial-gradient(ellipse 58px 120px at 96% 24%, rgb(179 222 165 / 52%) 0 42%, transparent 44%),
+  radial-gradient(ellipse 38px 92px at 91% 42%, rgb(197 229 184 / 64%) 0 42%, transparent 44%),
+  radial-gradient(ellipse 72px 145px at 98% 68%, rgb(173 219 157 / 53%) 0 43%, transparent 45%),
+  radial-gradient(ellipse 46px 105px at 88% 84%, rgb(201 232 185 / 64%) 0 42%, transparent 44%);
+ content: "";
+ pointer-events: none;
+}
+.page-shell {
+ position: relative;
+ z-index: 1;
+}
+.mark {
+ display: block;
+ width: 40px;
+ height: 40px;
+ border-radius: 12px;
+ object-fit: cover;
+}
+.lookup-card {
+ position: relative;
+}
+.lookup-mascot {
+ position: absolute;
+ z-index: 1;
+ top: -91px;
+ right: 82px;
+ width: 130px;
+ height: 108px;
+ object-fit: contain;
+ pointer-events: none;
+}
+.photo-picker {
+ display: grid;
+ grid-template-columns: 100px minmax(0, 1fr);
+ align-items: center;
+ gap: 8px 14px;
+}
+.photo-mascot {
+ grid-row: 1 / span 2;
+ width: 108px;
+ height: 104px;
+ object-fit: contain;
+ align-self: end;
+}
+.photo-actions {
+ grid-column: 2;
+ margin-top: 2px;
+}
+@media (max-width: 899px) {
+ .lookup-mascot {
+  display: none;
+ }
+ .input-mode-switcher {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 3px;
+ }
+ .mode-tab {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  width: 100%;
+  height: auto;
+  min-height: 52px;
+  padding: 6px 4px;
+  font-size: 11px;
+  line-height: 1.2;
+  white-space: normal;
+ }
+}
+@media (max-width: 420px) {
+ .photo-picker {
+  grid-template-columns: 66px minmax(0, 1fr);
+  gap: 8px 10px;
+  padding: 12px;
+ }
+ .photo-mascot {
+  width: 72px;
+  height: 78px;
+ }
+}
