@@ -845,6 +845,12 @@ const TRANSLATIONS = {
     explainerQuestionLabel: "Đặt câu hỏi về cách phân loại vật dụng này",
     explainerSubmit: "Gửi câu hỏi",
     explainerLoading: "Đang đối chiếu cơ sở dữ liệu pháp lý…",
+    explainerAssistant: "Trợ lý WhatBin",
+    explainerContext: "Câu trả lời dựa trên hướng dẫn địa phương đã công bố",
+    explainerSuggestionOne: "Tôi có cần rửa sạch vật dụng này không?",
+    explainerSuggestionTwo: "Tôi có thể mang vật dụng này đến đâu?",
+    explainerInputPlaceholder: "Nhập câu hỏi của bạn…",
+    explainerSend: "Gửi câu hỏi",
     footerText:
       "Luôn đối chiếu văn bản quy phạm pháp luật được liên kết để cập nhật hướng dẫn mới nhất.",
     quickNavQuiz: "Trắc nghiệm phân loại",
@@ -1001,6 +1007,12 @@ const TRANSLATIONS = {
     explainerQuestionLabel: "Ask a question about this item",
     explainerSubmit: "Ask WhatBin",
     explainerLoading: "Checking the published sources…",
+    explainerAssistant: "WhatBin assistant",
+    explainerContext: "Answers grounded in published local guidance",
+    explainerSuggestionOne: "Do I need to rinse this item first?",
+    explainerSuggestionTwo: "Where can I take this item?",
+    explainerInputPlaceholder: "Ask a follow-up…",
+    explainerSend: "Send question",
     footerText: "Check the linked source for the latest official guidance.",
     quickNavQuiz: "Sorting Quiz",
     quickNavDropoff: "Drop-off Hubs & EPR",
@@ -2820,34 +2832,80 @@ function renderResolution(
 function renderExplainer(city, canonicalItemId) {
   const section = document.createElement("section");
   section.className = "explainer result-section";
-  addText(section, "h3", t("explainerHeading"));
-  addText(section, "p", t("explainerCopy"), "muted-copy");
+  section.setAttribute("aria-labelledby", "explainer-heading");
+
+  const heading = addText(section, "h3", t("explainerHeading"));
+  heading.id = "explainer-heading";
+  addText(section, "p", t("explainerCopy"), "explainer-intro");
+
+  const assistantHeader = document.createElement("div");
+  assistantHeader.className = "explainer-header";
+  const assistantMark = document.createElement("img");
+  assistantMark.className = "explainer-mark";
+  assistantMark.src = "/mascot-happy.webp";
+  assistantMark.alt = "";
+  assistantMark.setAttribute("aria-hidden", "true");
+  assistantHeader.append(assistantMark);
+  const assistantDetails = document.createElement("div");
+  assistantDetails.className = "explainer-assistant-details";
+  addText(assistantDetails, "strong", t("explainerAssistant"));
+  addText(assistantDetails, "span", t("explainerContext"));
+  assistantHeader.append(assistantDetails);
 
   const thread = document.createElement("div");
-  thread.className = "explainer-thread l--stack -g:12";
+  thread.className = "explainer-thread";
   thread.setAttribute("role", "log");
   thread.setAttribute("aria-live", "polite");
-  thread.setAttribute("aria-relevant", "additions");
+  thread.setAttribute("aria-relevant", "additions text");
+  thread.setAttribute("aria-label", t("explainerHeading"));
+
+  const suggestions = document.createElement("div");
+  suggestions.className = "explainer-suggestions";
+  for (const suggestionKey of [
+    "explainerSuggestionOne",
+    "explainerSuggestionTwo",
+  ]) {
+    const suggestion = document.createElement("button");
+    suggestion.type = "button";
+    suggestion.className = "explainer-suggestion";
+    suggestion.textContent = t(suggestionKey);
+    suggestion.addEventListener("click", () => {
+      question.value = suggestion.textContent;
+      question.focus();
+    });
+    suggestions.append(suggestion);
+  }
 
   const expForm = document.createElement("form");
-  expForm.className = "explainer-form l--stack -g:12";
-  const label = addText(expForm, "label", t("explainerQuestionLabel"));
+  expForm.className = "explainer-form";
+  const label = addText(
+    expForm,
+    "label",
+    t("explainerQuestionLabel"),
+    "visually-hidden",
+  );
   const question = document.createElement("textarea");
   question.id = "explainer-question";
-  question.rows = 3;
+  question.rows = 1;
   question.maxLength = 1200;
   question.required = true;
-  question.placeholder =
-    currentLang === "vi"
-      ? "Ví dụ: Tôi có cần rửa sạch trước khi bỏ không? Phường có điểm tập kết cồng kềnh ở đâu?"
-      : "e.g., Do I need to clean this first? Where is the bulky collection point?";
+  question.placeholder = t("explainerInputPlaceholder");
   question.setAttribute("aria-describedby", "explainer-feedback");
   label.htmlFor = question.id;
-  expForm.append(question);
+
   const submit = document.createElement("button");
-  submit.className = "button button-primary";
-  submit.textContent = t("explainerSubmit");
-  expForm.append(submit);
+  submit.className = "explainer-send";
+  submit.type = "submit";
+  submit.setAttribute("aria-label", t("explainerSend"));
+  submit.title = t("explainerSend");
+  const sendIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  sendIcon.setAttribute("viewBox", "0 0 24 24");
+  sendIcon.setAttribute("aria-hidden", "true");
+  const sendPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  sendPath.setAttribute("d", "M12 19V5m-7 7 7-7 7 7");
+  sendIcon.append(sendPath);
+  submit.append(sendIcon);
+  expForm.append(label, question, submit);
 
   const feedback = document.createElement("p");
   feedback.id = "explainer-feedback";
@@ -2855,19 +2913,24 @@ function renderExplainer(city, canonicalItemId) {
   feedback.setAttribute("role", "status");
   feedback.setAttribute("aria-live", "polite");
   feedback.hidden = true;
-  section.append(thread, expForm, feedback);
+  section.append(assistantHeader, thread, suggestions, expForm, feedback);
   resultChat.append(section);
+
+  question.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      expForm.requestSubmit();
+    }
+  });
+  question.addEventListener("input", () => {
+    question.style.height = "auto";
+    question.style.height = `${Math.min(question.scrollHeight, 144)}px`;
+  });
 
   expForm.addEventListener("submit", async (event) => {
     event.preventDefault();
     const text = question.value.trim();
     if (!text) {
-      feedback.textContent =
-        currentLang === "vi"
-          ? "Vui lòng nhập câu hỏi."
-          : "Enter a question first.";
-      feedback.classList.add("feedback-error");
-      feedback.hidden = false;
       question.focus();
       return;
     }
@@ -2875,6 +2938,10 @@ function renderExplainer(city, canonicalItemId) {
     const resultVersion = requestVersion;
     const history = explanationHistory.slice(-10);
     submit.disabled = true;
+    question.disabled = true;
+    suggestions.querySelectorAll("button").forEach((button) => {
+      button.disabled = true;
+    });
     feedback.textContent = t("explainerLoading");
     feedback.classList.remove("feedback-error");
     feedback.hidden = false;
@@ -2913,6 +2980,7 @@ function renderExplainer(city, canonicalItemId) {
         { role: "assistant", content: answer },
       ].slice(-10);
       question.value = "";
+      question.style.height = "auto";
       feedback.hidden = true;
       question.focus();
     } catch (error) {
@@ -2928,8 +2996,13 @@ function renderExplainer(city, canonicalItemId) {
         feedback.hidden = false;
       }
     } finally {
-      if (version === explanationVersion && resultVersion === requestVersion)
+      if (version === explanationVersion && resultVersion === requestVersion) {
         submit.disabled = false;
+        question.disabled = false;
+        suggestions.querySelectorAll("button").forEach((button) => {
+          button.disabled = false;
+        });
+      }
     }
   });
 }
